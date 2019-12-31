@@ -18,7 +18,7 @@
 	background: #fff;
 	border: 2px solid #e6e6e6;
 	border-radius: 4px;
-	padding: 40px 40px 20px;
+	padding: 40px 40px 30px;
 }
 
 .wrapper .header .logo img {
@@ -48,13 +48,33 @@
 
 .wrapper .header .form button {
 	width: 100%;
-	background: #d4f4ff;
-	border: 1px solid #d4f4ff;
+	background: #c8ecf7;
+	border: 1px solid #c8ecf7;
 	padding: 5px;
 	border-radius: 4px;
 	font-size: 14px;
 }
 
 .wrapper .header .form button:hover {
-	background: #7ad9fa;
+	background: #a2e1f5;
+}
+
+.wrapper .header .form button:active {
+	background: #44acdb;
+}
+
+.wrapper .header .signUp {
+	width: 100%;
+	margin: 20px auto;
+	display: flex;
+	justify-content: center;
+}
+.wrapper .header .signUp p {
+	font-size: 12px;
+}
+.wrapper .header .signUp a {
+	font-size: 12px;
+	margin-left: 15px;
+	border: 1px solid white;
+	color: #459fbe;
 }

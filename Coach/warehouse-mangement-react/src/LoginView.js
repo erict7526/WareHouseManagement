@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import react_logo from "./react-logo.png";
 import "./LoginView.css";
 
+const passwordDict = { test: "test123456" };
+
 function LoginView(props) {
-	const setUserLogin = props.setUserLogin;
-	const [userName, setUserName] = useState("");
+	const setIsUserLogin = props.setIsUserLogin;
+	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	let element;
 
@@ -21,6 +23,10 @@ function LoginView(props) {
 							id=""
 							className="input"
 							placeholder="Username"
+							value={username}
+							onChange={e => {
+								setUsername(e.target.value);
+							}}
 						/>
 					</div>
 					<div className="input_field">
@@ -28,17 +34,39 @@ function LoginView(props) {
 							type="password"
 							className="input"
 							placeholder="Password"
+							value={password}
+							onChange={e => {
+								setPassword(e.target.value);
+							}}
 						/>
 					</div>
 					<div className="btn">
-						<button>Log In</button>
+						<button
+							onClick={() => {
+								handleLoginButtonClicked(
+									username,
+									password,
+									setIsUserLogin
+								);
+							}}
+						>
+							Log In
+						</button>
 					</div>
+				</div>
+				<div className="signUp">
+					<p>Don't have an account?</p>
+					<a href="#">Sign Up</a>
 				</div>
 			</div>
 		</div>
 	);
 
 	return element;
+}
+
+function handleLoginButtonClicked(username, password, setIsUserLogin) {
+	setIsUserLogin(passwordDict[username] === password);
 }
 
 export default LoginView;

@@ -9,6 +9,14 @@ function App() {
 		element = (
 			<div className="mainView">
 				<h1>登入成功</h1>
+				<button
+					onClick={() => {
+						setIsUserLogin(false);
+					}}
+				>
+					{" "}
+					返回
+				</button>
 			</div>
 		);
 	} else {
