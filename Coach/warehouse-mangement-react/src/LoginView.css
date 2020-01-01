@@ -73,10 +73,11 @@
 .wrapper .header .signUp p {
 	font-size: 12px;
 }
-.wrapper .header .signUp a {
+.wrapper .header .signUp button {
 	font-size: 12px;
 	margin-left: 10px;
 	border: 1px solid white;
 	color: #459fbe;
 	font-weight: bold;
+	cursor: pointer;
 }

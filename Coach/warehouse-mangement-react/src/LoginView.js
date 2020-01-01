@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import react_logo from "./react-logo.png";
 import "./LoginView.css";
 import SignUpView from "./SignUpView.js";
@@ -62,14 +62,13 @@ function LoginView(props) {
 				</div>
 				<div className="signUp">
 					<p>Don't have an account?</p>
-					<a
-						href="#"
+					<button
 						onClick={() => {
 							setIsSignUpButtonClicked(true);
 						}}
 					>
 						Sign Up
-					</a>
+					</button>
 				</div>
 			</div>
 		</div>
