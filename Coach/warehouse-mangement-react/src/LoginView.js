@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from "react";
 import react_logo from "./react-logo.png";
 import "./LoginView.css";
+import SignUpView from "./SignUpView.js";
 
-const passwordDict = { test: "test123456" };
+const passwordDict = { "123456": "123456" };
 
 function LoginView(props) {
 	const setIsUserLogin = props.setIsUserLogin;
+	const [isSignUpButtonClicked, setIsSignUpButtonClicked] = useState(false);
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	let element;
+
+	if (isSignUpButtonClicked) {
+		return <SignUpView className="sign_up_view" />;
+	}
 
 	element = (
 		<div className="wrapper">
@@ -56,7 +62,14 @@ function LoginView(props) {
 				</div>
 				<div className="signUp">
 					<p>Don't have an account?</p>
-					<a href="#">Sign Up</a>
+					<a
+						href="#"
+						onClick={() => {
+							setIsSignUpButtonClicked(true);
+						}}
+					>
+						Sign Up
+					</a>
 				</div>
 			</div>
 		</div>

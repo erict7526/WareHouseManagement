@@ -68,13 +68,15 @@
 	margin: 20px auto;
 	display: flex;
 	justify-content: center;
+	align-items: center;
 }
 .wrapper .header .signUp p {
 	font-size: 12px;
 }
 .wrapper .header .signUp a {
 	font-size: 12px;
-	margin-left: 15px;
+	margin-left: 10px;
 	border: 1px solid white;
 	color: #459fbe;
+	font-weight: bold;
 }
