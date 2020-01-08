@@ -1,23 +1,18 @@
 import React, { useState } from "react";
 import "./App.css";
 import LoginView from "./LoginView.js";
+import MainManagementView from "./MainManagementView.js";
 
 function App() {
 	const [isUserLogin, setIsUserLogin] = useState(false);
 	let element;
+
 	if (isUserLogin) {
 		element = (
-			<div className="mainView">
-				<h1>登入成功</h1>
-				<button
-					onClick={() => {
-						setIsUserLogin(false);
-					}}
-				>
-					{" "}
-					返回
-				</button>
-			</div>
+			<MainManagementView
+				className="MainManagementView"
+				setIsUserLogin={setIsUserLogin}
+			/>
 		);
 	} else {
 		element = (
