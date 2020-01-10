@@ -17,7 +17,7 @@
 	display: flex;
 	padding: 10px;
 	margin-left: auto;
-	margin-right: 10px;
+	margin-right: 20px;
 	margin-top: 20px;
 	max-width: 300px;
 	min-width: 100px;
@@ -30,8 +30,7 @@
 	background: none;
 	font-size: 16px;
 	color: #fff1cf;
-	line-height: 200px;
-	margin: 5px 10px 5px;
+	margin-right: 10px;
 }
 
 .pick-up-view-wrapper .search-center-area .search-bar button {
@@ -48,6 +47,7 @@
 	width: 70%;
 	display: table;
 	border-collapse: collapse;
+	font-size: 16px;
 }
 tr {
 	text-align: center;
