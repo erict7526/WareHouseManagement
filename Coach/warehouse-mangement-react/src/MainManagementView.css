@@ -61,6 +61,25 @@
 	padding-right: 40px;
 }
 
+.main_management_view_wrappr .nav .right_area button {
+	margin: 0 10px;
+	width: 50px;
+	height: 50px;
+	background: #015668;
+	border: none;
+	color: #fff1cf;
+	font-size: 14px;
+}
+
+.main_management_view_wrappr .nav .right_area button:hover {
+	background: #00909e;
+	border: 1px solid #e5e5e5;
+}
+
+.round {
+	border-radius: 100%;
+}
+
 .main_management_view_wrappr .content_area {
 	background: #015668;
 	height: calc(100vh - 80px);

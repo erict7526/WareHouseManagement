@@ -4,7 +4,7 @@
 
 .pick-up-view-wrapper .search-center-area {
 	margin: 30px auto;
-	width: 50%;
+	width: 80%;
 	height: 80%;
 	border: 2px solid #bbe1fa;
 	border-radius: 20px;
@@ -17,10 +17,11 @@
 	display: flex;
 	padding: 10px;
 	margin-left: auto;
-	margin-right: 20px;
+	margin-right: 10%;
 	margin-top: 20px;
 	max-width: 300px;
 	min-width: 100px;
+	align-items: center;
 }
 
 .pick-up-view-wrapper .search-center-area .search-bar input {
@@ -34,12 +35,18 @@
 }
 
 .pick-up-view-wrapper .search-center-area .search-bar button {
-	width: 30%;
-	height: 100%;
+	width: 50px;
+	height: 50px;
 	border: none;
 	background: #015668;
 	font-size: 18px;
-	border-radius: 30px;
+	border-radius: 100%;
+	margin-left: 10px;
+}
+
+.pick-up-view-wrapper .search-center-area .search-bar button:hover {
+	background: #00909e;
+	border: 1px solid #e5e5e5;
 }
 
 .pick-up-view-wrapper .search-center-area .search-result table {
@@ -52,6 +59,10 @@
 tr {
 	text-align: center;
 	color: #fff1cf;
+}
+
+td {
+	padding: 10px;
 }
 
 table,

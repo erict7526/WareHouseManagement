@@ -33,7 +33,9 @@ function PickUpView(props) {
 			<div className="search-center-area">
 				<div className="search-bar">
 					<input type="text" placeholder="Search" />
-					<button>Search</button>
+					<button>
+						<i class="fas fa-search"></i>
+					</button>
 				</div>
 
 				<div className="search-result">

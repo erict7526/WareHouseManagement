@@ -17,8 +17,10 @@ function MainManagementView(props) {
 					<p className="title">領料</p>
 				</div>
 				<div className="right_area">
-					<button className="shopping_list">領料</button>
+					<button className="shopping_list round">出庫</button>
+					<button className="buy_list round">入庫</button>
 					<button
+						className="round"
 						onClick={() => {
 							setIsUserLogin(false);
 						}}
