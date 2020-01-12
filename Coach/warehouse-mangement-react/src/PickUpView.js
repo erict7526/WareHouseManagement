@@ -59,6 +59,7 @@ function Table(props) {
 				<th>編號</th>
 				<th>名稱</th>
 				<th>規格</th>
+				<th>領取數量</th>
 			</tr>
 			{props.data.map(d => (
 				<DataTr data={d} />

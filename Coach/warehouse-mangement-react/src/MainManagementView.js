@@ -6,6 +6,7 @@ import PickUpView from "./PickUpView.js";
 function MainManagementView(props) {
 	let element;
 	const setIsUserLogin = props.setIsUserLogin;
+	const [pageName, setPageName] = useState("出庫");
 	element = (
 		<div className="main_management_view_wrappr">
 			<div className="nav">
@@ -14,11 +15,25 @@ function MainManagementView(props) {
 					<p className="title">物料管理系統</p>
 				</div>
 				<div className="center_area">
-					<p className="title">領料</p>
+					<p className="title">{pageName}</p>
 				</div>
 				<div className="right_area">
-					<button className="shopping_list round">出庫</button>
-					<button className="buy_list round">入庫</button>
+					<button
+						className="shopping_list round"
+						onClick={() => {
+							setPageName("出庫");
+						}}
+					>
+						出庫
+					</button>
+					<button
+						className="buy_list round"
+						onClick={() => {
+							setPageName("入庫");
+						}}
+					>
+						入庫
+					</button>
 					<button
 						className="round"
 						onClick={() => {
@@ -30,7 +45,7 @@ function MainManagementView(props) {
 				</div>
 			</div>
 			<div className="content_area">
-				<PickUpView />
+				{pageName === "出庫" ? <PickUpView /> : <h1>入庫</h1>}
 			</div>
 		</div>
 	);
