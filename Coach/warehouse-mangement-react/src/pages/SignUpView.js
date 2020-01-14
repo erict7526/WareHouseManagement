@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
 import react_logo from "../image/react-logo.png";
 import "../css/SignUpView.css";
+import LoginView from "./LoginView.js";
 
 function SignUpView(props) {
 	let element;
+	const [isSignInButtonClicked, setIsSignInButtonClicked] = useState(false);
+
+	if (isSignInButtonClicked) {
+		return <LoginView />;
+	}
 	element = (
 		<div className="sign_up_wrapper">
 			<div className="logo">
@@ -22,7 +28,13 @@ function SignUpView(props) {
 			</div>
 			<div className="login">
 				<p>Already have an account?</p>
-				<button>Sign in</button>
+				<button
+					onClick={() => {
+						setIsSignInButtonClicked(true);
+					}}
+				>
+					Sign in
+				</button>
 			</div>
 		</div>
 	);
