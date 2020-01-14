@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import react_logo from "./react-logo.png";
-import "./SignUpView.css";
+import react_logo from "../image/react-logo.png";
+import "../css/SignUpView.css";
 
 function SignUpView(props) {
 	let element;

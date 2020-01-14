@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import react_logo from "./react-logo.png";
-import "./MainManagementView.css";
+import react_logo from "../image/react-logo.png";
+import "../css/MainManagementView.css";
 import PickUpView from "./PickUpView.js";
 
 function MainManagementView(props) {

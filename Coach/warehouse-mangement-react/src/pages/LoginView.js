@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import react_logo from "./react-logo.png";
-import "./LoginView.css";
+import react_logo from "../image/react-logo.png";
+import "../css/LoginView.css";
 import SignUpView from "./SignUpView.js";
 
 const passwordDict = { "123456": "123456" };
@@ -23,42 +23,38 @@ function LoginView(props) {
 					<img src={react_logo} alt="React Logo" />
 				</div>
 				<div className="form">
-					<div className="input_field">
-						<input
-							type="text"
-							id=""
-							className="input"
-							placeholder="Username"
-							value={username}
-							onChange={e => {
-								setUsername(e.target.value);
-							}}
-						/>
-					</div>
-					<div className="input_field">
-						<input
-							type="password"
-							className="input"
-							placeholder="Password"
-							value={password}
-							onChange={e => {
-								setPassword(e.target.value);
-							}}
-						/>
-					</div>
-					<div className="btn">
-						<button
-							onClick={() => {
-								handleLoginButtonClicked(
-									username,
-									password,
-									setIsUserLogin
-								);
-							}}
-						>
-							Log In
-						</button>
-					</div>
+					<form
+						onSubmit={() => {
+							handleLogin(username, password, setIsUserLogin);
+						}}
+					>
+						<div className="input_field">
+							<input
+								type="text"
+								id=""
+								className="input"
+								placeholder="Username"
+								value={username}
+								onChange={e => {
+									setUsername(e.target.value);
+								}}
+							/>
+						</div>
+						<div className="input_field">
+							<input
+								type="password"
+								className="input"
+								placeholder="Password"
+								value={password}
+								onChange={e => {
+									setPassword(e.target.value);
+								}}
+							/>
+						</div>
+						<div className="btn">
+							<button>Log In</button>
+						</div>
+					</form>
 				</div>
 				<div className="signUp">
 					<p>Don't have an account?</p>
@@ -77,7 +73,7 @@ function LoginView(props) {
 	return element;
 }
 
-function handleLoginButtonClicked(username, password, setIsUserLogin) {
+function handleLogin(username, password, setIsUserLogin) {
 	setIsUserLogin(passwordDict[username] === password);
 }
 

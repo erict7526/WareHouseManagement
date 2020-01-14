@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./PickUpView.css";
-import react_logo from "./react-logo.png";
+import "../css/PickUpView.css";
+import react_logo from "../image/react-logo.png";
 
 const testData = [
 	{
