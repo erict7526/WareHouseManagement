@@ -13,7 +13,12 @@ function LoginView(props) {
 	let element;
 
 	if (isSignUpButtonClicked) {
-		return <SignUpView className="sign_up_view" />;
+		return (
+			<SignUpView
+				className="sign_up_view"
+				setIsSignUpButtonClicked={setIsSignUpButtonClicked}
+			/>
+		);
 	}
 
 	element = (

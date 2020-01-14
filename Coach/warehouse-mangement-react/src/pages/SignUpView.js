@@ -5,11 +5,7 @@ import LoginView from "./LoginView.js";
 
 function SignUpView(props) {
 	let element;
-	const [isSignInButtonClicked, setIsSignInButtonClicked] = useState(false);
-
-	if (isSignInButtonClicked) {
-		return <LoginView />;
-	}
+	let setIsSignUpButtonClicked = props.setIsSignUpButtonClicked;
 	element = (
 		<div className="sign_up_wrapper">
 			<div className="logo">
@@ -30,7 +26,7 @@ function SignUpView(props) {
 				<p>Already have an account?</p>
 				<button
 					onClick={() => {
-						setIsSignInButtonClicked(true);
+						setIsSignUpButtonClicked(false);
 					}}
 				>
 					Sign in
