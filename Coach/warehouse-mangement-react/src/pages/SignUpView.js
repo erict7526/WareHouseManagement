@@ -20,6 +20,10 @@ function SignUpView(props) {
 					<button>Sign Up</button>
 				</div>
 			</div>
+			<div className="login">
+				<p>Already have an account?</p>
+				<button>Sign in</button>
+			</div>
 		</div>
 	);
 	return element;

@@ -17,7 +17,7 @@
 	margin: 50px auto;
 	border: 1px solid #e6e6e6;
 	border-radius: 3px;
-	padding: 30px 30px 0px;
+	padding: 30px;
 }
 
 .sign_up_wrapper .logo img {
@@ -29,8 +29,8 @@
 
 .sign_up_wrapper .form {
 	width: 100%;
-	margin: 20px auto;
-	padding: 10px;
+	margin: 15px auto 0px;
+	padding: 0 10px;
 }
 
 .sign_up_wrapper .form .input_field {
@@ -54,12 +54,12 @@
 }
 
 .sign_up_wrapper .form button {
-	width: 40%;
+	width: 100%;
 	display: block;
-	margin: 20px auto;
+	margin: 0px auto;
 	background: #c8ecf7;
 	border: 1px solid #c8ecf7;
-	padding: 10px;
+	padding: 5px;
 	border-radius: 4px;
 	font-size: 14px;
 }
@@ -70,4 +70,20 @@
 
 .sign_up_wrapper .form button:active {
 	background: #44acdb;
+}
+
+.sign_up_wrapper .login {
+	display: flex;
+	font-size: 12px;
+	justify-content: center;
+	margin: 20px auto;
+	align-items: center;
+}
+
+.sign_up_wrapper .login button {
+	border: none;
+	font-weight: bold;
+	cursor: pointer;
+	color: #459fbe;
+	margin-left: 10px;
 }
