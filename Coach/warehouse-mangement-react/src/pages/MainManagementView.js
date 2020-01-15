@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import react_logo from "../image/react-logo.png";
 import "../css/MainManagementView.css";
 import PickUpView from "./PickUpView.js";
+import { Redirect, Route, Switch } from "react-router-dom";
 
-function MainManagementView(props) {
-	let element;
+function MainManagementView({ match, history, ...props }) {
 	const setIsUserLogin = props.setIsUserLogin;
 	const [pageName, setPageName] = useState("出庫");
+	let element;
 	element = (
 		<div className="main_management_view_wrappr">
 			<div className="nav">
@@ -22,6 +23,7 @@ function MainManagementView(props) {
 						className="shopping_list round"
 						onClick={() => {
 							setPageName("出庫");
+							history.push(`${match.url}/stock_out`);
 						}}
 					>
 						出庫
@@ -30,6 +32,7 @@ function MainManagementView(props) {
 						className="buy_list round"
 						onClick={() => {
 							setPageName("入庫");
+							history.push(`${match.url}/stock_in`);
 						}}
 					>
 						入庫
@@ -38,6 +41,7 @@ function MainManagementView(props) {
 						className="round"
 						onClick={() => {
 							setIsUserLogin(false);
+							history.push("/login");
 						}}
 					>
 						登出
@@ -45,11 +49,24 @@ function MainManagementView(props) {
 				</div>
 			</div>
 			<div className="content_area">
-				{pageName === "出庫" ? <PickUpView /> : <h1>入庫</h1>}
+				<Switch>
+					<Route path={`${match.url}/stock_out`}>
+						<PickUpView />
+					</Route>
+					<Route path={`${match.url}/stock_in`}>
+						<h1>入庫</h1>
+					</Route>
+					<Route path={`${match.url}`}>
+						<Redirect to={`${match.url}/stock_out`} />
+					</Route>
+				</Switch>
 			</div>
 		</div>
 	);
-	return element;
+
+	return (
+		<Route>{props.isUserLogin ? element : <Redirect to="/login" />}</Route>
+	);
 }
 
 export default MainManagementView;

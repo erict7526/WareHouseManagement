@@ -1,25 +1,16 @@
 import React, { useState } from "react";
 import react_logo from "../image/react-logo.png";
 import "../css/LoginView.css";
-import SignUpView from "./SignUpView.js";
+import { useHistory } from "react-router-dom";
 
 const passwordDict = { "123456": "123456" };
 
 function LoginView(props) {
 	const setIsUserLogin = props.setIsUserLogin;
-	const [isSignUpButtonClicked, setIsSignUpButtonClicked] = useState(false);
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+	const history = useHistory();
 	let element;
-
-	if (isSignUpButtonClicked) {
-		return (
-			<SignUpView
-				className="sign_up_view"
-				setIsSignUpButtonClicked={setIsSignUpButtonClicked}
-			/>
-		);
-	}
 
 	element = (
 		<div className="wrapper">
@@ -31,6 +22,7 @@ function LoginView(props) {
 					<form
 						onSubmit={() => {
 							handleLogin(username, password, setIsUserLogin);
+							history.push("/main");
 						}}
 					>
 						<div className="input_field">
@@ -65,7 +57,7 @@ function LoginView(props) {
 					<p>Don't have an account?</p>
 					<button
 						onClick={() => {
-							setIsSignUpButtonClicked(true);
+							history.push("/sign_up");
 						}}
 					>
 						Sign Up

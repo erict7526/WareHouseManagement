@@ -2,23 +2,24 @@ import React, { useState, useEffect } from "react";
 import react_logo from "../image/react-logo.png";
 import "../css/SignUpView.css";
 import LoginView from "./LoginView.js";
+import { useHistory } from "react-router-dom";
 
 function SignUpView(props) {
+	const history = useHistory();
 	let element;
-	let setIsSignUpButtonClicked = props.setIsSignUpButtonClicked;
 	element = (
 		<div className="sign_up_wrapper">
 			<div className="logo">
 				<img src={react_logo} alt="React Logo" />
 			</div>
-			<div class="form">
+			<div className="form">
 				<div class="input_field">
 					<input type="text" placeholder="Username" />
 				</div>
-				<div class="input_field">
+				<div className="input_field">
 					<input type="password" placeholder="Password" />
 				</div>
-				<div class="btn">
+				<div className="btn">
 					<button>Sign Up</button>
 				</div>
 			</div>
@@ -26,7 +27,7 @@ function SignUpView(props) {
 				<p>Already have an account?</p>
 				<button
 					onClick={() => {
-						setIsSignUpButtonClicked(false);
+						history.push("/login");
 					}}
 				>
 					Sign in
