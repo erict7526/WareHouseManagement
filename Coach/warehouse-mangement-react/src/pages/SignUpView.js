@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import react_logo from "../image/react-logo.png";
 import "../css/SignUpView.css";
-import LoginView from "./LoginView.js";
 import { useHistory } from "react-router-dom";
 
 function SignUpView(props) {
