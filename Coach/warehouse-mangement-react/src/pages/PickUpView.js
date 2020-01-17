@@ -26,19 +26,34 @@ const testData = [
 
 function PickUpView(props) {
 	let element;
+	const [search_text, setSearchText] = useState("");
 
 	element = (
 		<div className="pick-up-view-wrapper">
 			<div className="search-center-area">
 				<div className="search-bar">
-					<input type="text" placeholder="Search" />
-					<button>
-						<i class="fas fa-search"></i>
-					</button>
+					<form
+						onSubmit={e => {
+							e.preventDefault();
+							console.log(search_text);
+						}}
+					>
+						<input
+							type="text"
+							placeholder="Search"
+							value={search_text}
+							onChange={e => {
+								setSearchText(e.target.value);
+							}}
+						/>
+						<button>
+							<i className="fas fa-search"></i>
+						</button>
+					</form>
 				</div>
 
 				<div className="search-result">
-					<Table data={testData} />
+					<Table datas={testData} />
 				</div>
 			</div>
 		</div>
@@ -50,19 +65,22 @@ function PickUpView(props) {
 export default PickUpView;
 
 function Table(props) {
+	const datas = props.datas;
 	let element;
 
 	element = (
 		<table>
-			<tr>
-				<th>編號</th>
-				<th>名稱</th>
-				<th>規格</th>
-				<th>領取數量</th>
-			</tr>
-			{props.data.map(d => (
-				<DataTr data={d} />
-			))}
+			<tbody>
+				<tr>
+					<th>編號</th>
+					<th>名稱</th>
+					<th>規格</th>
+					<th>領取數量</th>
+				</tr>
+				{datas.map((d, index) => (
+					<DataTr key={index} data={d} />
+				))}
+			</tbody>
 		</table>
 	);
 
