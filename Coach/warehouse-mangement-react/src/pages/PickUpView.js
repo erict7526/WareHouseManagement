@@ -1,29 +1,17 @@
 import React, { useState } from "react";
 import "../css/PickUpView.css";
-import { useParams } from "react-router-dom";
+import { Table } from "../component/Table.js";
 
-const testData = [
-	{
-		number: "1269-6513",
-		name: "test1",
-		specification: "test1"
-	},
-	{
-		number: "1235-4546",
-		name: "test2",
-		specification: "test2"
-	},
-	{
-		number: "6549-6323",
-		name: "test3",
-		specification: "test3"
-	},
-	{
-		number: "66854-11321",
-		name: "test4",
-		specification: "test4"
-	}
-];
+const testData = Array(105)
+	.fill(0)
+	.map((v, i) => fakeData(i));
+
+function fakeData(id) {
+	let name = `test_name_${id}`;
+	let specification = `test_specification_${id}`;
+	let number = String(id);
+	return { number, name, specification };
+}
 
 function PickUpView(props) {
 	let element;
@@ -64,43 +52,3 @@ function PickUpView(props) {
 }
 
 export default PickUpView;
-
-function Table(props) {
-	const datas = props.datas;
-	let element;
-
-	element = (
-		<table>
-			<tbody>
-				<tr>
-					<th>編號</th>
-					<th>名稱</th>
-					<th>規格</th>
-					<th>領取數量</th>
-				</tr>
-				{datas.map((d, index) => (
-					<DataTr key={index} data={d} />
-				))}
-			</tbody>
-		</table>
-	);
-
-	return element;
-}
-
-function DataTr(props) {
-	let element;
-	const data = props.data;
-	element = (
-		<tr>
-			<td>{data["number"]}</td>
-			<td>{data["name"]}</td>
-			<td>{data["specification"]}</td>
-			<td>
-				<input type="text" />
-			</td>
-		</tr>
-	);
-
-	return element;
-}
