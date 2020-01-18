@@ -19,7 +19,7 @@
 	display: flex;
 	height: 60px;
 	width: 100%;
-	background: #015668;
+	background: #263f44;
 	align-items: center;
 	color: #fff1cf;
 }
@@ -30,8 +30,6 @@
 	height: 100%;
 	display: flex;
 	align-items: center;
-	border-bottom-left-radius: 20px;
-	background: #263f44;
 }
 
 .main_management_view_wrappr .nav .left_area img {
@@ -47,17 +45,14 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background: #263f44;
 }
 
 .main_management_view_wrappr .nav .right_area {
 	font-size: 20px;
 	height: 100%;
 	width: 33.34%;
-	border-bottom-right-radius: 20px;
 	display: flex;
 	align-items: center;
-	background: #263f44;
 	justify-content: flex-end;
 	padding-right: 40px;
 }

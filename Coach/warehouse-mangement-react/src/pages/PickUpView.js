@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../css/PickUpView.css";
+import { useParams } from "react-router-dom";
 
 const testData = [
 	{
