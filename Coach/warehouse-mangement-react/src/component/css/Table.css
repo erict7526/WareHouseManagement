@@ -1,0 +1,47 @@
+.Table table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.Table tr {
+	text-align: center;
+	color: #fff1cf;
+}
+
+.Table td {
+	padding: 10px;
+}
+
+.Table table,
+th,
+td {
+	border-bottom: 1px solid #bbe1fa;
+}
+.Table .tableFooter {
+	display: flex;
+	padding: 3px;
+	justify-content: center;
+	font-size: 18px;
+	color: silver;
+	margin: 20px auto;
+	align-items: center;
+}
+
+.Table .tableFooter p {
+	width: 2em;
+	text-align: center;
+}
+.Table .pageBtn {
+	font-size: 20px;
+	width: 2.7em;
+	height: 2.7em;
+	margin: 10px 20px;
+	background: none;
+	border: none;
+	color: silver;
+	border-radius: 100%;
+}
+.Table .pageBtn:hover {
+	background: rgba(0, 0, 0, 0.1);
+	color: white;
+}

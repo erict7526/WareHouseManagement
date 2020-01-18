@@ -1,13 +1,10 @@
 import React, { useState } from "react";
+import "./css/Table.css";
 
 function Table(props) {
 	const datas = props.datas;
 	const [page, setPage] = useState(0);
 	const [rowPerPage, setRowPerPage] = useState(10);
-	const pagesMaxium = datas.length / rowPerPage; //float
-	if (page >= pagesMaxium) {
-		setPage(pagesMaxium - 1);
-	}
 	let dataOnPage = datas.slice(
 		rowPerPage * page,
 		rowPerPage * page + rowPerPage
@@ -29,12 +26,29 @@ function Table(props) {
 					))}
 				</tbody>
 			</table>
-			<button
-				className="pageBtn"
-				onClick={() => {
-					setPage(page + 1);
-				}}
-			></button>
+			<div className="tableFooter">
+				<button
+					className="pageBtn"
+					onClick={() => {
+						if (page > 0) {
+							setPage(page - 1);
+						}
+					}}
+				>
+					&lt;
+				</button>
+				<p>{page + 1}</p>
+				<button
+					className="pageBtn"
+					onClick={() => {
+						if (page < Math.ceil(datas.length / rowPerPage) - 1) {
+							setPage(page + 1);
+						}
+					}}
+				>
+					>
+				</button>
+			</div>
 		</div>
 	);
 

@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import "../css/PickUpView.css";
 import { Table } from "../component/Table.js";
 
-const testData = Array(105)
+const testData = Array(100)
 	.fill(0)
-	.map((v, i) => fakeData(i));
+	.map((_, i) => fakeData(i));
 
 function fakeData(id) {
 	let name = `test_name_${id}`;

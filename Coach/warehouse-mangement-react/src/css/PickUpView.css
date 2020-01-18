@@ -46,30 +46,6 @@
 	border: 1px solid #a5a5a5;
 }
 
-.pick-up-view-wrapper .search-center-area .search-result .Table .pageBtn {
-	width: 50px;
-}
-
-.pick-up-view-wrapper .search-center-area .search-result table {
-	width: 100%;
-	border-collapse: collapse;
-}
-
-tr {
-	text-align: center;
-	color: #fff1cf;
-}
-
-td {
-	padding: 10px;
-}
-
-table,
-th,
-td {
-	border: 1px solid #bbe1fa;
-}
-
 ::placeholder {
 	color: #cccccc;
 }
