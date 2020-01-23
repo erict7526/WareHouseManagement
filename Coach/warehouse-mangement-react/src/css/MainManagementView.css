@@ -12,17 +12,18 @@
 
 .main_management_view_wrappr {
 	height: 100%;
-	overflow: auto;
 }
 
 .main_management_view_wrappr .nav {
 	display: flex;
 	height: 60px;
 	width: 100%;
-	background: #263f44;
+	background: #347474;
 	align-items: center;
 	color: #fff1cf;
 	position: fixed;
+	box-shadow: 0 3px 12px -1px #262626;
+	border-radius: 0 0 5px 5px;
 }
 
 .main_management_view_wrappr .nav .left_area {
@@ -78,8 +79,9 @@
 }
 
 .main_management_view_wrappr .content_area {
-	background: #015668;
-	height: 100%;
+	background: #353535;
 	display: flex;
-	padding-top: 70px;
+	padding-top: 100px;
+	height: 100vh;
+	overflow: auto;
 }

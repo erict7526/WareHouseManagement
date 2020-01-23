@@ -2,9 +2,9 @@
 	margin: 30px auto;
 	width: 80%;
 	height: 80%;
-	border: 2px solid #bbe1fa;
-	border-radius: 20px;
-	background: #263f44;
+	border-radius: 10px;
+	background: #414141;
+	box-shadow: 3px 3px 12px -1px #262626;
 }
 
 .pick-up-view-wrapper .search-center-area {
@@ -24,26 +24,31 @@
 .pick-up-view-wrapper .search-center-area .search-bar input {
 	max-width: 50%;
 	border: none;
-	border-bottom: 1px solid #cccccc;
+	border-bottom: 1px solid #414141;
 	background: none;
 	font-size: 18px;
 	color: #fff1cf;
 	margin-right: 10px;
 }
 
+.pick-up-view-wrapper .search-center-area .search-bar input:focus {
+	border-bottom: 1px solid #cccccc;
+	transition: border-bottom 0.3s;
+}
+
 .pick-up-view-wrapper .search-center-area .search-bar button {
 	width: 50px;
 	height: 50px;
 	border: none;
-	background: #015668;
+	background: #555656;
 	font-size: 18px;
 	border-radius: 100%;
 	margin-left: 10px;
+	color: #dfe6e9;
 }
 
 .pick-up-view-wrapper .search-center-area .search-bar button:hover {
-	background: #00909e;
-	border: 1px solid #a5a5a5;
+	background: #636e72;
 }
 
 ::placeholder {

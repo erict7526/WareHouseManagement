@@ -3,6 +3,8 @@ import "./css/Table.css";
 
 function Table(props) {
 	const datas = props.datas;
+	const checkedDatas = props.checkedDatas;
+	const setCheckedDatas = props.setCheckedDatas;
 	const [page, setPage] = useState(0);
 	const [rowPerPage, setRowPerPage] = useState(10);
 	let dataOnPage = datas.slice(
@@ -15,14 +17,19 @@ function Table(props) {
 		<div className="Table">
 			<table>
 				<tbody>
-					<tr>
-						<th>編號</th>
-						<th>名稱</th>
-						<th>規格</th>
-						<th>領取數量</th>
+					<tr className="rowHeader">
+						<th className="data-code">編號</th>
+						<th className="data-name">名稱</th>
+						<th className="data-specifcation">規格</th>
+						<th className="data-remain-num">剩餘數量</th>
 					</tr>
 					{dataOnPage.map((d, index) => (
-						<DataTr key={index} data={d} />
+						<DataTr
+							key={index}
+							data={d}
+							checkedDatas={checkedDatas}
+							setCheckedDatas={setCheckedDatas}
+						/>
 					))}
 				</tbody>
 			</table>
@@ -58,14 +65,24 @@ function Table(props) {
 function DataTr(props) {
 	let element;
 	const data = props.data;
+	const checkedDatas = props.checkedDatas;
+	const setCheckedDatas = props.setCheckedDatas;
 	element = (
-		<tr>
-			<td>{data["number"]}</td>
-			<td>{data["name"]}</td>
-			<td>{data["specification"]}</td>
-			<td>
-				<input type="text" />
-			</td>
+		<tr
+			className="rowContent"
+			onClick={() => {
+				if (checkedDatas.includes(data)) {
+					setCheckedDatas(checkedDatas.filter(d => d !== data));
+				} else {
+					setCheckedDatas([...checkedDatas, data]);
+				}
+			}}
+			className={checkedDatas.includes(data) ? "checkedData" : ""}
+		>
+			<td className="data-code">{data["code"]}</td>
+			<td className="data-name">{data["name"]}</td>
+			<td className="data-specifcation">{data["specification"]}</td>
+			<td className="data-remain-num">{data["remain_num"]}</td>
 		</tr>
 	);
 

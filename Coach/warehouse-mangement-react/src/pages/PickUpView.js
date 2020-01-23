@@ -2,20 +2,22 @@ import React, { useState } from "react";
 import "../css/PickUpView.css";
 import { Table } from "../component/Table.js";
 
-const testData = Array(100)
+const testData = Array(200)
 	.fill(0)
 	.map((_, i) => fakeData(i));
 
 function fakeData(id) {
 	let name = `test_name_${id}`;
 	let specification = `test_specification_${id}`;
-	let number = String(id);
-	return { number, name, specification };
+	let code = `${String(id).padStart(4, 0)}-${String(id).padStart(4, 0)}`;
+	let remain_num = id;
+	return { code, name, specification, remain_num };
 }
 
 function PickUpView(props) {
 	let element;
 	const [search_text, setSearchText] = useState("");
+	const [checkedDatas, setCheckedDatas] = useState([]);
 
 	element = (
 		<div className="pick-up-view-wrapper">
@@ -42,7 +44,11 @@ function PickUpView(props) {
 				</div>
 
 				<div className="search-result">
-					<Table datas={testData} />
+					<Table
+						datas={testData}
+						checkedDatas={checkedDatas}
+						setCheckedDatas={setCheckedDatas}
+					/>
 				</div>
 			</div>
 		</div>
