@@ -1,10 +1,10 @@
 .pick-up-view-wrapper {
-	margin: 30px auto;
+	margin: 30px auto 100px;
 	width: 80%;
-	height: 80%;
 	border-radius: 10px;
 	background: #414141;
 	box-shadow: 3px 3px 12px -1px #262626;
+	overflow: auto;
 }
 
 .pick-up-view-wrapper .search-center-area {
@@ -19,6 +19,7 @@
 	align-items: center;
 	width: 100%;
 	margin-bottom: 20px;
+	position: relative;
 }
 
 .pick-up-view-wrapper .search-center-area .search-bar input {

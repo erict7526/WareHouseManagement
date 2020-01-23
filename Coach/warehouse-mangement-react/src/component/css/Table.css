@@ -1,19 +1,21 @@
 .Table table {
 	width: 100%;
 	border-collapse: collapse;
+	box-shadow: 2px 2px 8px 1px #262626;
+	border-radius: 10px;
 }
 
 .Table tr {
 	text-align: center;
 	color: #faf5e4;
+	border-bottom: 1px solid #faf5e4;
 }
 
-.Table table,
-th,
+.Table th,
 td {
-	border-bottom: 1px solid #faf5e4;
 	padding: 10px;
 	text-align: left;
+	border-bottom: 1px solid #faf5e4;
 }
 .Table .tableFooter {
 	display: flex;
@@ -51,11 +53,15 @@ td {
 
 tr.rowContent:hover {
 	box-shadow: 0 0 25px -5px #161616;
-	background: rgba(100, 100, 100, 0.2);
+	background: rgba(100, 100, 100, 0.7);
 }
 
 tr.checkedData {
-	background: pink;
+	background: rgba(64, 255, 255, 0.3);
+}
+
+tr.checkedData:hover {
+	background: rgba(64, 255, 255, 0.5);
 }
 
 .Table td.data-code {

@@ -69,7 +69,6 @@ function DataTr(props) {
 	const setCheckedDatas = props.setCheckedDatas;
 	element = (
 		<tr
-			className="rowContent"
 			onClick={() => {
 				if (checkedDatas.includes(data)) {
 					setCheckedDatas(checkedDatas.filter(d => d !== data));
@@ -77,7 +76,9 @@ function DataTr(props) {
 					setCheckedDatas([...checkedDatas, data]);
 				}
 			}}
-			className={checkedDatas.includes(data) ? "checkedData" : ""}
+			className={
+				checkedDatas.includes(data) ? "checkedData" : "rowContent"
+			}
 		>
 			<td className="data-code">{data["code"]}</td>
 			<td className="data-name">{data["name"]}</td>
