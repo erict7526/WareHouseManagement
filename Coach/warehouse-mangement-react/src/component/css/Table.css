@@ -1,7 +1,7 @@
 .Table table {
 	width: 100%;
 	border-collapse: collapse;
-	box-shadow: 2px 2px 8px 1px #262626;
+	box-shadow: 0px 2px 9px 1px #262626;
 	border-radius: 10px;
 }
 
@@ -20,17 +20,28 @@ td {
 .Table .tableFooter {
 	display: flex;
 	padding: 3px;
-	justify-content: center;
+	justify-content: space-around;
 	font-size: 18px;
 	color: white;
 	margin: 20px auto;
 	align-items: center;
 }
 
-.Table .tableFooter p {
+.Table .tableFooter .tableFooter-center-area {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.Table .tableFooter .tableFooter-center-area .page-num {
 	width: 2em;
 	text-align: center;
 }
+
+.Table .tableFooter .tableFooter-right-area {
+	justify-content: center;
+}
+
 .Table .tableFooter .pageBtn {
 	font-size: 20px;
 	width: 2.7em;

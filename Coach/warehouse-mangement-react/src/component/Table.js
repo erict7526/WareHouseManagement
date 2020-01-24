@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./css/Table.css";
+import { ButtonWithNum } from "./ButtonWithNum.js";
 
 function Table(props) {
 	const datas = props.datas;
@@ -34,27 +35,36 @@ function Table(props) {
 				</tbody>
 			</table>
 			<div className="tableFooter">
-				<button
-					className="pageBtn"
-					onClick={() => {
-						if (page > 0) {
-							setPage(page - 1);
-						}
-					}}
-				>
-					&lt;
-				</button>
-				<p>{page + 1}</p>
-				<button
-					className="pageBtn"
-					onClick={() => {
-						if (page < Math.ceil(datas.length / rowPerPage) - 1) {
-							setPage(page + 1);
-						}
-					}}
-				>
+				<div className="tableFooter-left-area"></div>
+				<div className="tableFooter-center-area">
+					<button
+						className="pageBtn"
+						onClick={() => {
+							if (page > 0) {
+								setPage(page - 1);
+							}
+						}}
 					>
-				</button>
+						&lt;
+					</button>
+					<p className="page-num">{page + 1}</p>
+					<button
+						className="pageBtn"
+						onClick={() => {
+							if (
+								page <
+								Math.ceil(datas.length / rowPerPage) - 1
+							) {
+								setPage(page + 1);
+							}
+						}}
+					>
+						>
+					</button>
+				</div>
+				<div className="tableFooter-right-area">
+					<ButtonWithNum datas={checkedDatas} />
+				</div>
 			</div>
 		</div>
 	);
