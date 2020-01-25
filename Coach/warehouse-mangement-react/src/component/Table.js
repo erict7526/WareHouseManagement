@@ -12,6 +12,9 @@ function Table(props) {
 		rowPerPage * page,
 		rowPerPage * page + rowPerPage
 	);
+
+	let emptyRow = rowPerPage - dataOnPage.length;
+
 	let element;
 
 	element = (
@@ -32,6 +35,13 @@ function Table(props) {
 							setCheckedDatas={setCheckedDatas}
 						/>
 					))}
+					{emptyRow > 0 && (
+						<tr
+							style={{
+								height: emptyRow * 42 + 5 + "px"
+							}}
+						></tr>
+					)}
 				</tbody>
 			</table>
 			<div className="tableFooter">

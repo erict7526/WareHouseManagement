@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../css/PickUpView.css";
 import { Table } from "../component/Table.js";
 
-const testData = Array(200)
+const testData = Array(21)
 	.fill(0)
 	.map((_, i) => fakeData(i));
 
