@@ -35,6 +35,19 @@ tr:last-child td {
 	align-items: center;
 }
 
+.Table .tableFooter .tableFooter-left-area {
+	display: flex;
+	font-size: 16px;
+}
+
+.Table .tableFooter .tableFooter-left-area select {
+	background: none;
+	font-size: 14px;
+	color: white;
+	border: none;
+	width: 3.5em;
+}
+
 .Table .tableFooter .tableFooter-center-area {
 	display: flex;
 	justify-content: center;

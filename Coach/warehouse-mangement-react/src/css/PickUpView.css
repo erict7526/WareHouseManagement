@@ -4,7 +4,7 @@
 	border-radius: 10px;
 	background: #414141;
 	box-shadow: 3px 3px 12px -1px #262626;
-	overflow: auto;
+	padding-bottom: 30px;
 }
 
 .pick-up-view-wrapper .search-center-area {

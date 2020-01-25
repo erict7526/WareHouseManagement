@@ -45,7 +45,23 @@ function Table(props) {
 				</tbody>
 			</table>
 			<div className="tableFooter">
-				<div className="tableFooter-left-area"></div>
+				<div className="tableFooter-left-area">
+					<p>每頁行數：</p>
+					<form>
+						<select
+							name="row"
+							value={rowPerPage}
+							onChange={e => {
+								setRowPerPage(parseInt(e.target.value));
+								setPage(0);
+							}}
+						>
+							<option value="5">5</option>
+							<option value="10">10</option>
+							<option value="15">15</option>
+						</select>
+					</form>
+				</div>
 				<div className="tableFooter-center-area">
 					<button
 						className="pageBtn"

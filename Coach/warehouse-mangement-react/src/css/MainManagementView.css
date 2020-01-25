@@ -12,6 +12,8 @@
 
 .main_management_view_wrappr {
 	height: 100%;
+	background: #353535;
+	overflow: auto;
 }
 
 .main_management_view_wrappr .nav {
@@ -24,6 +26,7 @@
 	position: fixed;
 	box-shadow: 0 3px 12px -1px #262626;
 	border-radius: 0 0 5px 5px;
+	z-index: 10;
 }
 
 .main_management_view_wrappr .nav .left_area {
@@ -79,9 +82,6 @@
 }
 
 .main_management_view_wrappr .content_area {
-	background: #353535;
 	display: flex;
 	padding-top: 100px;
-	height: 100vh;
-	overflow: auto;
 }
