@@ -17,7 +17,7 @@ function fakeData(id) {
 function PickUpView(props) {
 	let element;
 	const [search_text, setSearchText] = useState("");
-	const [checkedDatas, setCheckedDatas] = useState([]);
+	const [checkedData, setCheckedData] = useState([]);
 
 	element = (
 		<div className="pick-up-view-wrapper">
@@ -45,9 +45,7 @@ function PickUpView(props) {
 
 				<div className="search-result">
 					<Table
-						datas={testData}
-						checkedDatas={checkedDatas}
-						setCheckedDatas={setCheckedDatas}
+						{...{ data: testData, checkedData, setCheckedData }}
 					/>
 				</div>
 			</div>

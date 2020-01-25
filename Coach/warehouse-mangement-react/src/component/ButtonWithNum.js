@@ -2,7 +2,7 @@ import React from "react";
 import "./css/ButtonWithNum.css";
 
 function ButtonWithNum(props) {
-	const datas = props.datas;
+	const data = props.checkedData;
 	let element;
 
 	element = (
@@ -10,7 +10,7 @@ function ButtonWithNum(props) {
 			<button>
 				<i className="fas fa-shopping-basket"></i>
 			</button>
-			<p>{datas.length}</p>
+			<p>{data.length}</p>
 		</div>
 	);
 

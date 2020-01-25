@@ -3,12 +3,12 @@ import "./css/Table.css";
 import { ButtonWithNum } from "./ButtonWithNum.js";
 
 function Table(props) {
-	const datas = props.datas;
-	const checkedDatas = props.checkedDatas;
-	const setCheckedDatas = props.setCheckedDatas;
+	const data = props.data;
+	const checkedData = props.checkedData;
+	const setCheckedData = props.setCheckedData;
 	const [page, setPage] = useState(0);
 	const [rowPerPage, setRowPerPage] = useState(10);
-	let dataOnPage = datas.slice(
+	let dataOnPage = data.slice(
 		rowPerPage * page,
 		rowPerPage * page + rowPerPage
 	);
@@ -31,8 +31,8 @@ function Table(props) {
 						<DataTr
 							key={index}
 							data={d}
-							checkedDatas={checkedDatas}
-							setCheckedDatas={setCheckedDatas}
+							checkedData={checkedData}
+							setCheckedData={setCheckedData}
 						/>
 					))}
 					{emptyRow > 0 && (
@@ -44,54 +44,16 @@ function Table(props) {
 					)}
 				</tbody>
 			</table>
-			<div className="tableFooter">
-				<div className="tableFooter-left-area">
-					<p>每頁行數：</p>
-					<form>
-						<select
-							name="row"
-							value={rowPerPage}
-							onChange={e => {
-								setRowPerPage(parseInt(e.target.value));
-								setPage(0);
-							}}
-						>
-							<option value="5">5</option>
-							<option value="10">10</option>
-							<option value="15">15</option>
-						</select>
-					</form>
-				</div>
-				<div className="tableFooter-center-area">
-					<button
-						className="pageBtn"
-						onClick={() => {
-							if (page > 0) {
-								setPage(page - 1);
-							}
-						}}
-					>
-						&lt;
-					</button>
-					<p className="page-num">{page + 1}</p>
-					<button
-						className="pageBtn"
-						onClick={() => {
-							if (
-								page <
-								Math.ceil(datas.length / rowPerPage) - 1
-							) {
-								setPage(page + 1);
-							}
-						}}
-					>
-						>
-					</button>
-				</div>
-				<div className="tableFooter-right-area">
-					<ButtonWithNum datas={checkedDatas} />
-				</div>
-			</div>
+			<TableFooter
+				{...{
+					page,
+					setPage,
+					data,
+					rowPerPage,
+					setRowPerPage,
+					checkedData
+				}}
+			/>
 		</div>
 	);
 
@@ -101,19 +63,19 @@ function Table(props) {
 function DataTr(props) {
 	let element;
 	const data = props.data;
-	const checkedDatas = props.checkedDatas;
-	const setCheckedDatas = props.setCheckedDatas;
+	const checkedData = props.checkedData;
+	const setCheckedData = props.setCheckedData;
 	element = (
 		<tr
 			onClick={() => {
-				if (checkedDatas.includes(data)) {
-					setCheckedDatas(checkedDatas.filter(d => d !== data));
+				if (checkedData.includes(data)) {
+					setCheckedData(checkedData.filter(d => d !== data));
 				} else {
-					setCheckedDatas([...checkedDatas, data]);
+					setCheckedData([...checkedData, data]);
 				}
 			}}
 			className={
-				checkedDatas.includes(data) ? "checkedData" : "rowContent"
+				checkedData.includes(data) ? "checkedData" : "rowContent"
 			}
 		>
 			<td className="data-code">{data["code"]}</td>
@@ -123,6 +85,60 @@ function DataTr(props) {
 		</tr>
 	);
 
+	return element;
+}
+
+function TableFooter(props) {
+	const [page, setPage] = [props.page, props.setPage];
+	const [rowPerPage, setRowPerPage] = [props.rowPerPage, props.setRowPerPage];
+	const data = props.data;
+	const checkedData = props.checkedData;
+	let element;
+	element = (
+		<div className="tableFooter">
+			<div className="tableFooter-left-area">
+				<p>每頁行數：</p>
+				<select
+					name="row"
+					value={rowPerPage}
+					onChange={e => {
+						setRowPerPage(parseInt(e.target.value));
+						setPage(0);
+					}}
+				>
+					<option value="5">5</option>
+					<option value="10">10</option>
+					<option value="15">15</option>
+				</select>
+			</div>
+			<div className="tableFooter-center-area">
+				<button
+					className="pageBtn"
+					onClick={() => {
+						if (page > 0) {
+							setPage(page - 1);
+						}
+					}}
+				>
+					&lt;
+				</button>
+				<p className="page-num">{page + 1}</p>
+				<button
+					className="pageBtn"
+					onClick={() => {
+						if (page < Math.ceil(data.length / rowPerPage) - 1) {
+							setPage(page + 1);
+						}
+					}}
+				>
+					>
+				</button>
+			</div>
+			<div className="tableFooter-right-area">
+				<ButtonWithNum checkedData={checkedData} />
+			</div>
+		</div>
+	);
 	return element;
 }
 
