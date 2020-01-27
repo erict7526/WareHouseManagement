@@ -12,6 +12,7 @@ function Table(props) {
 		rowPerPage * page,
 		rowPerPage * page + rowPerPage
 	);
+	const setClickedOn = props.setClickedOn;
 
 	let emptyRow = rowPerPage - dataOnPage.length;
 
@@ -26,13 +27,17 @@ function Table(props) {
 						<th className="data-name">名稱</th>
 						<th className="data-specifcation">規格</th>
 						<th className="data-remain-num">剩餘數量</th>
+						<th className="data-stock-out-input">領取數量</th>
 					</tr>
 					{dataOnPage.map((d, index) => (
 						<DataTr
-							key={index}
-							data={d}
-							checkedData={checkedData}
-							setCheckedData={setCheckedData}
+							{...{
+								key: index,
+								data: d,
+								checkedData,
+								setCheckedData,
+								setClickedOn
+							}}
 						/>
 					))}
 					{emptyRow > 0 && (
@@ -61,27 +66,60 @@ function Table(props) {
 }
 
 function DataTr(props) {
-	let element;
 	const data = props.data;
 	const checkedData = props.checkedData;
 	const setCheckedData = props.setCheckedData;
+	const setClickedOn = props.setClickedOn;
+	const [stockOutNum, setStockOutNum] = useState(0);
+	const checked = checkedData.some(item => item.thing === data);
+	let element;
 	element = (
 		<tr
+			className={checked ? "checkedData" : "rowContent"}
 			onClick={() => {
-				if (checkedData.includes(data)) {
-					setCheckedData(checkedData.filter(d => d !== data));
-				} else {
-					setCheckedData([...checkedData, data]);
-				}
+				setClickedOn(data);
 			}}
-			className={
-				checkedData.includes(data) ? "checkedData" : "rowContent"
-			}
 		>
 			<td className="data-code">{data["code"]}</td>
 			<td className="data-name">{data["name"]}</td>
 			<td className="data-specifcation">{data["specification"]}</td>
 			<td className="data-remain-num">{data["remain_num"]}</td>
+			<td className="data-stock-out-input">
+				<form
+					onSubmit={e => {
+						e.preventDefault();
+						if (!Number.isInteger(parseInt(stockOutNum, 10))) {
+							setStockOutNum(0);
+							return;
+						}
+						if (checked) {
+							setCheckedData(
+								checkedData.filter(d => d.thing !== data)
+							);
+							setStockOutNum(0);
+						} else if (stockOutNum !== 0) {
+							const item = { thing: data, num: stockOutNum };
+							setCheckedData([...checkedData, item]);
+						}
+					}}
+				>
+					<input
+						type="text"
+						className="input"
+						value={stockOutNum}
+						onChange={e => {
+							setStockOutNum(e.target.value);
+						}}
+					/>
+					<button className={checked ? "checkedButton" : "button"}>
+						{checked ? (
+							<i className="fas fa-times"></i>
+						) : (
+							<i className="fas fa-plus"></i>
+						)}
+					</button>
+				</form>
+			</td>
 		</tr>
 	);
 

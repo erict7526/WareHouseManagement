@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../css/PickUpView.css";
 import { Table } from "../component/Table.js";
+import PopUp from "../component/PopUp.js";
 
 const testData = Array(21)
 	.fill(0)
@@ -18,6 +19,8 @@ function PickUpView(props) {
 	let element;
 	const [search_text, setSearchText] = useState("");
 	const [checkedData, setCheckedData] = useState([]);
+	const [clickedOn, setClickedOn] = useState({});
+	const [hidePopUp, setHidePopUp] = useState(true);
 
 	element = (
 		<div className="pick-up-view-wrapper">
@@ -45,10 +48,19 @@ function PickUpView(props) {
 
 				<div className="search-result">
 					<Table
-						{...{ data: testData, checkedData, setCheckedData }}
+						{...{
+							data: testData,
+							checkedData,
+							setCheckedData,
+							setClickedOn
+						}}
 					/>
 				</div>
 			</div>
+			<PopUp
+				hide={Object.keys(clickedOn).length === 0}
+				{...{ checkedData, setCheckedData, setClickedOn, clickedOn }}
+			/>
 		</div>
 	);
 

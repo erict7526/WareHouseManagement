@@ -108,3 +108,45 @@ tr.checkedData:hover {
 	width: 4em;
 	text-align: center;
 }
+
+.Table .data-stock-out-input {
+	width: 9em;
+}
+
+.Table .data-stock-out-input input {
+	font-size: 14px;
+	width: 3em;
+	text-align: center;
+	border-radius: 10%;
+	border: none;
+}
+
+.Table .data-stock-out-input button {
+	font-size: 14px;
+	width: 4em;
+	height: 2em;
+	margin-left: 1em;
+	background: #347474;
+	border: none;
+	border-radius: 10%;
+	color: white;
+}
+.Table .data-stock-out-input button:hover {
+	background: #47a6a7;
+}
+
+.Table .data-stock-out-input button:active {
+	background: #275859;
+}
+
+.Table .data-stock-out-input .checkedButton {
+	background: grey;
+}
+
+.Table .data-stock-out-input .checkedButton:hover {
+	background: #aaadaf;
+}
+
+.Table .data-stock-out-input .checkedButton:active {
+	background: #57595a;
+}
