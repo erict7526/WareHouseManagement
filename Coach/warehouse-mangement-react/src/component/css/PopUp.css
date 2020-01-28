@@ -22,3 +22,35 @@
 .hide {
 	display: none;
 }
+
+.pop-up table {
+	margin: 80px auto 20px;
+	width: 80%;
+	color: white;
+	text-align: left;
+}
+.pop-up table td {
+	padding: 5px 0;
+}
+.pop-up form {
+	display: flex;
+	flex-direction: column;
+	margin: 10px auto;
+	align-items: center;
+	width: 80%;
+}
+
+.pop-up form p {
+	color: white;
+}
+.pop-up form input {
+	background: none;
+	border: none;
+	border-bottom: 1px solid white;
+	width: 40%;
+	line-height: 30px;
+	font-size: 16px;
+	color: white;
+	text-align: center;
+	margin: 30px auto;
+}

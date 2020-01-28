@@ -20,7 +20,6 @@ function PickUpView(props) {
 	const [search_text, setSearchText] = useState("");
 	const [checkedData, setCheckedData] = useState([]);
 	const [clickedOn, setClickedOn] = useState({});
-	const [hidePopUp, setHidePopUp] = useState(true);
 
 	element = (
 		<div className="pick-up-view-wrapper">

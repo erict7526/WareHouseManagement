@@ -71,20 +71,30 @@ function DataTr(props) {
 	const setCheckedData = props.setCheckedData;
 	const setClickedOn = props.setClickedOn;
 	const [stockOutNum, setStockOutNum] = useState(0);
-	const checked = checkedData.some(item => item.thing === data);
+	const checked = checkedData.find(item => item.thing === data);
+	if (checked && checked.num !== stockOutNum) {
+		setStockOutNum(checked.num);
+	}
 	let element;
 	element = (
 		<tr
 			className={checked ? "checkedData" : "rowContent"}
 			onClick={() => {
-				setClickedOn(data);
+				if (!checked) {
+					setClickedOn(data);
+				}
 			}}
 		>
 			<td className="data-code">{data["code"]}</td>
 			<td className="data-name">{data["name"]}</td>
 			<td className="data-specifcation">{data["specification"]}</td>
 			<td className="data-remain-num">{data["remain_num"]}</td>
-			<td className="data-stock-out-input">
+			<td
+				className="data-stock-out-input"
+				onClick={e => {
+					e.stopPropagation();
+				}}
+			>
 				<form
 					onSubmit={e => {
 						e.preventDefault();
@@ -98,8 +108,13 @@ function DataTr(props) {
 							);
 							setStockOutNum(0);
 						} else if (stockOutNum !== 0) {
-							const item = { thing: data, num: stockOutNum };
+							const item = {
+								thing: data,
+								num: parseInt(stockOutNum, 10)
+							};
 							setCheckedData([...checkedData, item]);
+						} else {
+							setClickedOn(data);
 						}
 					}}
 				>
