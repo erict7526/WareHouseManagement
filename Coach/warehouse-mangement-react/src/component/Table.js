@@ -29,10 +29,10 @@ function Table(props) {
 						<th className="data-remain-num">剩餘數量</th>
 						<th className="data-stock-out-input">領取數量</th>
 					</tr>
-					{dataOnPage.map((d, index) => (
+					{dataOnPage.map(d => (
 						<DataTr
 							{...{
-								key: index,
+								key: d.code,
 								data: d,
 								checkedData,
 								setCheckedData,

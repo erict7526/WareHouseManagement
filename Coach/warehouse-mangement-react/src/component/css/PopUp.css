@@ -9,10 +9,10 @@
 }
 .pop-up {
 	position: absolute;
-	top: 50%;
+	padding: 25px;
+	top: 40%;
 	left: 50%;
-	width: 60%;
-	height: 55%;
+	width: 45%;
 	box-shadow: 2px 2px 10px 1px #262626;
 	border-radius: 15px;
 	background: #414141;
@@ -24,20 +24,22 @@
 }
 
 .pop-up table {
-	margin: 80px auto 20px;
-	width: 80%;
+	width: 100%;
+	margin: 0 auto;
 	color: white;
 	text-align: left;
+	border-collapse: collapse;
 }
-.pop-up table td {
-	padding: 5px 0;
+.pop-up table td,
+th {
+	padding: 5px;
+	border-bottom: 1px solid white;
 }
 .pop-up form {
 	display: flex;
 	flex-direction: column;
 	margin: 10px auto;
 	align-items: center;
-	width: 80%;
 }
 
 .pop-up form p {
@@ -47,10 +49,50 @@
 	background: none;
 	border: none;
 	border-bottom: 1px solid white;
-	width: 40%;
+	width: 15%;
 	line-height: 30px;
 	font-size: 16px;
 	color: white;
 	text-align: center;
-	margin: 30px auto;
+	margin: 10px auto;
+}
+.pop-up .button {
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+}
+
+.pop-up .button button {
+	margin: 0 auto;
+	width: 7em;
+	height: 2.5em;
+	font-size: 14px;
+	border: none;
+	border-radius: 10px;
+	margin: 10px;
+	color: white;
+}
+
+#cancel-button {
+	background: #fd8008;
+}
+
+#cancel-button:hover {
+	background: #fd9526;
+}
+
+#cancel-button:active {
+	background: #ed6b00;
+}
+
+#add-on-button {
+	background: #339999;
+}
+
+#add-on-button:hover {
+	background: #44a3af;
+}
+
+#add-on-button:active {
+	background: #1b7c85;
 }

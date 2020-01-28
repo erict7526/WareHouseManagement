@@ -15,6 +15,7 @@ function PopUp(props) {
 			className={"block " + (hide ? "hide" : "")}
 			onClick={() => {
 				setClickedOn({});
+				setPopUpStockOutNum(0);
 			}}
 		>
 			<div
@@ -73,10 +74,9 @@ function PopUp(props) {
 				</form>
 				<div className="button">
 					<button
-						className="cancel-button"
+						id="cancel-button"
 						onClick={e => {
 							e.preventDefault();
-							console.log("cancel button trigger");
 							setClickedOn({});
 							setPopUpStockOutNum(0);
 						}}
@@ -86,7 +86,6 @@ function PopUp(props) {
 					<button
 						onClick={e => {
 							e.preventDefault();
-							console.log("form trigger");
 							if (
 								!Number.isInteger(
 									parseInt(popUpStockOutNum, 10)
@@ -105,6 +104,7 @@ function PopUp(props) {
 								setPopUpStockOutNum(0);
 							}
 						}}
+						id="add-on-button"
 					>
 						加入
 					</button>
