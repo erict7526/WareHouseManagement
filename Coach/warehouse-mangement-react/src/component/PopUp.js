@@ -47,7 +47,6 @@ function PopUp(props) {
 				<form
 					onSubmit={e => {
 						e.preventDefault();
-						console.log("form trigger");
 						if (!Number.isInteger(parseInt(popUpStockOutNum, 10))) {
 							setPopUpStockOutNum(0);
 							return;
@@ -118,5 +117,3 @@ function PopUp(props) {
 	return element;
 }
 export default PopUp;
-
-function handleAddon(e) {}

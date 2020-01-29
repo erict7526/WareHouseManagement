@@ -6,13 +6,13 @@ function Table(props) {
 	const data = props.data;
 	const checkedData = props.checkedData;
 	const setCheckedData = props.setCheckedData;
+	const setClickedOn = props.setClickedOn;
 	const [page, setPage] = useState(0);
 	const [rowPerPage, setRowPerPage] = useState(10);
 	let dataOnPage = data.slice(
 		rowPerPage * page,
 		rowPerPage * page + rowPerPage
 	);
-	const setClickedOn = props.setClickedOn;
 
 	let emptyRow = rowPerPage - dataOnPage.length;
 
@@ -43,7 +43,7 @@ function Table(props) {
 					{emptyRow > 0 && (
 						<tr
 							style={{
-								height: emptyRow * 42 + 5 + "px"
+								height: emptyRow * 49 + 5 + "px"
 							}}
 						></tr>
 					)}
