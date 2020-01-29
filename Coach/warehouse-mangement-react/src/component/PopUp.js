@@ -70,6 +70,9 @@ function PopUp(props) {
 						onChange={e => {
 							setPopUpStockOutNum(e.target.value);
 						}}
+						ref={input => {
+							input && input.focus();
+						}}
 					/>
 				</form>
 				<div className="button">

@@ -35,6 +35,7 @@ function LoginView(props) {
 								onChange={e => {
 									setUsername(e.target.value);
 								}}
+								autoFocus
 							/>
 						</div>
 						<div className="input_field">
