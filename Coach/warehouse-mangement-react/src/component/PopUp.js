@@ -23,6 +23,7 @@ function PopUp(props) {
 			onClick={() => {
 				setClickedOn({});
 				setPopUpStockOutNum(0);
+				setTmpValue(0);
 			}}
 		>
 			<div
@@ -56,6 +57,7 @@ function PopUp(props) {
 						e.preventDefault();
 						if (!Number.isInteger(parseInt(popUpStockOutNum, 10))) {
 							setPopUpStockOutNum(0);
+							setTmpValue(0);
 							return;
 						}
 						const item = {
@@ -66,6 +68,7 @@ function PopUp(props) {
 							setCheckedData([...checkedData, item]);
 							setClickedOn({});
 							setPopUpStockOutNum(0);
+							setTmpValue(0);
 						}
 						if (clickOnCheck) {
 							const checkedData_tmp = checkedData;
@@ -77,6 +80,7 @@ function PopUp(props) {
 							setCheckedData(checkedData_tmp);
 							setClickedOn({});
 							setPopUpStockOutNum(0);
+							setTmpValue(0);
 						}
 					}}
 				>
@@ -99,6 +103,7 @@ function PopUp(props) {
 							e.preventDefault();
 							setClickedOn({});
 							setPopUpStockOutNum(0);
+							setTmpValue(0);
 						}}
 					>
 						取消
@@ -112,16 +117,30 @@ function PopUp(props) {
 								)
 							) {
 								setPopUpStockOutNum(0);
+								setTmpValue(0);
 								return;
 							}
 							const item = {
 								thing: clickedOn,
 								num: parseInt(popUpStockOutNum, 10)
 							};
-							if (popUpStockOutNum !== 0) {
+							if (!clickOnCheck && popUpStockOutNum !== 0) {
 								setCheckedData([...checkedData, item]);
 								setClickedOn({});
 								setPopUpStockOutNum(0);
+								setTmpValue(0);
+							}
+							if (clickOnCheck) {
+								const checkedData_tmp = checkedData;
+								checkedData_tmp[
+									checkedData.findIndex(
+										item => item === clickOnCheck
+									)
+								].num = parseInt(popUpStockOutNum, 10);
+								setCheckedData(checkedData_tmp);
+								setClickedOn({});
+								setPopUpStockOutNum(0);
+								setTmpValue(0);
 							}
 						}}
 						id="add-on-button"
