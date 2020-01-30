@@ -14,7 +14,8 @@ function PrintStockOutView(props) {
 					data: checkedData.map(item => item.thing),
 					checkedData,
 					setCheckedData,
-					setClickedOn
+					setClickedOn,
+					from_where: "print"
 				}}
 			/>
 		</div>

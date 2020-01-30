@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import "./css/Table.css";
 import { ButtonWithNum } from "./ButtonWithNum.js";
+import { useHistory } from "react-router-dom";
 
 function Table(props) {
 	const data = props.data;
 	const checkedData = props.checkedData;
 	const setCheckedData = props.setCheckedData;
 	const setClickedOn = props.setClickedOn;
+	const from_where = props.from_where;
 	const [page, setPage] = useState(0);
 	const [rowPerPage, setRowPerPage] = useState(10);
 	let dataOnPage = data.slice(
@@ -56,7 +58,8 @@ function Table(props) {
 					data,
 					rowPerPage,
 					setRowPerPage,
-					checkedData
+					checkedData,
+					from_where
 				}}
 			/>
 		</div>
@@ -144,6 +147,8 @@ function TableFooter(props) {
 	const [rowPerPage, setRowPerPage] = [props.rowPerPage, props.setRowPerPage];
 	const data = props.data;
 	const checkedData = props.checkedData;
+	const from_where = props.from_where;
+	const history = useHistory();
 	let element;
 	element = (
 		<div className="tableFooter">
@@ -186,7 +191,21 @@ function TableFooter(props) {
 				</button>
 			</div>
 			<div className="tableFooter-right-area">
-				<ButtonWithNum checkedData={checkedData} />
+				{from_where === "search" ? (
+					<ButtonWithNum checkedData={checkedData} />
+				) : (
+					<div className="print-page">
+						<button id="print-button">列印</button>
+						<button
+							id="back-to-search"
+							onClick={() => {
+								history.push("./main/stock_out/search");
+							}}
+						>
+							返回
+						</button>
+					</div>
+				)}
 			</div>
 		</div>
 	);

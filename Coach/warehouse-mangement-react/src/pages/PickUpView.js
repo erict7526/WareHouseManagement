@@ -95,7 +95,8 @@ function SearchResult(props) {
 						data: testData,
 						checkedData,
 						setCheckedData,
-						setClickedOn
+						setClickedOn,
+						from_where: "search"
 					}}
 				/>
 			</div>

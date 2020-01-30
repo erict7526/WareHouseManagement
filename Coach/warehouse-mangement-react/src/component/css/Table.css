@@ -38,6 +38,8 @@ tr:last-child td {
 .Table .tableFooter .tableFooter-left-area {
 	display: flex;
 	font-size: 16px;
+	justify-content: center;
+	flex: 1;
 }
 
 .Table .tableFooter .tableFooter-left-area select {
@@ -52,6 +54,7 @@ tr:last-child td {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex: 1;
 }
 
 .Table .tableFooter .tableFooter-center-area .page-num {
@@ -60,7 +63,39 @@ tr:last-child td {
 }
 
 .Table .tableFooter .tableFooter-right-area {
+	display: flex;
 	justify-content: center;
+	flex: 1;
+}
+
+.Table .tableFooter .tableFooter-right-area .print-page button {
+	margin: 10px;
+	border: none;
+	border-radius: 10px;
+	width: 5em;
+	height: 2.2em;
+	font-size: 16px;
+	color: white;
+}
+
+.Table .tableFooter .tableFooter-right-area .print-page #print-button {
+	background: #339999;
+}
+.Table .tableFooter .tableFooter-right-area .print-page #print-button:hover {
+	background: #44a3af;
+}
+.Table .tableFooter .tableFooter-right-area .print-page #print-button:active {
+	background: #1b7c85;
+}
+
+.Table .tableFooter .tableFooter-right-area .print-page #back-to-search {
+	background: #fd8008;
+}
+.Table .tableFooter .tableFooter-right-area .print-page #back-to-search:hover {
+	background: #fd9526;
+}
+.Table .tableFooter .tableFooter-right-area .print-page #back-to-search:active {
+	background: #ed6b00;
 }
 
 .Table .tableFooter .pageBtn {
