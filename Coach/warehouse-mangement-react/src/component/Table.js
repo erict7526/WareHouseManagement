@@ -80,14 +80,12 @@ function DataTr(props) {
 		<tr
 			className={checked ? "checkedData" : "rowContent"}
 			onClick={() => {
-				if (!checked) {
-					setClickedOn(data);
-				}
+				setClickedOn(data);
 			}}
 		>
 			<td className="data-code">{data["code"]}</td>
 			<td className="data-name">{data["name"]}</td>
-			<td className="data-specifcation">{data["specification"]}</td>
+			<td className="data-specification">{data["specification"]}</td>
 			<td className="data-remain-num">{data["remain_num"]}</td>
 			<td
 				className="data-stock-out-input"

@@ -8,6 +8,13 @@ function PopUp(props) {
 	const checkedData = props.checkedData;
 	const setCheckedData = props.setCheckedData;
 	const [popUpStockOutNum, setPopUpStockOutNum] = useState(0);
+	const [tmpValue, setTmpValue] = useState(0);
+	const clickOnCheck = checkedData.find(item => item.thing === clickedOn);
+
+	if (clickOnCheck && tmpValue !== clickOnCheck.num) {
+		setTmpValue(clickOnCheck.num);
+		setPopUpStockOutNum(clickOnCheck.num);
+	}
 
 	let element;
 	element = (
@@ -55,8 +62,19 @@ function PopUp(props) {
 							thing: clickedOn,
 							num: parseInt(popUpStockOutNum, 10)
 						};
-						if (popUpStockOutNum !== 0) {
+						if (!clickOnCheck && popUpStockOutNum !== 0) {
 							setCheckedData([...checkedData, item]);
+							setClickedOn({});
+							setPopUpStockOutNum(0);
+						}
+						if (clickOnCheck) {
+							const checkedData_tmp = checkedData;
+							checkedData_tmp[
+								checkedData.findIndex(
+									item => item === clickOnCheck
+								)
+							].num = parseInt(popUpStockOutNum, 10);
+							setCheckedData(checkedData_tmp);
 							setClickedOn({});
 							setPopUpStockOutNum(0);
 						}
