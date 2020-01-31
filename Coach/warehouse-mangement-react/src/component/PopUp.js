@@ -11,6 +11,38 @@ function PopUp(props) {
 	const [tmpValue, setTmpValue] = useState(0);
 	const clickOnCheck = checkedData.find(item => item.thing === clickedOn);
 
+	const handleResetToExit = () => {
+		setClickedOn({});
+		setPopUpStockOutNum(0);
+		setTmpValue(0);
+	};
+
+	const handleSubmit = () => {
+		if (
+			!Number.isInteger(parseInt(popUpStockOutNum, 10)) ||
+			parseInt(popUpStockOutNum, 10) === 0
+		) {
+			setPopUpStockOutNum(0);
+			setTmpValue(0);
+			return;
+		}
+		const item = {
+			thing: clickedOn,
+			num: parseInt(popUpStockOutNum, 10)
+		};
+		if (!clickOnCheck) {
+			setCheckedData([...checkedData, item]);
+			handleResetToExit();
+		} else {
+			const checkedData_tmp = checkedData;
+			checkedData_tmp[
+				checkedData.findIndex(item => item === clickOnCheck)
+			].num = parseInt(popUpStockOutNum, 10);
+			setCheckedData(checkedData_tmp);
+			handleResetToExit();
+		}
+	};
+
 	if (clickOnCheck && tmpValue !== clickOnCheck.num) {
 		setTmpValue(clickOnCheck.num);
 		setPopUpStockOutNum(clickOnCheck.num);
@@ -21,9 +53,7 @@ function PopUp(props) {
 		<div
 			className={"block " + (hide ? "hide" : "")}
 			onClick={() => {
-				setClickedOn({});
-				setPopUpStockOutNum(0);
-				setTmpValue(0);
+				handleResetToExit();
 			}}
 		>
 			<div
@@ -55,33 +85,7 @@ function PopUp(props) {
 				<form
 					onSubmit={e => {
 						e.preventDefault();
-						if (!Number.isInteger(parseInt(popUpStockOutNum, 10))) {
-							setPopUpStockOutNum(0);
-							setTmpValue(0);
-							return;
-						}
-						const item = {
-							thing: clickedOn,
-							num: parseInt(popUpStockOutNum, 10)
-						};
-						if (!clickOnCheck && popUpStockOutNum !== 0) {
-							setCheckedData([...checkedData, item]);
-							setClickedOn({});
-							setPopUpStockOutNum(0);
-							setTmpValue(0);
-						}
-						if (clickOnCheck) {
-							const checkedData_tmp = checkedData;
-							checkedData_tmp[
-								checkedData.findIndex(
-									item => item === clickOnCheck
-								)
-							].num = parseInt(popUpStockOutNum, 10);
-							setCheckedData(checkedData_tmp);
-							setClickedOn({});
-							setPopUpStockOutNum(0);
-							setTmpValue(0);
-						}
+						handleSubmit();
 					}}
 				>
 					<p>領取數量</p>
@@ -101,9 +105,7 @@ function PopUp(props) {
 						id="cancel-button"
 						onClick={e => {
 							e.preventDefault();
-							setClickedOn({});
-							setPopUpStockOutNum(0);
-							setTmpValue(0);
+							handleResetToExit();
 						}}
 					>
 						取消
@@ -111,37 +113,7 @@ function PopUp(props) {
 					<button
 						onClick={e => {
 							e.preventDefault();
-							if (
-								!Number.isInteger(
-									parseInt(popUpStockOutNum, 10)
-								)
-							) {
-								setPopUpStockOutNum(0);
-								setTmpValue(0);
-								return;
-							}
-							const item = {
-								thing: clickedOn,
-								num: parseInt(popUpStockOutNum, 10)
-							};
-							if (!clickOnCheck && popUpStockOutNum !== 0) {
-								setCheckedData([...checkedData, item]);
-								setClickedOn({});
-								setPopUpStockOutNum(0);
-								setTmpValue(0);
-							}
-							if (clickOnCheck) {
-								const checkedData_tmp = checkedData;
-								checkedData_tmp[
-									checkedData.findIndex(
-										item => item === clickOnCheck
-									)
-								].num = parseInt(popUpStockOutNum, 10);
-								setCheckedData(checkedData_tmp);
-								setClickedOn({});
-								setPopUpStockOutNum(0);
-								setTmpValue(0);
-							}
+							handleSubmit();
 						}}
 						id="add-on-button"
 					>
