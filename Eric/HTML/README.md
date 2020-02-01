@@ -154,7 +154,8 @@ Html Tag| Description
 
 ----
 ## Related pages
-* [MDN web docs](https://github.com/evilstreak/markdown-js)
-* [w3schools.com](https://github.com/evilstreak/markdown-js)
+* [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element#Forms)
+* [w3schools.com](https://www.w3schools.com/tags/ref_byfunc.asp)
 * [Emmet Cheat Sheet](https://docs.emmet.io/cheat-sheet/)
+
 
