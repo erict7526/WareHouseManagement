@@ -135,25 +135,25 @@ CSS 選擇器能透過幾種不同的組合方式來選擇特定的元件。
     <!-- 緊接著在 div 之後的 p 才會被選擇  -->
     ```
 
-更多選擇器組合的方式可參閱：[CSS Selector Reference](https://www.w3schools.com/cssref/css_selectors.asp){:target="\_blank"}
+更多選擇器組合的方式可參閱：[CSS Selector Reference](https://www.w3schools.com/cssref/css_selectors.asp)
 
 ## 顏色
 
 在 CSS 中可以利用許多方式表示顏色，常見都方式有直接使用名稱、rgb 函式、Hex color code (十六進制色碼表示法)。
 
--   顏色名稱：在 CSS 共有 [140 種](https://www.w3schools.com/colors/colors_names.asp){:target="\_blank"}預先定義好的顏色名稱，例如：grey、lightgrey、red、skyblue ......等。
+-   顏色名稱：在 CSS 共有 [140 種](https://www.w3schools.com/colors/colors_names.asp)預先定義好的顏色名稱，例如：grey、lightgrey、red、skyblue ......等。
     ```css
     p {
         background: skyblue;
     }
     ```
--   rgb、rgba 函式：利用指定紅、綠、藍及透明度來表示顏色，0 為全無，255 為全滿，透明度 0 為透明，1 為不透明，rgba(0~255,0~255,0~255,0~1)。
+-   rgb、rgba 函式：利用指定紅、綠、藍及透明度來表示顏色，0 為全無，255 為全滿，透明度 0 為透明，1 為不透明，rgba(0\~255,0\~255,0\~255,0\~1)。
     ```css
     p {
         background: rgba(120, 62, 33, 0.4);
     }
     ```
--   Hex color code：與 rgba 類似，以#開頭依序以兩碼 16 進制數字表示色碼，依序為紅、綠、藍及透明度，與 rgba 不同的是透明度範圍為 0~255，例：#f5e15613。  亦可將兩碼縮為一碼，若將兩碼縮為一碼，則會自動將其重複，所以有時候也能看到 3 碼或 4 碼的表示法，例：#345 = #334455、#b56e = #bb5566ee。
+-   Hex color code：與 rgba 類似，以#開頭依序以兩碼 16 進制數字表示色碼，依序為紅、綠、藍及透明度，與 rgba 不同的是透明度範圍為 0\~255，例：#f5e15613。  亦可將兩碼縮為一碼，若將兩碼縮為一碼，則會自動將其重複，所以有時候也能看到 3 碼或 4 碼的表示法，例：#345 = #334455、#b56e = #bb5566ee。
     ```css
     p {
         background: #784021;
