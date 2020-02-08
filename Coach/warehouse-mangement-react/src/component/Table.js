@@ -131,9 +131,18 @@ function DataTr(props) {
 						{checked ? (
 							<i className="fas fa-times"></i>
 						) : (
-							<i className="fas fa-plus"></i>
+							<i className="fas fa-upload"></i>
 						)}
 					</button>
+					{checked ? (
+						""
+					) : (
+						<button
+							className={checked ? "checkedButton" : "button"}
+						>
+							<i className="fas fa-download"></i>
+						</button>
+					)}
 				</form>
 			</td>
 		</tr>
