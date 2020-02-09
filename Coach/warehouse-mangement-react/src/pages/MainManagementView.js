@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import { Redirect, Route, Switch, NavLink } from "react-router-dom";
 import react_logo from "../image/react-logo.png";
 import "../css/MainManagementView.css";
-import PickUpView from "./PickUpView.js";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Table } from "../component/Table.js";
 
 const testData = Array(21)
 	.fill(0)
@@ -45,25 +45,14 @@ function MainManagementView({ match, history, ...props }) {
 				</div>
 			</div>
 			<div className="content_area">
-				<Switch>
-					<Route
-						path={`${match.url}/:where`}
-						render={props => (
-							<ContentView
-								{...props}
-								{...{
-									stockOutItem,
-									setStockOutItem,
-									stockInItem,
-									setStockInItem
-								}}
-							/>
-						)}
-					/>
-					<Route path={`${match.url}`}>
-						<Redirect to={`${match.url}/search`} />
-					</Route>
-				</Switch>
+				<TopBar
+					{...{
+						stockOutItem,
+						setStockOutItem,
+						stockInItem,
+						setStockInItem
+					}}
+				/>
 			</div>
 		</div>
 	);
@@ -75,63 +64,35 @@ function MainManagementView({ match, history, ...props }) {
 
 export default MainManagementView;
 
-function ContentView({
-	stockOutItem,
-	setStockOutItem,
-	stockInItem,
-	setStockInItem,
-	...props
-}) {
-	const where = props.match.params.where;
-
-	switch (where) {
-		case "stock_out":
-			return <h1>out</h1>;
-		case "stock_in":
-			return <h1>in</h1>;
-		case "new":
-			return <h1>new</h1>;
-		default:
-			return (
-				<SearchView
-					{...{
-						stockOutItem,
-						setStockOutItem,
-						stockInItem,
-						setStockInItem,
-						where
-					}}
-				/>
-			);
-	}
-}
-
-function SearchView(props) {
-	const [search_text, setSearchText] = useState("");
-	const stockOutItem = props.stockOutItem;
-	const setStockOutItem = props.setStockOutItem;
-	const stockInItem = props.stockInItem;
-	const setStockInItem = props.setStockInItem;
-	const where = props.where;
-
+function TopBar(props) {
+	const [searchText, setSearchText] = useState("");
 	let element = (
-		<div className="search-center-area">
-			<div className="search-bar">
-				<div>
-					<button>
-						<i className="fas fa-arrow-left"></i>
-					</button>
-				</div>
+		<div className="top-bar">
+			<div>
+				<Switch>
+					<Route path="/main/search"></Route>
+					<Route path="/">
+						<NavLink
+							to="/main/search"
+							className="nav-link"
+							activeClassName="active-link"
+						>
+							<i className="fas fa-arrow-left"></i>
+						</NavLink>
+					</Route>
+				</Switch>
+			</div>
+			<div>
 				<form
 					onSubmit={e => {
 						e.preventDefault();
-						console.log(search_text);
+						console.log(searchText);
 					}}
 				>
 					<input
 						type="text"
 						placeholder="Search"
-						value={search_text}
+						value={searchText}
 						onChange={e => {
 							setSearchText(e.target.value);
 						}}
@@ -140,24 +101,29 @@ function SearchView(props) {
 						<i className="fas fa-search"></i>
 					</button>
 				</form>
-				<div>
-					<button>in</button>
-					<button>out</button>
-					<button>new</button>
-				</div>
 			</div>
-
-			<div className="search-result">
-				<Table
-					{...{
-						data: testData,
-						stockOutItem,
-						setStockOutItem,
-						stockInItem,
-						setStockInItem,
-						where
-					}}
-				/>
+			<div>
+				<NavLink
+					to="/main/stock_out"
+					className="nav-link"
+					activeClassName="active-link"
+				>
+					<i className="fas fa-upload"></i>
+				</NavLink>
+				<NavLink
+					to="/main/stock_in"
+					className="nav-link"
+					activeClassName="active-link"
+				>
+					<i className="fas fa-download"></i>
+				</NavLink>
+				<NavLink
+					to="/main/new_item"
+					className="nav-link"
+					activeClassName="active-link"
+				>
+					<i className="fas fa-plus"></i>
+				</NavLink>
 			</div>
 		</div>
 	);

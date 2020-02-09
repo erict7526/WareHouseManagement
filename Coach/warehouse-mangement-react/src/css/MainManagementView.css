@@ -1,17 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap");
-
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	outline: none;
-	list-style: none;
-	text-decoration: none;
-	font-family: "Roboto Mono", monospace;
-}
-
 .main_management_view_wrappr {
-	height: 100%;
 	background: #353535;
 	overflow: auto;
 }
@@ -23,7 +10,6 @@
 	background: #347474;
 	align-items: center;
 	color: #fff1cf;
-	position: fixed;
 	box-shadow: 0 3px 12px -1px #262626;
 	border-radius: 0 0 5px 5px;
 	z-index: 10;
@@ -82,6 +68,30 @@
 }
 
 .main_management_view_wrappr .content_area {
+	padding: 50px;
+	margin: 80px auto;
+	width: 80%;
+	border-radius: 10px;
+	background: #414141;
+	box-shadow: 3px 3px 12px -1px #262626;
+}
+
+.main_management_view_wrappr .top-bar {
 	display: flex;
-	padding-top: 100px;
+	height: 50px;
+	align-items: center;
+}
+
+.main_management_view_wrappr .top-bar .nav-link {
+	background: red;
+}
+
+.main_management_view_wrappr .top-bar .active-link {
+	background: blue;
+}
+
+.main_management_view_wrappr .top-bar div {
+	flex: 1;
+	display: flex;
+	justify-content: center;
 }

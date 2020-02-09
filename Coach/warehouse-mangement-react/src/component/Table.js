@@ -4,9 +4,9 @@ import { ButtonWithNum } from "./ButtonWithNum.js";
 import { useHistory } from "react-router-dom";
 
 function Table({
-	stockOutItem = null,
+	stockOutItem = [],
 	setStockOutItem = null,
-	stockInItem = null,
+	stockInItem = [],
 	setStockInItem = null,
 	...props
 }) {
@@ -66,8 +66,7 @@ function Table({
 					data,
 					rowPerPage,
 					setRowPerPage,
-					checkedData,
-					from_where
+					where
 				}}
 			/>
 		</div>
@@ -78,18 +77,33 @@ function Table({
 
 function DataTr(props) {
 	const data = props.data;
-	const checkedData = props.checkedData;
-	const setCheckedData = props.setCheckedData;
+	const stockOutItem = props.stockOutItem;
+	const setStockOutItem = props.setStockOutItem;
+	const stockInItem = props.stockInItem;
+	const setStockInItem = props.setStockInItem;
 	const setClickedOn = props.setClickedOn;
-	const [stockOutNum, setStockOutNum] = useState(0);
-	const checked = checkedData.find(item => item.thing === data);
-	if (checked && checked.num !== stockOutNum) {
-		setStockOutNum(checked.num);
+	const [inputNum, setInputNum] = useState(0);
+	const isInStockOut = stockOutItem.find(item => item.thing === data);
+	const isInStockIn = stockInItem.find(item => item.thing === data);
+
+	if (isInStockOut && isInStockOut.num !== inputNum) {
+		setInputNum(isInStockOut.num);
 	}
+
+	if (isInStockIn && isInStockIn.num !== inputNum) {
+		setInputNum(isInStockIn.num);
+	}
+
 	let element;
 	element = (
 		<tr
-			className={checked ? "checkedData" : "rowContent"}
+			className={
+				isInStockOut
+					? "in-stock-out"
+					: isInStockIn
+					? "in-stock-in"
+					: "rowContent"
+			}
 			onClick={() => {
 				setClickedOn(data);
 			}}
@@ -99,7 +113,7 @@ function DataTr(props) {
 			<td className="data-specification">{data["specification"]}</td>
 			<td className="data-remain-num">{data["remain_num"]}</td>
 			<td
-				className="data-stock-out-input"
+				className="data-input"
 				onClick={e => {
 					e.stopPropagation();
 				}}
@@ -107,46 +121,32 @@ function DataTr(props) {
 				<form
 					onSubmit={e => {
 						e.preventDefault();
-						if (!Number.isInteger(parseInt(stockOutNum, 10))) {
-							setStockOutNum(0);
-							return;
-						}
-						if (checked) {
-							setCheckedData(
-								checkedData.filter(d => d.thing !== data)
-							);
-							setStockOutNum(0);
-						} else if (stockOutNum !== 0) {
-							const item = {
-								thing: data,
-								num: parseInt(stockOutNum, 10)
-							};
-							setCheckedData([...checkedData, item]);
-						} else {
-							setClickedOn(data);
-						}
 					}}
 				>
 					<input
 						type="text"
 						className="input"
-						value={stockOutNum}
+						value={inputNum}
 						onChange={e => {
-							setStockOutNum(e.target.value);
+							setInputNum(e.target.value);
 						}}
 					/>
-					<button className={checked ? "checkedButton" : "button"}>
-						{checked ? (
+					<button
+						className={isInStockOut ? "checkedButton" : "button"}
+					>
+						{isInStockOut ? (
 							<i className="fas fa-times"></i>
 						) : (
 							<i className="fas fa-upload"></i>
 						)}
 					</button>
-					{checked ? (
+					{isInStockOut ? (
 						""
 					) : (
 						<button
-							className={checked ? "checkedButton" : "button"}
+							className={
+								isInStockOut ? "checkedButton" : "button"
+							}
 						>
 							<i className="fas fa-download"></i>
 						</button>
@@ -163,8 +163,7 @@ function TableFooter(props) {
 	const [page, setPage] = [props.page, props.setPage];
 	const [rowPerPage, setRowPerPage] = [props.rowPerPage, props.setRowPerPage];
 	const data = props.data;
-	const checkedData = props.checkedData;
-	const from_where = props.from_where;
+	const where = props.where;
 	const history = useHistory();
 	let element;
 	element = (
@@ -207,23 +206,7 @@ function TableFooter(props) {
 					>
 				</button>
 			</div>
-			<div className="tableFooter-right-area">
-				{from_where === "search" ? (
-					<ButtonWithNum checkedData={checkedData} />
-				) : (
-					<div className="print-page">
-						<button id="print-button">列印</button>
-						<button
-							id="back-to-search"
-							onClick={() => {
-								history.push("./main/stock_out/search");
-							}}
-						>
-							返回
-						</button>
-					</div>
-				)}
-			</div>
+			<div className="tableFooter-right-area"></div>
 		</div>
 	);
 	return element;

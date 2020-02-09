@@ -22,7 +22,7 @@ function LoginView(props) {
 					<form
 						onSubmit={() => {
 							handleLogin(username, password, setIsUserLogin);
-							history.push("/main");
+							history.push("/main/search");
 						}}
 					>
 						<div className="input_field">
