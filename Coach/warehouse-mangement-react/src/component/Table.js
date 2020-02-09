@@ -3,12 +3,17 @@ import "./css/Table.css";
 import { ButtonWithNum } from "./ButtonWithNum.js";
 import { useHistory } from "react-router-dom";
 
-function Table(props) {
+function Table({
+	stockOutItem = null,
+	setStockOutItem = null,
+	stockInItem = null,
+	setStockInItem = null,
+	...props
+}) {
 	const data = props.data;
-	const checkedData = props.checkedData;
-	const setCheckedData = props.setCheckedData;
-	const setClickedOn = props.setClickedOn;
-	const from_where = props.from_where;
+	const where = props.where;
+
+	const [clickedOn, setClickedOn] = useState({});
 	const [page, setPage] = useState(0);
 	const [rowPerPage, setRowPerPage] = useState(10);
 	let dataOnPage = data.slice(
@@ -36,8 +41,11 @@ function Table(props) {
 							{...{
 								key: d.code,
 								data: d,
-								checkedData,
-								setCheckedData,
+								stockOutItem,
+								setStockOutItem,
+								stockInItem,
+								setStockInItem,
+								where,
 								setClickedOn
 							}}
 						/>

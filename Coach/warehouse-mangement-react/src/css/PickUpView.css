@@ -13,14 +13,11 @@
 	width: 85%;
 }
 
-.pick-up-view-wrapper .search-center-area .search-bar form {
+.pick-up-view-wrapper .search-center-area .search-bar {
 	height: 50px;
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
 	align-items: center;
-	width: 100%;
-	margin-bottom: 20px;
-	position: relative;
 }
 
 .pick-up-view-wrapper .search-center-area .search-bar input {

@@ -69,6 +69,11 @@ function SearchResult(props) {
 	let element = (
 		<div className="search-center-area">
 			<div className="search-bar">
+				<div>
+					<button>
+						<i className="fas fa-arrow-left"></i>
+					</button>
+				</div>
 				<form
 					onSubmit={e => {
 						e.preventDefault();
@@ -87,6 +92,11 @@ function SearchResult(props) {
 						<i className="fas fa-search"></i>
 					</button>
 				</form>
+				<div>
+					<button>in</button>
+					<button>out</button>
+					<button>new</button>
+				</div>
 			</div>
 
 			<div className="search-result">
