@@ -18,12 +18,12 @@ CSS 由選擇器(Selector)後面跟著一個描述區塊(Declaration Block)組�
 ```css
 /* 選擇器 { 描述區塊 } */
 p {
-	/* 屬性：值 */
-	color: blue;
-	display: inline;
-	width: 300px;
-	border: 1px solid red;
-	margin: 20px auto 0;
+    /* 屬性：值 */
+    color: blue;
+    display: inline;
+    width: 300px;
+    border: 1px solid red;
+    margin: 20px auto 0;
 }
 ```
 
@@ -36,15 +36,15 @@ p {
 -   內部 CSS(Internal CSS): 直接將 CSS 定義在`<head></head>`裡的`<style></style>`標籤之中。例：
     ```html
     <head>
-    	<style>
-    		body {
-    			background-color: linen;
-    		}
-    		h1 {
-    			color: maroon;
-    			margin-left: 40px;
-    		}
-    	</style>
+        <style>
+            body {
+                background-color: linen;
+            }
+            h1 {
+                color: maroon;
+                margin-left: 40px;
+            }
+        </style>
     </head>
     ```
 -   行內 CSS(Inline CSS):將 CSS 定義在元件本身的 style attribute 之中。例：
@@ -61,7 +61,7 @@ CSS 利用元件的名稱、Class 或 Id 來選擇要套用樣式的元件。
 
     ```css
     h1 {
-    	padding: 1em;
+        padding: 1em;
     }
     ```
 
@@ -69,7 +69,7 @@ CSS 利用元件的名稱、Class 或 Id 來選擇要套用樣式的元件。
 
     ```css
     .round-button {
-    	border-radius: 10px;
+        border-radius: 10px;
     }
     ```
 
@@ -81,7 +81,7 @@ CSS 利用元件的名稱、Class 或 Id 來選擇要套用樣式的元件。
 
     ```css
     #unique-id {
-    	color: red;
+        color: red;
     }
     ```
 
@@ -97,8 +97,8 @@ CSS 選擇器能透過幾種不同的組合方式來選擇特定的元件。
 
     ```css
     .big.round {
-    	width: 1000px;
-    	border-radius: 200px;
+        width: 1000px;
+        border-radius: 200px;
     }
     ```
 
@@ -110,13 +110,13 @@ CSS 選擇器能透過幾種不同的組合方式來選擇特定的元件。
 
     ```css
     div p {
-    	background: #005696;
+        background: #005696;
     } /* 選擇在 div 中的 p */
     ```
 
     ```html
     <div>
-    	<p>被選擇</p>
+        <p>被選擇</p>
     </div>
     ```
 
@@ -124,16 +124,16 @@ CSS 選擇器能透過幾種不同的組合方式來選擇特定的元件。
 
     ```css
     .class1 .class2 {
-    	border: 1px solid balck;
+        border: 1px solid balck;
     }
     ```
 
     ```html
     <div class="class1">
-    	<div class="middle-class">
-    		<!-- 為後代即可 -->
-    		<button class="class2">被選擇</button>
-    	</div>
+        <div class="middle-class">
+            <!-- 為後代即可 -->
+            <button class="class2">被選擇</button>
+        </div>
     </div>
     ```
 
@@ -141,19 +141,19 @@ CSS 選擇器能透過幾種不同的組合方式來選擇特定的元件。
     ```css
     th,
     td {
-    	padding: 5px;
+        padding: 5px;
     } /* th 與 td 皆有 padding 5px */
     ```
 -   將選擇器以加號相連：選擇器以加號相連接表示緊接著的元件。例如：
     ```css
     div + p {
-    	background: yellow;
+        background: yellow;
     }
     ```
     ```html
     <div>
-    	<h1></h1>
-    	<p>未被選擇</p>
+        <h1></h1>
+        <p>未被選擇</p>
     </div>
     <p>被選擇</p>
     <!-- 緊接著在 div 之後的 p 才會被選擇  -->
@@ -168,19 +168,19 @@ CSS 選擇器能透過幾種不同的組合方式來選擇特定的元件。
 -   顏色名稱：在 CSS 共有 [140 種](https://www.w3schools.com/colors/colors_names.asp)預先定義好的顏色名稱，例如：grey、lightgrey、red、skyblue ......等。
     ```css
     p {
-    	background: skyblue;
+        background: skyblue;
     }
     ```
 -   rgb、rgba 函式：利用指定紅、綠、藍及透明度來表示顏色，0 為全無，255 為全滿，透明度 0 為透明，1 為不透明，rgba(0\~255,0\~255,0\~255,0\~1)。
     ```css
     p {
-    	background: rgba(120, 62, 33, 0.4);
+        background: rgba(120, 62, 33, 0.4);
     }
     ```
 -   Hex color code：與 rgba 類似，以#開頭依序以兩碼 16 進制數字表示色碼，依序為紅、綠、藍及透明度，與 rgba 不同的是透明度範圍為 0\~255，例：#f5e15613。  亦可將兩碼縮為一碼，若將兩碼縮為一碼，則會自動將其重複，所以有時候也能看到 3 碼或 4 碼的表示法，例：#345 = #334455、#b56e = #bb5566ee。
     ```css
     p {
-    	background: #784021;
+        background: #784021;
     }
     ```
 
@@ -208,5 +208,35 @@ CSS 單位分為兩種：絕對單位以及相對單位，單位與數值之間�
     -   % : 相對於元件父元件的對應屬性百分比大小。
 
 更多關於單位可以參照：[CSS Units](https://www.w3schools.com/cssref/css_units.asp)。
+
+## 常用屬性
+
+-   margin : 元件邊界與其他元件的距離，你可以使用 margin-top、margin-right、margin-bottom、margin-left，來指定 margin 的位置，你也可以直接使用 margin 賦予多個值來指定 margin。
+
+    -   1 個值 : `{ margin : 10px; }` 表示 4 個方向 margin 皆為 10px。
+    -   2 個值 : `{ margin : 10px 20px; }` 表示上下 margin 為 10px，左右 margin 為 20px。
+    -   3 個值 : `{ margin : 10px 20px 30px; }` 表示上 margin 為 10px，左右 margin 為 20px，下 margin 為 30px。
+    -   4 個值 : `{ margin : 10px 20px 30px 40px; }` 4 個值依序代表上、右、下、左 margin。
+
+    若把 margin 值設定為 auto，表示要最大化 margin，將左右 margin 設為 auto 可以達到元件置中的效果。
+
+    ![margin_img](./img/margin.png)
+
+-   padding : 表示元件邊界至其內容的距離，如上圖。如同 margin，padding 也能個別使用 padding-top、padding-right、padding-bottom、padding-left，來表示 padding 位置。不同數量的值對應方位也與 margin 相同。但是 padding 與 margin 不同，並不能使用 auto 來使內部元件置中。
+
+-   border : 為元件的邊界，可以用 border-color、border-style、border-width、border-radius 來塑造邊界，也可以單純的使用 boder 簡短的指定寬度、樣式、顏色。
+
+    -   border : `{ border : 1px solid red;}` 此為 border 簡短語法，數值依序表示寬度、樣式及顏色。
+    -   border-color : 用來指定邊界的顏色，同樣可以利用多個值來指定不同方向之邊界。
+    -   border-width : 用來指定邊界的寬度(粗細)，同樣可以利用多個值來指定不同方向之邊界。
+    -   border-style : 用來指定邊界的樣式，同樣可以利用多個值來指定不同方向之邊界，有 dotted、dashed、solid、double...等等。
+    -   border-radius : 用來指定邊界邊角的圓滑程度，同樣可以利用多個值來指定不同方向之邊界，邊界被削減得部分也同樣會使得元件形狀改變，可以利用`{border-radius : 100%;}`來創造一個圓形元件。
+        多個值的表示方式為：
+        -   4 個值 : 依序為左上、右上、右下、左下。
+        -   3 個值 : 依序為左上、右上及左下、右下。
+        -   2 個值 : 依序為左上及右下、右上及左下。
+        -   1 個值 : 套用至 4 個角。
+
+-   display :
 
 ## 動畫
