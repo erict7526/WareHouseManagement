@@ -19,8 +19,7 @@ function fakeData(id) {
 function MainManagementView({ match, history, ...props }) {
 	const setIsUserLogin = props.setIsUserLogin;
 	const [pageName, setPageName] = useState("出庫");
-	const [stockOutItem, setStockOutItem] = useState([]);
-	const [stockInItem, setStockInItem] = useState([]);
+	const [itemList, setItemList] = useState([]);
 	let element;
 	element = (
 		<div className="main_management_view_wrappr">
@@ -47,18 +46,14 @@ function MainManagementView({ match, history, ...props }) {
 			<div className="content_area">
 				<TopBar
 					{...{
-						stockOutItem,
-						setStockOutItem,
-						stockInItem,
-						setStockInItem
+						itemList,
+						setItemList
 					}}
 				/>
 				<RouteTable
 					{...{
-						stockOutItem,
-						setStockOutItem,
-						stockInItem,
-						setStockInItem
+						itemList,
+						setItemList
 					}}
 				/>
 			</div>
@@ -138,13 +133,7 @@ function TopBar(props) {
 	return element;
 }
 
-function RouteTable({
-	stockOutItem,
-	setStockOutItem,
-	stockInItem,
-	setStockInItem,
-	...props
-}) {
+function RouteTable({ itemList, setItemList, ...props }) {
 	let element;
 	element = (
 		<Switch>
@@ -152,32 +141,30 @@ function RouteTable({
 				<Table
 					{...{
 						data: testData,
-						stockOutItem,
-						setStockOutItem,
-						stockInItem,
-						setStockInItem
+						itemList,
+						setItemList
 					}}
 				/>
 			</Route>
 			<Route path="/main/stock_out">
 				<Table
 					{...{
-						data: stockOutItem.map(item => item.thing),
-						stockOutItem,
-						setStockOutItem,
-						stockInItem,
-						setStockInItem
+						data: itemList
+							.filter(item => item.checkState === "STOCK_OUT")
+							.map(item => item.thing),
+						itemList,
+						setItemList
 					}}
 				/>
 			</Route>
 			<Route path="/main/stock_in">
 				<Table
 					{...{
-						data: stockInItem.map(item => item.thing),
-						stockOutItem,
-						setStockOutItem,
-						stockInItem,
-						setStockInItem
+						data: itemList
+							.filter(item => item.checkState === "STOCK_IN")
+							.map(item => item.thing),
+						itemList,
+						setItemList
 					}}
 				/>
 			</Route>

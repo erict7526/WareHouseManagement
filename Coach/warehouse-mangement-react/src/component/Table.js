@@ -3,13 +3,7 @@ import "./css/Table.css";
 import { ButtonWithNum } from "./ButtonWithNum.js";
 import { useHistory } from "react-router-dom";
 
-function Table({
-	stockOutItem,
-	setStockOutItem,
-	stockInItem,
-	setStockInItem,
-	...props
-}) {
+function Table({ itemList, setItemList, ...props }) {
 	const data = props.data;
 	const [clickedOn, setClickedOn] = useState({});
 	const [page, setPage] = useState(0);
@@ -39,10 +33,8 @@ function Table({
 							{...{
 								key: d.code,
 								data: d,
-								stockOutItem,
-								setStockOutItem,
-								stockInItem,
-								setStockInItem,
+								itemList,
+								setItemList,
 								setClickedOn
 							}}
 						/>
@@ -50,7 +42,7 @@ function Table({
 					{emptyRow > 0 && (
 						<tr
 							style={{
-								height: emptyRow * 42 + 5 + "px"
+								height: emptyRow * 49 + 3 + "px"
 							}}
 						></tr>
 					)}
@@ -73,21 +65,14 @@ function Table({
 
 function DataTr(props) {
 	const data = props.data;
-	const stockOutItem = props.stockOutItem;
-	const setStockOutItem = props.setStockOutItem;
-	const stockInItem = props.stockInItem;
-	const setStockInItem = props.setStockInItem;
-	const setClickedOn = props.setClickedOn;
+	const itemList = props.itemList;
+	const setItemList = props.setItemList;
+	const [clickedOn, setClickedOn] = useState({});
 	const [inputNum, setInputNum] = useState(0);
-	const isInStockOut = stockOutItem.find(item => item.thing === data);
-	const isInStockIn = stockInItem.find(item => item.thing === data);
+	const isInItemList = itemList.find(item => item.thing === data);
 	const [tmpInputNum, setTmpInputNum] = useState(0);
 
-	const CHECK_STATE = isInStockOut
-		? "STOCK_OUT"
-		: isInStockIn
-		? "STOCK_IN"
-		: "NOT_SELECTED";
+	const CHECK_STATE = isInItemList ? isInItemList.checkState : "NOT_CHECKED";
 
 	const handleModify = () => {
 		if (
@@ -97,31 +82,17 @@ function DataTr(props) {
 			setInputNum(0);
 			return;
 		}
-		const item = {
-			thing: data,
-			num: parseInt(inputNum, 10)
-		};
-		if (CHECK_STATE === "STOCK_OUT") {
-			const stockOutItem_tmp = stockOutItem;
-			stockOutItem_tmp[
-				stockOutItem.findIndex(item => item.thing === data)
-			].num = parseInt(inputNum, 10);
-			setStockOutItem(stockOutItem_tmp);
-		} else if (CHECK_STATE === "STOCK_IN") {
-			const stockInItem_tmp = stockInItem;
-			stockInItem_tmp[
-				stockInItem.findIndex(item => item.thing === data)
-			].num = parseInt(inputNum, 10);
-			setStockInItem(stockInItem_tmp);
-		}
+
+		const itemList_tmp = itemList;
+		itemList_tmp[
+			itemList.findIndex(item => item.thing === data)
+		].num = parseInt(inputNum, 10);
+		setItemList(itemList_tmp);
 	};
 
-	if (isInStockOut && isInStockOut.num !== inputNum) {
-		setInputNum(isInStockOut.num);
-	}
-
-	if (isInStockIn && isInStockIn.num !== inputNum) {
-		setInputNum(isInStockIn.num);
+	if (isInItemList && isInItemList.num !== tmpInputNum) {
+		setTmpInputNum(isInItemList.num);
+		setInputNum(isInItemList.num);
 	}
 
 	let element;
@@ -162,6 +133,13 @@ function DataTr(props) {
 						value={inputNum}
 						onChange={e => {
 							setInputNum(e.target.value);
+						}}
+						onBlur={() => {
+							if (isInItemList) {
+								setInputNum(isInItemList.num);
+							} else {
+								setInputNum(0);
+							}
 						}}
 					/>
 					{(() => {
@@ -221,10 +199,11 @@ function DataTr(props) {
 														num: parseInt(
 															inputNum,
 															10
-														)
+														),
+														checkState: "STOCK_OUT"
 													};
-													setStockOutItem([
-														...stockOutItem,
+													setItemList([
+														...itemList,
 														item
 													]);
 												}}
@@ -243,10 +222,11 @@ function DataTr(props) {
 												}
 												const item = {
 													thing: data,
-													num: parseInt(inputNum, 10)
+													num: parseInt(inputNum, 10),
+													checkState: "STOCK_IN"
 												};
-												setStockInItem([
-													...stockInItem,
+												setItemList([
+													...itemList,
 													item
 												]);
 											}}
