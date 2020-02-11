@@ -53,6 +53,14 @@ function MainManagementView({ match, history, ...props }) {
 						setStockInItem
 					}}
 				/>
+				<RouteTable
+					{...{
+						stockOutItem,
+						setStockOutItem,
+						stockInItem,
+						setStockInItem
+					}}
+				/>
 			</div>
 		</div>
 	);
@@ -126,6 +134,55 @@ function TopBar(props) {
 				</NavLink>
 			</div>
 		</div>
+	);
+	return element;
+}
+
+function RouteTable({
+	stockOutItem,
+	setStockOutItem,
+	stockInItem,
+	setStockInItem,
+	...props
+}) {
+	let element;
+	element = (
+		<Switch>
+			<Route path="/main/search">
+				<Table
+					{...{
+						data: testData,
+						stockOutItem,
+						setStockOutItem,
+						stockInItem,
+						setStockInItem
+					}}
+				/>
+			</Route>
+			<Route path="/main/stock_out">
+				<Table
+					{...{
+						data: stockOutItem.map(item => item.thing),
+						stockOutItem,
+						setStockOutItem,
+						stockInItem,
+						setStockInItem
+					}}
+				/>
+			</Route>
+			<Route path="/main/stock_in">
+				<Table
+					{...{
+						data: stockInItem.map(item => item.thing),
+						stockOutItem,
+						setStockOutItem,
+						stockInItem,
+						setStockInItem
+					}}
+				/>
+			</Route>
+			<Route path="/main/new_item"></Route>
+		</Switch>
 	);
 	return element;
 }

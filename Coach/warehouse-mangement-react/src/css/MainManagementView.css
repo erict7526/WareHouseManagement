@@ -1,6 +1,7 @@
 .main_management_view_wrappr {
 	background: #353535;
 	overflow: auto;
+	height: 100vh;
 }
 
 .main_management_view_wrappr .nav {
@@ -74,20 +75,40 @@
 	border-radius: 10px;
 	background: #414141;
 	box-shadow: 3px 3px 12px -1px #262626;
+	height: ;
 }
 
 .main_management_view_wrappr .top-bar {
 	display: flex;
 	height: 50px;
 	align-items: center;
+	margin-bottom: 30px;
 }
 
-.main_management_view_wrappr .top-bar .nav-link {
-	background: red;
+.main_management_view_wrappr .top-bar a {
+	width: 3em;
+	height: 3em;
+	border: none;
+	background: #555656;
+	font-size: 18px;
+	border-radius: 100%;
+	margin: 0 10px;
+	color: #dfe6e9;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.main_management_view_wrappr .top-bar a:hover {
+	background: #808080;
 }
 
 .main_management_view_wrappr .top-bar .active-link {
-	background: blue;
+	background: #ff5800;
+}
+
+.main_management_view_wrappr .top-bar .active-link:hover {
+	background: #fd8f2a;
 }
 
 .main_management_view_wrappr .top-bar div {

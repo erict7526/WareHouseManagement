@@ -4,15 +4,13 @@ import { ButtonWithNum } from "./ButtonWithNum.js";
 import { useHistory } from "react-router-dom";
 
 function Table({
-	stockOutItem = [],
-	setStockOutItem = null,
-	stockInItem = [],
-	setStockInItem = null,
+	stockOutItem,
+	setStockOutItem,
+	stockInItem,
+	setStockInItem,
 	...props
 }) {
 	const data = props.data;
-	const where = props.where;
-
 	const [clickedOn, setClickedOn] = useState({});
 	const [page, setPage] = useState(0);
 	const [rowPerPage, setRowPerPage] = useState(10);
@@ -34,7 +32,7 @@ function Table({
 						<th className="data-name">名稱</th>
 						<th className="data-specifcation">規格</th>
 						<th className="data-remain-num">剩餘數量</th>
-						<th className="data-stock-out-input">領取數量</th>
+						<th className="data-input">領取數量</th>
 					</tr>
 					{dataOnPage.map(d => (
 						<DataTr
@@ -45,7 +43,6 @@ function Table({
 								setStockOutItem,
 								stockInItem,
 								setStockInItem,
-								where,
 								setClickedOn
 							}}
 						/>
@@ -53,7 +50,7 @@ function Table({
 					{emptyRow > 0 && (
 						<tr
 							style={{
-								height: emptyRow * 49 + 5 + "px"
+								height: emptyRow * 42 + 5 + "px"
 							}}
 						></tr>
 					)}
@@ -65,8 +62,7 @@ function Table({
 					setPage,
 					data,
 					rowPerPage,
-					setRowPerPage,
-					where
+					setRowPerPage
 				}}
 			/>
 		</div>
@@ -85,6 +81,40 @@ function DataTr(props) {
 	const [inputNum, setInputNum] = useState(0);
 	const isInStockOut = stockOutItem.find(item => item.thing === data);
 	const isInStockIn = stockInItem.find(item => item.thing === data);
+	const [tmpInputNum, setTmpInputNum] = useState(0);
+
+	const CHECK_STATE = isInStockOut
+		? "STOCK_OUT"
+		: isInStockIn
+		? "STOCK_IN"
+		: "NOT_SELECTED";
+
+	const handleModify = () => {
+		if (
+			!Number.isInteger(parseInt(inputNum, 10)) ||
+			parseInt(inputNum, 10) === 0
+		) {
+			setInputNum(0);
+			return;
+		}
+		const item = {
+			thing: data,
+			num: parseInt(inputNum, 10)
+		};
+		if (CHECK_STATE === "STOCK_OUT") {
+			const stockOutItem_tmp = stockOutItem;
+			stockOutItem_tmp[
+				stockOutItem.findIndex(item => item.thing === data)
+			].num = parseInt(inputNum, 10);
+			setStockOutItem(stockOutItem_tmp);
+		} else if (CHECK_STATE === "STOCK_IN") {
+			const stockInItem_tmp = stockInItem;
+			stockInItem_tmp[
+				stockInItem.findIndex(item => item.thing === data)
+			].num = parseInt(inputNum, 10);
+			setStockInItem(stockInItem_tmp);
+		}
+	};
 
 	if (isInStockOut && isInStockOut.num !== inputNum) {
 		setInputNum(isInStockOut.num);
@@ -97,13 +127,16 @@ function DataTr(props) {
 	let element;
 	element = (
 		<tr
-			className={
-				isInStockOut
-					? "in-stock-out"
-					: isInStockIn
-					? "in-stock-in"
-					: "rowContent"
-			}
+			className={(() => {
+				switch (CHECK_STATE) {
+					case "STOCK_OUT":
+						return "in-stock-out";
+					case "STOCK_IN":
+						return "in-stock-in";
+					default:
+						return "rowContent";
+				}
+			})()}
 			onClick={() => {
 				setClickedOn(data);
 			}}
@@ -131,26 +164,99 @@ function DataTr(props) {
 							setInputNum(e.target.value);
 						}}
 					/>
-					<button
-						className={isInStockOut ? "checkedButton" : "button"}
-					>
-						{isInStockOut ? (
-							<i className="fas fa-times"></i>
-						) : (
-							<i className="fas fa-upload"></i>
-						)}
-					</button>
-					{isInStockOut ? (
-						""
-					) : (
-						<button
-							className={
-								isInStockOut ? "checkedButton" : "button"
-							}
-						>
-							<i className="fas fa-download"></i>
-						</button>
-					)}
+					{(() => {
+						switch (CHECK_STATE) {
+							case "STOCK_IN":
+								return (
+									<div>
+										<button
+											className="checkedButton"
+											onClick={handleModify}
+										>
+											<i className="fab fa-rev"></i>
+										</button>
+										<button className="checkedButton">
+											<i className="fas fa-times"></i>
+										</button>
+									</div>
+								);
+							case "STOCK_OUT":
+								return (
+									<div>
+										<button
+											className="checkedButton"
+											onClick={handleModify}
+										>
+											<i className="fab fa-rev"></i>
+										</button>
+										<button className="checkedButton">
+											<i className="fas fa-times"></i>
+										</button>
+									</div>
+								);
+							default:
+								return (
+									<div>
+										<button>
+											<i
+												className="fas fa-upload"
+												onClick={() => {
+													if (
+														!Number.isInteger(
+															parseInt(
+																inputNum,
+																10
+															)
+														) ||
+														parseInt(
+															inputNum,
+															10
+														) === 0
+													) {
+														setInputNum(0);
+														return;
+													}
+													const item = {
+														thing: data,
+														num: parseInt(
+															inputNum,
+															10
+														)
+													};
+													setStockOutItem([
+														...stockOutItem,
+														item
+													]);
+												}}
+											></i>
+										</button>
+										<button
+											onClick={() => {
+												if (
+													!Number.isInteger(
+														parseInt(inputNum, 10)
+													) ||
+													parseInt(inputNum, 10) === 0
+												) {
+													setInputNum(0);
+													return;
+												}
+												const item = {
+													thing: data,
+													num: parseInt(inputNum, 10)
+												};
+												setStockInItem([
+													...stockInItem,
+													item
+												]);
+											}}
+										>
+											<i className="fas fa-download"></i>
+										</button>
+									</div>
+								);
+						}
+					})()}
 				</form>
 			</td>
 		</tr>
@@ -163,7 +269,6 @@ function TableFooter(props) {
 	const [page, setPage] = [props.page, props.setPage];
 	const [rowPerPage, setRowPerPage] = [props.rowPerPage, props.setRowPerPage];
 	const data = props.data;
-	const where = props.where;
 	const history = useHistory();
 	let element;
 	element = (

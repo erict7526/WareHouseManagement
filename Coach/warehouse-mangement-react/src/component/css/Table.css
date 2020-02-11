@@ -13,8 +13,9 @@
 
 .Table th,
 td {
-	padding: 10px;
+	padding: 12px;
 	text-align: left;
+	font-size: 16px;
 }
 
 tr:last-child {
@@ -133,19 +134,26 @@ tr.rowContent:hover {
 	background: rgba(100, 100, 100, 0.7);
 }
 
-tr.checkedData {
-	background: rgba(64, 255, 255, 0.3);
+tr.in-stock-out {
+	background: #d04848;
+}
+tr.in-stock-in {
+	background: #499a49;
+}
+tr.in-stock-out:hover {
+	box-shadow: 0 0 25px -5px #161616;
+	background: #e04f5a;
+}
+tr.in-stock-in:hover {
+	box-shadow: 0 0 25px -5px #161616;
+	background: #5bbd5b;
 }
 
-tr.checkedData:hover {
-	background: rgba(64, 255, 255, 0.5);
-}
-
-.Table td.data-code {
+.Table .data-code {
 	width: 8em;
 }
 
-.Table td.data-name {
+.Table .data-name {
 	width: 8em;
 }
 
@@ -154,49 +162,50 @@ tr.checkedData:hover {
 	text-align: center;
 }
 
-.Table .data-stock-out-input {
+.Table .data-input {
 	width: 10em;
 	text-align: center;
 }
-.Table .data-stock-out-input form {
+.Table .data-input form {
 	display: flex;
 	justify-content: space-between;
 }
 
-.Table .data-stock-out-input input {
+.Table .data-input input {
 	font-size: 14px;
-	width: 3em;
+	width: 2em;
 	text-align: center;
 	border-radius: 10%;
 	border: none;
 	line-height: 1em;
 }
 
-.Table .data-stock-out-input button {
-	font-size: 14px;
+.Table .data-input button {
+	font-size: 16px;
 	width: 2.5em;
 	height: 1.5em;
 	background: #347474;
 	border: none;
 	border-radius: 10%;
 	color: white;
+	margin: 0 5px;
 }
-.Table .data-stock-out-input button:hover {
+.Table .data-input button:hover {
 	background: #47a6a7;
 }
 
-.Table .data-stock-out-input button:active {
+.Table .data-input button:active {
 	background: #275859;
 }
 
-.Table .data-stock-out-input .checkedButton {
+.Table .data-input .checkedButton {
 	background: grey;
 }
 
-.Table .data-stock-out-input .checkedButton:hover {
+.Table .data-input .checkedButton:hover {
 	background: #aaadaf;
 }
 
-.Table .data-stock-out-input .checkedButton:active {
+.Table .data-input .checkedButton:active {
 	background: #57595a;
 }
