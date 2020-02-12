@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 
 function Table({ itemList, setItemList, ...props }) {
 	const data = props.data;
+	const show = props.show;
 	const [clickedOn, setClickedOn] = useState({});
 	const [page, setPage] = useState(0);
 	const [rowPerPage, setRowPerPage] = useState(10);
@@ -71,10 +72,12 @@ function DataTr(props) {
 	const [inputNum, setInputNum] = useState(0);
 	const isInItemList = itemList.find(item => item.thing === data);
 	const [tmpInputNum, setTmpInputNum] = useState(0);
+	const history = useHistory();
+	const currentPath = history.location.pathname;
 
 	const CHECK_STATE = isInItemList ? isInItemList.checkState : "NOT_CHECKED";
 
-	const handleModify = () => {
+	const handleSubmit = action => {
 		if (
 			!Number.isInteger(parseInt(inputNum, 10)) ||
 			parseInt(inputNum, 10) === 0
@@ -83,11 +86,36 @@ function DataTr(props) {
 			return;
 		}
 
-		const itemList_tmp = itemList;
-		itemList_tmp[
-			itemList.findIndex(item => item.thing === data)
-		].num = parseInt(inputNum, 10);
-		setItemList(itemList_tmp);
+		switch (action) {
+			case "modify":
+				const itemList_tmp = itemList;
+				itemList_tmp[
+					itemList.findIndex(item => item.thing === data)
+				].num = parseInt(inputNum, 10);
+				setItemList(itemList_tmp);
+				history.replace(currentPath);
+				break;
+			case "STOCK_IN":
+			case "STOCK_OUT":
+				const item = {
+					thing: data,
+					num: parseInt(inputNum, 10),
+					checkState: action
+				};
+				setItemList([...itemList, item]);
+				break;
+			case "remove":
+				itemList.splice(
+					itemList.findIndex(item => item.thing === data),
+					1
+				);
+				setInputNum(0);
+				setItemList(itemList);
+				history.replace(currentPath);
+				break;
+			default:
+				alert("Some thing wrong!");
+		}
 	};
 
 	if (isInItemList && isInItemList.num !== tmpInputNum) {
@@ -135,108 +163,53 @@ function DataTr(props) {
 							setInputNum(e.target.value);
 						}}
 						onBlur={() => {
-							if (isInItemList) {
-								setInputNum(isInItemList.num);
-							} else {
+							if (!Number.isInteger(parseInt(inputNum, 10))) {
 								setInputNum(0);
 							}
 						}}
 					/>
-					{(() => {
-						switch (CHECK_STATE) {
-							case "STOCK_IN":
-								return (
-									<div>
-										<button
-											className="checkedButton"
-											onClick={handleModify}
-										>
-											<i className="fab fa-rev"></i>
-										</button>
-										<button className="checkedButton">
-											<i className="fas fa-times"></i>
-										</button>
-									</div>
-								);
-							case "STOCK_OUT":
-								return (
-									<div>
-										<button
-											className="checkedButton"
-											onClick={handleModify}
-										>
-											<i className="fab fa-rev"></i>
-										</button>
-										<button className="checkedButton">
-											<i className="fas fa-times"></i>
-										</button>
-									</div>
-								);
-							default:
-								return (
-									<div>
-										<button>
-											<i
-												className="fas fa-upload"
-												onClick={() => {
-													if (
-														!Number.isInteger(
-															parseInt(
-																inputNum,
-																10
-															)
-														) ||
-														parseInt(
-															inputNum,
-															10
-														) === 0
-													) {
-														setInputNum(0);
-														return;
-													}
-													const item = {
-														thing: data,
-														num: parseInt(
-															inputNum,
-															10
-														),
-														checkState: "STOCK_OUT"
-													};
-													setItemList([
-														...itemList,
-														item
-													]);
-												}}
-											></i>
-										</button>
-										<button
-											onClick={() => {
-												if (
-													!Number.isInteger(
-														parseInt(inputNum, 10)
-													) ||
-													parseInt(inputNum, 10) === 0
-												) {
-													setInputNum(0);
-													return;
-												}
-												const item = {
-													thing: data,
-													num: parseInt(inputNum, 10),
-													checkState: "STOCK_IN"
-												};
-												setItemList([
-													...itemList,
-													item
-												]);
-											}}
-										>
-											<i className="fas fa-download"></i>
-										</button>
-									</div>
-								);
-						}
-					})()}
+					{isInItemList ? (
+						<button
+							className={
+								isInItemList.checkState === "STOCK_IN"
+									? "in-stock-in"
+									: "in-stock-out"
+							}
+							onClick={() => {
+								handleSubmit("modify");
+							}}
+						>
+							<i className="fas fa-retweet"></i>
+						</button>
+					) : (
+						<button
+							className="not-checked"
+							onClick={() => {
+								handleSubmit("STOCK_OUT");
+							}}
+						>
+							<i className="fas fa-upload"></i>
+						</button>
+					)}
+					{isInItemList ? (
+						<button
+							className="remove"
+							onClick={() => {
+								handleSubmit("remove");
+							}}
+						>
+							<i className="fas fa-times"></i>
+						</button>
+					) : (
+						<button
+							className="not-checked"
+							onClick={() => {
+								handleSubmit("STOCK_IN");
+							}}
+						>
+							<i className="fas fa-download"></i>
+						</button>
+					)}
 				</form>
 			</td>
 		</tr>
@@ -249,7 +222,6 @@ function TableFooter(props) {
 	const [page, setPage] = [props.page, props.setPage];
 	const [rowPerPage, setRowPerPage] = [props.rowPerPage, props.setRowPerPage];
 	const data = props.data;
-	const history = useHistory();
 	let element;
 	element = (
 		<div className="tableFooter">

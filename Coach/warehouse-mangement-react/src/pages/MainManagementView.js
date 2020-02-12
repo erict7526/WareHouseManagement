@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect, Route, Switch, NavLink } from "react-router-dom";
 import react_logo from "../image/react-logo.png";
 import "../css/MainManagementView.css";
@@ -20,6 +20,7 @@ function MainManagementView({ match, history, ...props }) {
 	const setIsUserLogin = props.setIsUserLogin;
 	const [pageName, setPageName] = useState("出庫");
 	const [itemList, setItemList] = useState([]);
+
 	let element;
 	element = (
 		<div className="main_management_view_wrappr">
@@ -137,17 +138,23 @@ function RouteTable({ itemList, setItemList, ...props }) {
 	let element;
 	element = (
 		<Switch>
-			<Route path="/main/search">
-				<Table
-					{...{
-						data: testData,
-						itemList,
-						setItemList
-					}}
-				/>
-			</Route>
+			<Route
+				path="/main/search"
+				render={() => (
+					<Table
+						key="searchTable"
+						{...{
+							data: testData,
+							itemList,
+							setItemList
+						}}
+					/>
+				)}
+			/>
+
 			<Route path="/main/stock_out">
 				<Table
+					key="stockOutTable"
 					{...{
 						data: itemList
 							.filter(item => item.checkState === "STOCK_OUT")
@@ -157,17 +164,21 @@ function RouteTable({ itemList, setItemList, ...props }) {
 					}}
 				/>
 			</Route>
-			<Route path="/main/stock_in">
-				<Table
-					{...{
-						data: itemList
-							.filter(item => item.checkState === "STOCK_IN")
-							.map(item => item.thing),
-						itemList,
-						setItemList
-					}}
-				/>
-			</Route>
+			<Route
+				path="/main/stock_in"
+				render={() => (
+					<Table
+						key="stockInTable"
+						{...{
+							data: itemList
+								.filter(item => item.checkState === "STOCK_IN")
+								.map(item => item.thing),
+							itemList,
+							setItemList
+						}}
+					/>
+				)}
+			/>
 			<Route path="/main/new_item"></Route>
 		</Switch>
 	);

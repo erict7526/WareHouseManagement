@@ -184,28 +184,53 @@ tr.in-stock-in:hover {
 	font-size: 16px;
 	width: 2.5em;
 	height: 1.5em;
-	background: #347474;
 	border: none;
 	border-radius: 10%;
 	color: white;
 	margin: 0 5px;
 }
-.Table .data-input button:hover {
+
+.Table .data-input button.in-stock-out {
+	background: #802d12;
+}
+.Table .data-input button.in-stock-out:hover {
+	background: #903d22;
+}
+
+.Table .data-input button.in-stock-out:active {
+	background: #701c02;
+}
+
+.Table .data-input button.in-stock-in {
+	background: #186d17;
+}
+.Table .data-input button.in-stock-in:hover {
+	background: #227e32;
+}
+
+.Table .data-input button.in-stock-in:active {
+	background: #075a09;
+}
+
+.Table .data-input button.not-checked {
+	background: #347474;
+}
+.Table .data-input button.not-checked:hover {
 	background: #47a6a7;
 }
 
-.Table .data-input button:active {
+.Table .data-input button.not-checked:active {
 	background: #275859;
 }
 
-.Table .data-input .checkedButton {
+.Table .data-input button.remove {
 	background: grey;
 }
 
-.Table .data-input .checkedButton:hover {
+.Table .data-input button.remove:hover {
 	background: #aaadaf;
 }
 
-.Table .data-input .checkedButton:active {
+.Table .data-input button.remove:active {
 	background: #57595a;
 }

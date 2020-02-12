@@ -85,6 +85,37 @@
 	margin-bottom: 30px;
 }
 
+.main_management_view_wrappr .top-bar input {
+	max-width: 70%;
+	border: none;
+	border-bottom: 1px solid #999999;
+	background: none;
+	font-size: 18px;
+	color: #fff1cf;
+	margin-right: 10px;
+}
+.main_management_view_wrappr .top-bar input:focus {
+}
+
+.main_management_view_wrappr .top-bar button {
+	width: 3em;
+	height: 3em;
+	border: none;
+	background: #555656;
+	font-size: 18px;
+	border-radius: 100%;
+	margin-left: 10px;
+	color: #dfe6e9;
+}
+
+.main_management_view_wrappr .top-bar button:hover {
+	background: #808080;
+}
+
+.main_management_view_wrappr .top-bar button:active {
+	background: #454e45;
+}
+
 .main_management_view_wrappr .top-bar a {
 	width: 3em;
 	height: 3em;
