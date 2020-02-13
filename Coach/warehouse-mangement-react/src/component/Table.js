@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./css/Table.css";
-import { ButtonWithNum } from "./ButtonWithNum.js";
-import { useHistory } from "react-router-dom";
+import { useHistory, Route } from "react-router-dom";
 
 function Table({ itemList, setItemList, ...props }) {
 	const data = props.data;
@@ -263,7 +262,17 @@ function TableFooter(props) {
 					>
 				</button>
 			</div>
-			<div className="tableFooter-right-area"></div>
+			<div className="tableFooter-right-area">
+				<Route path="/main/stock_out">
+					<button className="print-button">列印領料單</button>
+				</Route>
+				<Route path="/main/stock_in">
+					<button className="print-button">列印入料單</button>
+				</Route>
+				<Route path="/main/search">
+					<button className="new-item-button">新增</button>
+				</Route>
+			</div>
 		</div>
 	);
 	return element;

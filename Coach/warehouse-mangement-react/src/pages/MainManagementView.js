@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Redirect, Route, Switch, NavLink } from "react-router-dom";
 import react_logo from "../image/react-logo.png";
 import "../css/MainManagementView.css";
@@ -18,7 +18,6 @@ function fakeData(id) {
 
 function MainManagementView({ match, history, ...props }) {
 	const setIsUserLogin = props.setIsUserLogin;
-	const [pageName, setPageName] = useState("出庫");
 	const [itemList, setItemList] = useState([]);
 
 	let element;
@@ -29,9 +28,7 @@ function MainManagementView({ match, history, ...props }) {
 					<img src={react_logo} alt="React Logo" />
 					<p className="title">物料管理系統</p>
 				</div>
-				<div className="center_area">
-					<p className="title">{pageName}</p>
-				</div>
+				<div className="center_area"></div>
 				<div className="right_area">
 					<button
 						className="round"
@@ -85,6 +82,20 @@ function TopBar(props) {
 						</NavLink>
 					</Route>
 				</Switch>
+				<NavLink
+					to="/main/stock_out"
+					className="nav-link"
+					activeClassName="active-link"
+				>
+					<i className="fas fa-upload"></i>
+				</NavLink>
+				<NavLink
+					to="/main/stock_in"
+					className="nav-link"
+					activeClassName="active-link"
+				>
+					<i className="fas fa-download"></i>
+				</NavLink>
 			</div>
 			<div>
 				<form
@@ -106,29 +117,7 @@ function TopBar(props) {
 					</button>
 				</form>
 			</div>
-			<div>
-				<NavLink
-					to="/main/stock_out"
-					className="nav-link"
-					activeClassName="active-link"
-				>
-					<i className="fas fa-upload"></i>
-				</NavLink>
-				<NavLink
-					to="/main/stock_in"
-					className="nav-link"
-					activeClassName="active-link"
-				>
-					<i className="fas fa-download"></i>
-				</NavLink>
-				<NavLink
-					to="/main/new_item"
-					className="nav-link"
-					activeClassName="active-link"
-				>
-					<i className="fas fa-plus"></i>
-				</NavLink>
-			</div>
+			<div></div>
 		</div>
 	);
 	return element;
@@ -179,7 +168,6 @@ function RouteTable({ itemList, setItemList, ...props }) {
 					/>
 				)}
 			/>
-			<Route path="/main/new_item"></Route>
 		</Switch>
 	);
 	return element;

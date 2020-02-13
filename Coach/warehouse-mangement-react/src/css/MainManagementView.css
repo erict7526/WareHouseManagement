@@ -84,17 +84,34 @@
 	align-items: center;
 	margin-bottom: 30px;
 }
+.main_management_view_wrappr .top-bar form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 
 .main_management_view_wrappr .top-bar input {
-	max-width: 70%;
-	border: none;
-	border-bottom: 1px solid #999999;
-	background: none;
-	font-size: 18px;
-	color: #fff1cf;
-	margin-right: 10px;
+	max-width: 40%;
+	border: 1px solid #999999;
+	border-radius: 15px;
+	font-size: 16px;
+	height: 2.2em;
+	text-align: center;
+	color: black;
+	transition: 0.3s;
 }
+
 .main_management_view_wrappr .top-bar input:focus {
+	max-width: 70%;
+}
+
+.main_management_view_wrappr .top-bar input:focus + button {
+}
+
+.main_management_view_wrappr .top-bar input + button {
+	width: 3em;
+	height: 3em;
+	font-size: 16px;
 }
 
 .main_management_view_wrappr .top-bar button {
@@ -135,11 +152,11 @@
 }
 
 .main_management_view_wrappr .top-bar .active-link {
-	background: #ff5800;
+	background: #fd871a;
 }
 
 .main_management_view_wrappr .top-bar .active-link:hover {
-	background: #fd8f2a;
+	background: #fd9b2f;
 }
 
 .main_management_view_wrappr .top-bar div {

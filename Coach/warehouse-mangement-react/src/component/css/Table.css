@@ -79,34 +79,33 @@ tr:last-child td:last-child {
 	flex: 1;
 }
 
-.Table .tableFooter .tableFooter-right-area .print-page button {
+.Table .tableFooter .tableFooter-right-area button {
 	margin: 10px;
+	padding: 0 6px;
+	min-width: 5em;
 	border: none;
 	border-radius: 10px;
-	width: 5em;
-	height: 2.2em;
+	height: 2.7em;
 	font-size: 16px;
-	color: white;
 }
 
-.Table .tableFooter .tableFooter-right-area .print-page #print-button {
-	background: #339999;
+.Table .tableFooter .tableFooter-right-area .print-button {
+	background: #f65c78;
 }
-.Table .tableFooter .tableFooter-right-area .print-page #print-button:hover {
-	background: #44a3af;
+.Table .tableFooter .tableFooter-right-area .print-button:hover {
+	background: #fa6889;
 }
-.Table .tableFooter .tableFooter-right-area .print-page #print-button:active {
-	background: #1b7c85;
+.Table .tableFooter .tableFooter-right-area .print-button:active {
+	background: #dd4a6c;
 }
-
-.Table .tableFooter .tableFooter-right-area .print-page #back-to-search {
-	background: #fd8008;
+.Table .tableFooter .tableFooter-right-area .new-item-button {
+	background: #aed977;
 }
-.Table .tableFooter .tableFooter-right-area .print-page #back-to-search:hover {
-	background: #fd9526;
+.Table .tableFooter .tableFooter-right-area .new-item-button:hover {
+	background: #bee987;
 }
-.Table .tableFooter .tableFooter-right-area .print-page #back-to-search:active {
-	background: #ed6b00;
+.Table .tableFooter .tableFooter-right-area .new-item-button:active {
+	background: #9ec967;
 }
 
 .Table .tableFooter .pageBtn {
