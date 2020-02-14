@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import "./css/Table.css";
-import { useHistory, Route } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function Table({ itemList, setItemList, ...props }) {
 	const data = props.data;
-	const show = props.show;
-	const [clickedOn, setClickedOn] = useState({});
 	const [page, setPage] = useState(0);
 	const [rowPerPage, setRowPerPage] = useState(10);
 	let dataOnPage = data.slice(
@@ -34,8 +32,7 @@ function Table({ itemList, setItemList, ...props }) {
 								key: d.code,
 								data: d,
 								itemList,
-								setItemList,
-								setClickedOn
+								setItemList
 							}}
 						/>
 					))}
@@ -67,7 +64,6 @@ function DataTr(props) {
 	const data = props.data;
 	const itemList = props.itemList;
 	const setItemList = props.setItemList;
-	const [clickedOn, setClickedOn] = useState({});
 	const [inputNum, setInputNum] = useState(0);
 	const isInItemList = itemList.find(item => item.thing === data);
 	const [tmpInputNum, setTmpInputNum] = useState(0);
@@ -135,9 +131,6 @@ function DataTr(props) {
 						return "rowContent";
 				}
 			})()}
-			onClick={() => {
-				setClickedOn(data);
-			}}
 		>
 			<td className="data-code">{data["code"]}</td>
 			<td className="data-name">{data["name"]}</td>
@@ -262,17 +255,7 @@ function TableFooter(props) {
 					>
 				</button>
 			</div>
-			<div className="tableFooter-right-area">
-				<Route path="/main/stock_out">
-					<button className="print-button">列印領料單</button>
-				</Route>
-				<Route path="/main/stock_in">
-					<button className="print-button">列印入料單</button>
-				</Route>
-				<Route path="/main/search">
-					<button className="new-item-button">新增</button>
-				</Route>
-			</div>
+			<div className="tableFooter-right-area"></div>
 		</div>
 	);
 	return element;

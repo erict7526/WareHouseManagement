@@ -164,3 +164,35 @@
 	display: flex;
 	justify-content: center;
 }
+
+.top-bar .right-area button {
+	padding: 0 6px;
+	min-width: 6em;
+	display: block;
+	border: none;
+	border-radius: 10px;
+	height: 2.5em;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.top-bar .right-area .print-button {
+	background: #f65c78;
+	color: #6b031d;
+}
+.top-bar .right-area .print-button:hover {
+	background: #fa6889;
+}
+.top-bar .right-area .print-button:active {
+	background: #dd4a6c;
+}
+.top-bar .right-area .new-item-button {
+	background: #aed977;
+	color: #496422;
+}
+.top-bar .right-area .new-item-button:hover {
+	background: #bee987;
+}
+.top-bar .right-area .new-item-button:active {
+	background: #9ec967;
+}

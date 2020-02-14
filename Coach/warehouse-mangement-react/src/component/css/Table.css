@@ -73,41 +73,6 @@ tr:last-child td:last-child {
 	text-align: center;
 }
 
-.Table .tableFooter .tableFooter-right-area {
-	display: flex;
-	justify-content: center;
-	flex: 1;
-}
-
-.Table .tableFooter .tableFooter-right-area button {
-	margin: 10px;
-	padding: 0 6px;
-	min-width: 5em;
-	border: none;
-	border-radius: 10px;
-	height: 2.7em;
-	font-size: 16px;
-}
-
-.Table .tableFooter .tableFooter-right-area .print-button {
-	background: #f65c78;
-}
-.Table .tableFooter .tableFooter-right-area .print-button:hover {
-	background: #fa6889;
-}
-.Table .tableFooter .tableFooter-right-area .print-button:active {
-	background: #dd4a6c;
-}
-.Table .tableFooter .tableFooter-right-area .new-item-button {
-	background: #aed977;
-}
-.Table .tableFooter .tableFooter-right-area .new-item-button:hover {
-	background: #bee987;
-}
-.Table .tableFooter .tableFooter-right-area .new-item-button:active {
-	background: #9ec967;
-}
-
 .Table .tableFooter .pageBtn {
 	font-size: 20px;
 	width: 2.7em;
@@ -126,6 +91,13 @@ tr:last-child td:last-child {
 
 .Table .tableFooter .pageBtn:active {
 	background: rgba(60, 60, 60, 0.1);
+}
+
+.Table .tableFooter .tableFooter-right-area {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex: 1;
 }
 
 tr.rowContent:hover {

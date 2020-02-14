@@ -69,9 +69,19 @@ function TopBar(props) {
 	const [searchText, setSearchText] = useState("");
 	let element = (
 		<div className="top-bar">
-			<div>
+			<div className="left-area">
 				<Switch>
-					<Route path="/main/search"></Route>
+					<Route path="/main/search">
+						<span
+							style={{
+								visibility: "hidden",
+								width: "3em",
+								height: "3em",
+								fontSize: "18px",
+								margin: "0 10px"
+							}}
+						></span>
+					</Route>
 					<Route path="/">
 						<NavLink
 							to="/main/search"
@@ -97,7 +107,7 @@ function TopBar(props) {
 					<i className="fas fa-download"></i>
 				</NavLink>
 			</div>
-			<div>
+			<div className="center-area">
 				<form
 					onSubmit={e => {
 						e.preventDefault();
@@ -117,7 +127,17 @@ function TopBar(props) {
 					</button>
 				</form>
 			</div>
-			<div></div>
+			<div className="right-area">
+				<Route path="/main/stock_out">
+					<button className="print-button">列印領料單</button>
+				</Route>
+				<Route path="/main/stock_in">
+					<button className="print-button">列印入料單</button>
+				</Route>
+				<Route path="/main/search">
+					<button className="new-item-button">創建物料</button>
+				</Route>
+			</div>
 		</div>
 	);
 	return element;
