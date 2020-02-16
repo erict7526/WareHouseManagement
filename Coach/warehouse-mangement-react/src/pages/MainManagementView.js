@@ -3,6 +3,7 @@ import { Redirect, Route, Switch, NavLink } from "react-router-dom";
 import react_logo from "../image/react-logo.png";
 import "../css/MainManagementView.css";
 import { Table } from "../component/Table.js";
+import PopUp from "../component/PopUp.js";
 
 const testData = Array(21)
 	.fill(0)
@@ -67,6 +68,7 @@ export default MainManagementView;
 
 function TopBar(props) {
 	const [searchText, setSearchText] = useState("");
+	const itemList = props.itemList;
 	let element = (
 		<div className="top-bar">
 			<div className="left-area">
@@ -98,6 +100,13 @@ function TopBar(props) {
 					activeClassName="active-link"
 				>
 					<i className="fas fa-upload"></i>
+					<p>
+						{
+							itemList.filter(
+								item => item.checkState === "STOCK_OUT"
+							).length
+						}
+					</p>
 				</NavLink>
 				<NavLink
 					to="/main/stock_in"
@@ -105,6 +114,13 @@ function TopBar(props) {
 					activeClassName="active-link"
 				>
 					<i className="fas fa-download"></i>
+					<p>
+						{
+							itemList.filter(
+								item => item.checkState === "STOCK_IN"
+							).length
+						}
+					</p>
 				</NavLink>
 			</div>
 			<div className="center-area">

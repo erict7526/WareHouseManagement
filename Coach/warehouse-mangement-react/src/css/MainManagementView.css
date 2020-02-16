@@ -133,6 +133,18 @@
 	background: #454e45;
 }
 
+.main_management_view_wrappr .top-bar a p {
+	position: absolute;
+	top: 0;
+	right: -5%;
+	font-size: 14px;
+	text-align: center;
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	background: red;
+}
+
 .main_management_view_wrappr .top-bar a {
 	width: 3em;
 	height: 3em;
@@ -145,6 +157,14 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	position: relative;
+}
+
+.fas.fa-download {
+	color: #709350;
+}
+.fas.fa-upload {
+	color: #d01e1bbb;
 }
 
 .main_management_view_wrappr .top-bar a:hover {
@@ -152,7 +172,7 @@
 }
 
 .main_management_view_wrappr .top-bar .active-link {
-	background: #fd871a;
+	background: #de7818;
 }
 
 .main_management_view_wrappr .top-bar .active-link:hover {
