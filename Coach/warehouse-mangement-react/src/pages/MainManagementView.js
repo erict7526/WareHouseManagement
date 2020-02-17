@@ -56,6 +56,17 @@ function MainManagementView({ match, history, ...props }) {
 					}}
 				/>
 			</div>
+			<Route
+				path="/main/:where/pop_up"
+				render={() => (
+					<PopUp
+						{...{
+							itemList,
+							setItemList
+						}}
+					/>
+				)}
+			/>
 		</div>
 	);
 

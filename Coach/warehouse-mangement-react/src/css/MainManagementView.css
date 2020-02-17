@@ -1,7 +1,7 @@
 .main_management_view_wrappr {
 	background: #353535;
 	overflow: auto;
-	height: 100vh;
+	min-height: 100vh;
 }
 
 .main_management_view_wrappr .nav {
@@ -75,7 +75,6 @@
 	border-radius: 10px;
 	background: #414141;
 	box-shadow: 3px 3px 12px -1px #262626;
-	height: ;
 }
 
 .main_management_view_wrappr .top-bar {
@@ -164,7 +163,7 @@
 	color: #709350;
 }
 .fas.fa-upload {
-	color: #d01e1bbb;
+	color: #fc0280;
 }
 
 .main_management_view_wrappr .top-bar a:hover {

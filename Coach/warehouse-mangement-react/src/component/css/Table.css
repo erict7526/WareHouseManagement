@@ -154,11 +154,11 @@ tr.in-stock-in:hover {
 .Table .data-input button {
 	font-size: 16px;
 	width: 2.5em;
-	height: 1.5em;
 	border: none;
 	border-radius: 10%;
 	color: white;
 	margin: 0 5px;
+	padding: 3px 2px;
 }
 
 .Table .data-input button.in-stock-out {
@@ -184,14 +184,14 @@ tr.in-stock-in:hover {
 }
 
 .Table .data-input button.not-checked {
-	background: #347474;
+	background: #252525;
 }
 .Table .data-input button.not-checked:hover {
-	background: #47a6a7;
+	background: #303030;
 }
 
 .Table .data-input button.not-checked:active {
-	background: #275859;
+	background: #000000;
 }
 
 .Table .data-input button.remove {

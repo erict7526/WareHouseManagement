@@ -24,7 +24,7 @@ function Table({ itemList, setItemList, ...props }) {
 						<th className="data-name">名稱</th>
 						<th className="data-specifcation">規格</th>
 						<th className="data-remain-num">剩餘數量</th>
-						<th className="data-input">領取數量</th>
+						<th className="data-input">出/入庫數量</th>
 					</tr>
 					{dataOnPage.map(d => (
 						<DataTr
@@ -131,6 +131,12 @@ function DataTr(props) {
 						return "rowContent";
 				}
 			})()}
+			onClick={() => {
+				history.push({
+					pathname: currentPath + "/pop_up",
+					state: { thing: data, from: history.location }
+				});
+			}}
 		>
 			<td className="data-code">{data["code"]}</td>
 			<td className="data-name">{data["name"]}</td>

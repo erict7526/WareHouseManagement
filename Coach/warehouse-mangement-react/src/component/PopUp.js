@@ -1,47 +1,49 @@
 import React, { useState } from "react";
 import "./css/PopUp.css";
+import { useHistory } from "react-router-dom";
 
 function PopUp(props) {
-	const hide = props.hide;
-	const clickedOn = props.clickedOn;
-	const setClickedOn = props.setClickedOn;
-	const checkedData = props.checkedData;
-	const setCheckedData = props.setCheckedData;
+	const itemList = props.itemList;
+	const setItemList = props.setItemList;
+	const history = useHistory();
+	const clickedOn = history.location.state.thing
+		? history.location.state.thing
+		: null;
 	const [popUpStockOutNum, setPopUpStockOutNum] = useState(0);
 	const [tmpValue, setTmpValue] = useState(0);
-	const clickOnCheck = checkedData.find(item => item.thing === clickedOn);
+	const clickOnCheck = itemList.find(item => item.thing === clickedOn);
 
 	const handleResetToExit = () => {
-		setClickedOn({});
 		setPopUpStockOutNum(0);
 		setTmpValue(0);
+		history.replace(history.location.state.from);
 	};
 
-	const handleSubmit = () => {
-		if (
-			!Number.isInteger(parseInt(popUpStockOutNum, 10)) ||
-			parseInt(popUpStockOutNum, 10) === 0
-		) {
-			setPopUpStockOutNum(0);
-			setTmpValue(0);
-			return;
-		}
-		const item = {
-			thing: clickedOn,
-			num: parseInt(popUpStockOutNum, 10)
-		};
-		if (!clickOnCheck) {
-			setCheckedData([...checkedData, item]);
-			handleResetToExit();
-		} else {
-			const checkedData_tmp = checkedData;
-			checkedData_tmp[
-				checkedData.findIndex(item => item === clickOnCheck)
-			].num = parseInt(popUpStockOutNum, 10);
-			setCheckedData(checkedData_tmp);
-			handleResetToExit();
-		}
-	};
+	// const handleSubmit = () => {
+	// 	if (
+	// 		!Number.isInteger(parseInt(popUpStockOutNum, 10)) ||
+	// 		parseInt(popUpStockOutNum, 10) === 0
+	// 	) {
+	// 		setPopUpStockOutNum(0);
+	// 		setTmpValue(0);
+	// 		return;
+	// 	}
+	// 	const item = {
+	// 		thing: clickedOn,
+	// 		num: parseInt(popUpStockOutNum, 10)
+	// 	};
+	// 	if (!clickOnCheck) {
+	// 		setCheckedData([...checkedData, item]);
+	// 		handleResetToExit();
+	// 	} else {
+	// 		const checkedData_tmp = checkedData;
+	// 		checkedData_tmp[
+	// 			checkedData.findIndex(item => item === clickOnCheck)
+	// 		].num = parseInt(popUpStockOutNum, 10);
+	// 		setCheckedData(checkedData_tmp);
+	// 		handleResetToExit();
+	// 	}
+	// };
 
 	if (clickOnCheck && tmpValue !== clickOnCheck.num) {
 		setTmpValue(clickOnCheck.num);
@@ -51,41 +53,37 @@ function PopUp(props) {
 	let element;
 	element = (
 		<div
-			className={"block " + (hide ? "hide" : "")}
+			className="block "
 			onClick={() => {
 				handleResetToExit();
 			}}
 		>
 			<div
-				className={"pop-up " + (hide ? "hide" : "")}
+				className="pop-up "
 				onClick={e => {
 					e.stopPropagation();
 				}}
 			>
-				{hide ? (
-					<div></div>
-				) : (
-					<table>
-						<tbody>
-							<tr>
-								<th>編號</th>
-								<th>名稱</th>
-								<th>規格</th>
-								<th>剩餘數量</th>
-							</tr>
-							<tr>
-								<td>{clickedOn.code}</td>
-								<td>{clickedOn.name}</td>
-								<td>{clickedOn.specification}</td>
-								<td>{clickedOn.remain_num}</td>
-							</tr>
-						</tbody>
-					</table>
-				)}
+				<table>
+					<tbody>
+						<tr>
+							<th>編號</th>
+							<th>名稱</th>
+							<th>規格</th>
+							<th>剩餘數量</th>
+						</tr>
+						<tr>
+							<td>{clickedOn.code}</td>
+							<td>{clickedOn.name}</td>
+							<td>{clickedOn.specification}</td>
+							<td>{clickedOn.remain_num}</td>
+						</tr>
+					</tbody>
+				</table>
 				<form
 					onSubmit={e => {
 						e.preventDefault();
-						handleSubmit();
+						//handleSubmit();
 					}}
 				>
 					<p>領取數量</p>
@@ -113,7 +111,7 @@ function PopUp(props) {
 					<button
 						onClick={e => {
 							e.preventDefault();
-							handleSubmit();
+							//handleSubmit();
 						}}
 						id="add-on-button"
 					>
