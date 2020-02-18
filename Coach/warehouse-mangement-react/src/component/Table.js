@@ -39,7 +39,7 @@ function Table({ itemList, setItemList, ...props }) {
 					{emptyRow > 0 && (
 						<tr
 							style={{
-								height: emptyRow * 49 + 3 + "px"
+								height: emptyRow * 52 + 3 + "px"
 							}}
 						></tr>
 					)}
@@ -88,7 +88,6 @@ function DataTr(props) {
 					itemList.findIndex(item => item.thing === data)
 				].num = parseInt(inputNum, 10);
 				setItemList(itemList_tmp);
-				history.replace(currentPath);
 				break;
 			case "STOCK_IN":
 			case "STOCK_OUT":
@@ -106,11 +105,11 @@ function DataTr(props) {
 				);
 				setInputNum(0);
 				setItemList(itemList);
-				history.replace(currentPath);
 				break;
 			default:
 				alert("Some thing wrong!");
 		}
+		history.replace(currentPath);
 	};
 
 	if (isInItemList && isInItemList.num !== tmpInputNum) {

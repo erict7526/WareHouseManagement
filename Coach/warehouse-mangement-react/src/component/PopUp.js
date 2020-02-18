@@ -11,7 +11,7 @@ function PopUp(props) {
 		: null;
 	const [popUpStockOutNum, setPopUpStockOutNum] = useState(0);
 	const [tmpValue, setTmpValue] = useState(0);
-	const clickOnCheck = itemList.find(item => item.thing === clickedOn);
+	const isClickOnCheck = itemList.find(item => item.thing === clickedOn);
 
 	const handleResetToExit = () => {
 		setPopUpStockOutNum(0);
@@ -19,35 +19,48 @@ function PopUp(props) {
 		history.replace(history.location.state.from);
 	};
 
-	// const handleSubmit = () => {
-	// 	if (
-	// 		!Number.isInteger(parseInt(popUpStockOutNum, 10)) ||
-	// 		parseInt(popUpStockOutNum, 10) === 0
-	// 	) {
-	// 		setPopUpStockOutNum(0);
-	// 		setTmpValue(0);
-	// 		return;
-	// 	}
-	// 	const item = {
-	// 		thing: clickedOn,
-	// 		num: parseInt(popUpStockOutNum, 10)
-	// 	};
-	// 	if (!clickOnCheck) {
-	// 		setCheckedData([...checkedData, item]);
-	// 		handleResetToExit();
-	// 	} else {
-	// 		const checkedData_tmp = checkedData;
-	// 		checkedData_tmp[
-	// 			checkedData.findIndex(item => item === clickOnCheck)
-	// 		].num = parseInt(popUpStockOutNum, 10);
-	// 		setCheckedData(checkedData_tmp);
-	// 		handleResetToExit();
-	// 	}
-	// };
+	const handleSubmit = action => {
+		if (
+			!Number.isInteger(parseInt(popUpStockOutNum, 10)) ||
+			parseInt(popUpStockOutNum, 10) === 0
+		) {
+			setPopUpStockOutNum(0);
+			setTmpValue(0);
+			return;
+		}
+		switch (action) {
+			case "modify":
+				const itemList_tmp = itemList;
+				itemList_tmp[
+					itemList.findIndex(item => item.thing === clickedOn)
+				].num = parseInt(popUpStockOutNum, 10);
+				setItemList(itemList_tmp);
+				break;
+			case "STOCK_IN":
+			case "STOCK_OUT":
+				const item = {
+					thing: clickedOn,
+					num: parseInt(popUpStockOutNum, 10),
+					checkState: action
+				};
+				setItemList([...itemList, item]);
+				break;
+			case "remove":
+				itemList.splice(
+					itemList.findIndex(item => item.thing === clickedOn),
+					1
+				);
+				setItemList(itemList);
+				break;
+			default:
+				alert("Some thing wrong!");
+		}
+		handleResetToExit();
+	};
 
-	if (clickOnCheck && tmpValue !== clickOnCheck.num) {
-		setTmpValue(clickOnCheck.num);
-		setPopUpStockOutNum(clickOnCheck.num);
+	if (isClickOnCheck && tmpValue !== isClickOnCheck.num) {
+		setTmpValue(isClickOnCheck.num);
+		setPopUpStockOutNum(isClickOnCheck.num);
 	}
 
 	let element;
@@ -86,7 +99,7 @@ function PopUp(props) {
 						//handleSubmit();
 					}}
 				>
-					<p>領取數量</p>
+					<p>數量</p>
 					<input
 						type="text"
 						value={popUpStockOutNum}
@@ -108,15 +121,49 @@ function PopUp(props) {
 					>
 						取消
 					</button>
-					<button
-						onClick={e => {
-							e.preventDefault();
-							//handleSubmit();
-						}}
-						id="add-on-button"
-					>
-						加入
-					</button>
+					{isClickOnCheck ? (
+						<React.Fragment>
+							<button
+								onClick={e => {
+									e.preventDefault();
+									handleSubmit("remove");
+								}}
+								id="add-on-button"
+							>
+								刪除
+							</button>
+							<button
+								onClick={e => {
+									e.preventDefault();
+									handleSubmit("modify");
+								}}
+								id="add-on-button"
+							>
+								修改
+							</button>
+						</React.Fragment>
+					) : (
+						<React.Fragment>
+							<button
+								onClick={e => {
+									e.preventDefault();
+									handleSubmit("STOCK_IN");
+								}}
+								id="add-on-button"
+							>
+								入料
+							</button>
+							<button
+								onClick={e => {
+									e.preventDefault();
+									handleSubmit("STOCK_OUT");
+								}}
+								id="add-on-button"
+							>
+								領料
+							</button>
+						</React.Fragment>
+					)}
 				</div>
 			</div>
 		</div>
