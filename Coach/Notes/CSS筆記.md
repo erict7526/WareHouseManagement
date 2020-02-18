@@ -161,6 +161,29 @@ CSS 選擇器能透過幾種不同的組合方式來選擇特定的元件。
 
 更多選擇器組合的方式可參閱：[CSS Selector Reference](https://www.w3schools.com/cssref/css_selectors.asp)
 
+## Pseudo-classes 和 Pseudo-elements
+
+-   Pseudo-classes(虛擬類別)用來選擇元件的特定狀態，例如：滑鼠在元件上、元件被點選...等。
+    語法為在選擇器後接上單個冒號再加上欲選擇之狀態，如：
+
+    ```css
+    button:hover {
+        background: red;
+    }
+    ```
+
+    上段 CSS 將滑鼠在其上的按鈕背景設為紅色。
+    還有其他類別，例如：active、checked、first-child、focus...等，更多類別請參考 [CSS Pseudo-classes](https://www.w3schools.com/css/css_pseudo_classes.asp)。
+
+-   Pseudo-elements(虛擬元素)用來選擇元件的特定部分，目前有 5 個種類，分別為 after、before、first-line、first-letter、selection。
+    語法為在選擇器後接上兩個冒號再加上欲選擇之部分，如：
+    ```css
+    h1::before {
+        content: "SECTION";
+    }
+    ```
+    上段 CSS 將在 h1 之前加上 "SECTION"。更多的使用方式請參考 [CSS Pseudo-elements](https://www.w3schools.com/css/css_pseudo_elements.asp)。
+
 ## 顏色
 
 在 CSS 中可以利用許多方式表示顏色，常見都方式有直接使用名稱、rgb 函式、Hex color code (十六進制色碼表示法)。
@@ -238,5 +261,18 @@ CSS 單位分為兩種：絕對單位以及相對單位，單位與數值之間�
         -   1 個值 : 套用至 4 個角。
 
 -   display :
+
+## CSS 內建函式
+
+CSS 提供一些內建的函式，如上面所提到 rgb() 就是其中一種，此外還有像是 calc() 可以用來計算數值，linear-gradient() 可以輸出漸層顏色， attr() 可以返回所選元件的某個 Html attribute。
+
+```css
+a:after {
+    content: " (" attr(href) ")";
+} /* 在超連結後面加上網址 */
+#div1 {
+    width: calc(100% - 100px);
+} /* id 為 div1 的元件寬度為 100% - 100px */
+```
 
 ## 動畫
