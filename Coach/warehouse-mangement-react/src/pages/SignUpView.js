@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import react_logo from "../image/react-logo.png";
-import "../css/SignUpView.css";
+import "./css/SignUpView.css";
 import { useHistory } from "react-router-dom";
 
 function SignUpView(props) {

@@ -1,0 +1,217 @@
+.main_management_view_wrappr {
+	background: #353535;
+	overflow: auto;
+	min-height: 100vh;
+}
+
+.main_management_view_wrappr .nav {
+	display: flex;
+	height: 60px;
+	width: 100%;
+	background: #347474;
+	align-items: center;
+	color: #fff1cf;
+	box-shadow: 0 3px 12px -1px #262626;
+	border-radius: 0 0 5px 5px;
+	z-index: 10;
+}
+
+.main_management_view_wrappr .nav .left_area {
+	font-size: 24px;
+	width: 33.33%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.main_management_view_wrappr .nav .left_area img {
+	height: 100%;
+	width: auto;
+	margin: 10px 15px;
+}
+
+.main_management_view_wrappr .nav .center_area {
+	font-size: 26px;
+	width: 33.33%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.main_management_view_wrappr .nav .right_area {
+	font-size: 20px;
+	height: 100%;
+	width: 33.34%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	padding-right: 40px;
+}
+
+.main_management_view_wrappr .nav .right_area button {
+	margin: 0 10px;
+	width: 60px;
+	height: 30px;
+	background: #015668;
+	border: none;
+	color: #fff1cf;
+	font-size: 14px;
+}
+
+.main_management_view_wrappr .nav .right_area button:hover {
+	background: #00909e;
+	border: 1px solid #a5a5a5;
+}
+
+.round {
+	border-radius: 10px;
+}
+
+.main_management_view_wrappr .content_area {
+	padding: 50px;
+	margin: 80px auto;
+	width: 80%;
+	border-radius: 10px;
+	background: #414141;
+	box-shadow: 3px 3px 12px -1px #262626;
+}
+
+.main_management_view_wrappr .top-bar {
+	display: flex;
+	height: 50px;
+	align-items: center;
+	margin-bottom: 30px;
+}
+.main_management_view_wrappr .top-bar form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.main_management_view_wrappr .top-bar input {
+	max-width: 40%;
+	border: 1px solid #999999;
+	border-radius: 15px;
+	font-size: 16px;
+	height: 2.2em;
+	text-align: center;
+	color: black;
+	transition: 0.3s;
+}
+
+.main_management_view_wrappr .top-bar input:focus {
+	max-width: 70%;
+}
+
+.main_management_view_wrappr .top-bar input:focus + button {
+}
+
+.main_management_view_wrappr .top-bar input + button {
+	width: 3em;
+	height: 3em;
+	font-size: 16px;
+}
+
+.main_management_view_wrappr .top-bar button {
+	width: 3em;
+	height: 3em;
+	border: none;
+	background: #555656;
+	font-size: 18px;
+	border-radius: 100%;
+	margin-left: 10px;
+	color: #dfe6e9;
+}
+
+.main_management_view_wrappr .top-bar button:hover {
+	background: #808080;
+}
+
+.main_management_view_wrappr .top-bar button:active {
+	background: #454e45;
+}
+
+.main_management_view_wrappr .top-bar a p {
+	position: absolute;
+	top: 0;
+	right: -5%;
+	font-size: 14px;
+	text-align: center;
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	background: red;
+}
+
+.main_management_view_wrappr .top-bar a {
+	width: 3em;
+	height: 3em;
+	border: none;
+	background: #555656;
+	font-size: 18px;
+	border-radius: 100%;
+	margin: 0 10px;
+	color: #dfe6e9;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+
+.fas.fa-download {
+	color: #709350;
+}
+.fas.fa-upload {
+	color: #fc0280;
+}
+
+.main_management_view_wrappr .top-bar a:hover {
+	background: #808080;
+}
+
+.main_management_view_wrappr .top-bar .active-link {
+	background: #de7818;
+}
+
+.main_management_view_wrappr .top-bar .active-link:hover {
+	background: #fd9b2f;
+}
+
+.main_management_view_wrappr .top-bar div {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+}
+
+.top-bar .right-area button {
+	padding: 0 6px;
+	min-width: 6em;
+	display: block;
+	border: none;
+	border-radius: 10px;
+	height: 2.5em;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.top-bar .right-area .print-button {
+	background: #f65c78;
+	color: #6b031d;
+}
+.top-bar .right-area .print-button:hover {
+	background: #fa6889;
+}
+.top-bar .right-area .print-button:active {
+	background: #dd4a6c;
+}
+.top-bar .right-area .new-item-button {
+	background: #aed977;
+	color: #496422;
+}
+.top-bar .right-area .new-item-button:hover {
+	background: #bee987;
+}
+.top-bar .right-area .new-item-button:active {
+	background: #9ec967;
+}

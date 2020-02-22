@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Redirect, Route, Switch, NavLink } from "react-router-dom";
 import react_logo from "../image/react-logo.png";
-import "../css/MainManagementView.css";
+import "./css/MainManagementView.css";
 import { Table } from "../component/Table.js";
 import PopUp from "../component/PopUp.js";
+import NewItemView from "./NewItemView.js";
 
 const testData = Array(21)
 	.fill(0)
@@ -46,7 +47,8 @@ function MainManagementView({ match, history, ...props }) {
 				<TopBar
 					{...{
 						itemList,
-						setItemList
+						setItemList,
+						history
 					}}
 				/>
 				<RouteTable
@@ -80,6 +82,7 @@ export default MainManagementView;
 function TopBar(props) {
 	const [searchText, setSearchText] = useState("");
 	const itemList = props.itemList;
+	const history = props.history;
 	let element = (
 		<div className="top-bar">
 			<div className="left-area">
@@ -162,7 +165,14 @@ function TopBar(props) {
 					<button className="print-button">列印入料單</button>
 				</Route>
 				<Route path="/main/search">
-					<button className="new-item-button">創建物料</button>
+					<button
+						className="new-item-button"
+						onClick={() => {
+							history.push("/main/new_item");
+						}}
+					>
+						創建物料
+					</button>
 				</Route>
 			</div>
 		</div>
@@ -214,6 +224,10 @@ function RouteTable({ itemList, setItemList, ...props }) {
 						}}
 					/>
 				)}
+			/>
+			<Route
+				path="/main/new_item"
+				render={() => <NewItemView {...{ itemList, setItemList }} />}
 			/>
 		</Switch>
 	);
