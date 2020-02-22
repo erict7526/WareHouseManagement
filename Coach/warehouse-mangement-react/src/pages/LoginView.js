@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import react_logo from "../image/react-logo.png";
-import "../css/LoginView.css";
+import "./css/LoginView.css";
 import { useHistory } from "react-router-dom";
 
 const passwordDict = { "123456": "123456" };
