@@ -4,6 +4,7 @@ import LoginView from "./LoginView.js";
 import SignUpView from "./SignUpView.js";
 import MainManagementView from "./MainManagementView.js";
 import { Switch, Route, Redirect } from "react-router-dom";
+import NewItemView from "./NewItemView.js";
 
 function App() {
 	const [isUserLogin, setIsUserLogin] = useState(false);
