@@ -19,26 +19,6 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import SaveIcon from "@material-ui/icons/Save";
 
-const items = [
-	{
-		thing: {
-			code: "1025-5696",
-			name: "test",
-			specification:
-				"sdasdjajflakdjflsjdflskjdflsjdfljsldfjlskdjflsdjflsdjflsjdlfjsldfjlsdjflsdflsjdflsjdf"
-		},
-		num: 5
-	},
-	{
-		thing: {
-			code: "45536-213",
-			name: "test2",
-			specification: "asdas1357867365373"
-		},
-		num: 6
-	}
-];
-
 const useStyles = makeStyles(theme => ({
 	root: {
 		background: "#454545",
@@ -80,7 +60,7 @@ function NewItemView(props) {
 	const classes = useStyles();
 	const itemList = props.itemList;
 	const setItemList = props.setItemList;
-	const newItemList = itemList.filter(item => item.checkState === "NEW_ITEM");
+	const newItemList = itemList.filter(item => item.checkState === "STOCK_IN");
 	const [newItemProps, setNewItemProps] = useState({
 		codeSystem: "",
 		codeEq: "",
@@ -96,6 +76,33 @@ function NewItemView(props) {
 		setNewItemProps({ ...newItemProps, [prop]: event.target.value });
 	};
 
+	const handleAddNewItem = () => {
+		const thing = {
+			code: `${newItemProps.codeSystem}-${newItemProps.codeEq}-${newItemProps.codeItem}`,
+			name: newItemProps.name,
+			remain_num: newItemProps.num,
+			specification: newItemProps.specification,
+			unit: newItemProps.unit,
+			price: newItemProps.price
+		};
+		const NewItemTmp = {
+			thing: thing,
+			num: newItemProps.num,
+			checkState: "STOCK_IN"
+		};
+		setItemList([...itemList, NewItemTmp]);
+		setNewItemProps({
+			codeSystem: "",
+			codeEq: "",
+			codeItem: "",
+			name: "",
+			unit: "",
+			num: 0,
+			price: 0,
+			specification: ""
+		});
+	};
+
 	let element = (
 		<Grid container spacing={3} className={classes.root}>
 			<Grid item xs={12} sm={12} lg={6}>
@@ -109,6 +116,7 @@ function NewItemView(props) {
 							value={newItemProps.codeSystem}
 							onChange={handleChange("codeSystem")}
 							className={classes.flexOne}
+							autoComplete
 						/>
 						-
 						<StyleTextField
@@ -119,6 +127,7 @@ function NewItemView(props) {
 							value={newItemProps.codeEq}
 							onChange={handleChange("codeEq")}
 							className={classes.flexOne}
+							autoComplete
 						/>
 						-
 						<StyleTextField
@@ -129,6 +138,7 @@ function NewItemView(props) {
 							value={newItemProps.codeItem}
 							onChange={handleChange("codeItem")}
 							className={classes.flexOne}
+							autoComplete
 						/>
 					</ListItem>
 					<ListItem>
@@ -193,6 +203,7 @@ function NewItemView(props) {
 							className={classes.saveButton}
 							startIcon={<SaveIcon />}
 							size="large"
+							onClick={handleAddNewItem}
 						>
 							存擋
 						</Button>
@@ -200,7 +211,7 @@ function NewItemView(props) {
 				</List>
 			</Grid>
 			<Grid item xs={12} sm={12} lg={6}>
-				<ArrayOfExpansionPanel newItemList={newItemList} />
+				<ArrayOfExpansionPanel newItemList={itemList} />
 			</Grid>
 		</Grid>
 	);
@@ -209,9 +220,11 @@ function NewItemView(props) {
 export default NewItemView;
 
 function ArrayOfExpansionPanel(props) {
-	const newItemList = props.newItemList;
+	const newItemListThing = props.newItemList.filter(
+		item => item.checkState === "STOCK_IN"
+	);
 	const classes = useStyles();
-	return newItemList.map(item => (
+	return newItemListThing.map(item => (
 		<ExpansionPanel className={classes.root} key={item.thing.code}>
 			<ExpansionPanelSummary
 				expandIcon={<ExpandMoreIcon />}
@@ -226,7 +239,7 @@ function ArrayOfExpansionPanel(props) {
 				<Typography>
 					{item.thing.code} <br />
 					{item.thing.specification} <br />
-					{item.thing.specification}
+					{item.thing.price}
 				</Typography>
 			</ExpansionPanelDetails>
 		</ExpansionPanel>

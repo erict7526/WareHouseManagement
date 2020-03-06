@@ -29,7 +29,7 @@ function Table({ itemList, setItemList, ...props }) {
 					{dataOnPage.map(d => (
 						<DataTr
 							{...{
-								key: d.code,
+								key: d.dataID,
 								data: d,
 								itemList,
 								setItemList
@@ -248,7 +248,9 @@ function TableFooter(props) {
 				>
 					&lt;
 				</button>
-				<p className="page-num">{page + 1}</p>
+				<p className="page-num">
+					{page + 1}/{Math.ceil(data.length / rowPerPage)}
+				</p>
 				<button
 					className="pageBtn"
 					onClick={() => {

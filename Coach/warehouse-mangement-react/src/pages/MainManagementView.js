@@ -6,21 +6,43 @@ import { Table } from "../component/Table.js";
 import PopUp from "../component/PopUp.js";
 import NewItemView from "./NewItemView.js";
 
-const testData = Array(21)
-	.fill(0)
-	.map((_, i) => fakeData(i));
+import { useQuery } from "urql";
+import { gql } from "apollo-boost";
 
-function fakeData(id) {
-	let name = `test_name_${id}`;
-	let specification = `test_specification_${id}`;
-	let code = `${String(id).padStart(4, 0)}-${String(id).padStart(4, 0)}`;
-	let remain_num = id;
-	return { code, name, specification, remain_num };
+// const testData = Array(21)
+// 	.fill(0)
+// 	.map((_, i) => fakeData(i));
+
+const GET_SEARCHED_LASTS = gql`
+	query getSearch($search: String) {
+		searchLastDetails(search: $search) {
+			nodes {
+				no
+				productNo
+				id
+				name
+				unit
+				spec
+				countx
+				unitPrice
+			}
+		}
+	}
+`;
+
+function dataTranformer(rawdata) {
+	let name = rawdata.name;
+	let specification = rawdata.spec;
+	let code = rawdata.id;
+	let remain_num = parseInt(rawdata.countx);
+	let dataID = rawdata.no;
+	return { dataID, code, name, specification, remain_num };
 }
 
 function MainManagementView({ match, history, ...props }) {
 	const setIsUserLogin = props.setIsUserLogin;
 	const [itemList, setItemList] = useState([]);
+	const [searchText, setSearchText] = useState("");
 
 	let element;
 	element = (
@@ -48,13 +70,17 @@ function MainManagementView({ match, history, ...props }) {
 					{...{
 						itemList,
 						setItemList,
-						history
+						history,
+						searchText,
+						setSearchText
 					}}
 				/>
 				<RouteTable
 					{...{
 						itemList,
-						setItemList
+						setItemList,
+						searchText,
+						setSearchText
 					}}
 				/>
 			</div>
@@ -80,7 +106,7 @@ function MainManagementView({ match, history, ...props }) {
 export default MainManagementView;
 
 function TopBar(props) {
-	const [searchText, setSearchText] = useState("");
+	const [searchText, setSearchText] = [props.searchText, props.setSearchText];
 	const itemList = props.itemList;
 	const history = props.history;
 	let element = (
@@ -141,7 +167,6 @@ function TopBar(props) {
 				<form
 					onSubmit={e => {
 						e.preventDefault();
-						console.log(searchText);
 					}}
 				>
 					<input
@@ -181,6 +206,26 @@ function TopBar(props) {
 }
 
 function RouteTable({ itemList, setItemList, ...props }) {
+	const [searchText, setSearchText] = [props.searchText, props.setSearchText];
+	const [queryResult] = useQuery({
+		query: GET_SEARCHED_LASTS,
+		variables: { search: searchText }
+	});
+	const [dataToShow, setDataToShow] = useState([]);
+	if (queryResult.error) {
+		console.log(queryResult.error);
+	}
+	if (
+		!queryResult.fetching &&
+		dataToShow.length !== queryResult.data.searchLastDetails.nodes.length
+	) {
+		setDataToShow(
+			queryResult.data.searchLastDetails.nodes.map(last =>
+				dataTranformer(last)
+			)
+		);
+	}
+
 	let element;
 	element = (
 		<Switch>
@@ -190,7 +235,7 @@ function RouteTable({ itemList, setItemList, ...props }) {
 					<Table
 						key="searchTable"
 						{...{
-							data: testData,
+							data: dataToShow,
 							itemList,
 							setItemList
 						}}
