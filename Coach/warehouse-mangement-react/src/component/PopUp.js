@@ -11,7 +11,9 @@ function PopUp(props) {
 		: null;
 	const [popUpStockOutNum, setPopUpStockOutNum] = useState(0);
 	const [tmpValue, setTmpValue] = useState(0);
-	const isClickOnCheck = itemList.find(item => item.thing === clickedOn);
+	const isClickOnCheck = itemList.find(
+		item => item.thing.dataID === clickedOn.dataID
+	);
 
 	const handleResetToExit = () => {
 		setPopUpStockOutNum(0);

@@ -65,7 +65,9 @@ function DataTr(props) {
 	const itemList = props.itemList;
 	const setItemList = props.setItemList;
 	const [inputNum, setInputNum] = useState(0);
-	const isInItemList = itemList.find(item => item.thing === data);
+	const isInItemList = itemList.find(
+		item => item.thing.dataID === data.dataID
+	);
 	const [tmpInputNum, setTmpInputNum] = useState(0);
 	const history = useHistory();
 	const currentPath = history.location.pathname;
