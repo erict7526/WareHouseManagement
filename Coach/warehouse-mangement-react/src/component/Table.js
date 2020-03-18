@@ -261,7 +261,7 @@ function TableFooter(props) {
 						}
 					}}
 				>
-					>
+					&gt;
 				</button>
 			</div>
 			<div className="tableFooter-right-area"></div>

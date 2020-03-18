@@ -1,18 +1,29 @@
-const { Client } = require("pg");
-const client = new Client({
-	user: "Coach",
-	password: 0215,
-	host: "localhost",
-	database: "test",
-	port: 5432
-});
-client.connect();
+const express = require("express");
+const cors = require("cors");
+const morgan = require("morgan");
 
-client
-	.query("select * from things")
-	.then(res => {
-		console.log(res.rows[0]);
+const { postgraphile } = require("postgraphile");
+
+const app = express();
+
+app.use(
+	cors({
+		origin: "http://localhost:3000"
 	})
-	.catch(e => {
-		console.log(e.stack);
-	});
+);
+
+app.use(morgan("short"));
+
+app.use(
+	postgraphile(
+		process.env.DATABASE_URL || "postgres:///sip_database",
+		"public",
+		{
+			watchPg: true,
+			graphiql: true,
+			enhanceGraphiql: true
+		}
+	)
+);
+
+app.listen(process.env.PORT || 5000);

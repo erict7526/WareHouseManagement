@@ -32,7 +32,6 @@ function App() {
 					/>
 				)}
 			/>
-			} />
 			<Route path="/">
 				<Redirect to="/login" />
 			</Route>
