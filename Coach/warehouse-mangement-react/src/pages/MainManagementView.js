@@ -79,8 +79,7 @@ function MainManagementView({ match, history, ...props }) {
 					{...{
 						itemList,
 						setItemList,
-						searchText,
-						setSearchText
+						searchText
 					}}
 				/>
 			</div>
@@ -99,7 +98,20 @@ function MainManagementView({ match, history, ...props }) {
 	);
 
 	return (
-		<Route>{props.isUserLogin ? element : <Redirect to="/login" />}</Route>
+		<Route>
+			{props.isUserLogin ? (
+				element
+			) : (
+				<Redirect
+					to={{
+						pathname: "/login",
+						state: {
+							error: "Wrong Password or Username."
+						}
+					}}
+				/>
+			)}
+		</Route>
 	);
 }
 
@@ -206,16 +218,22 @@ function TopBar(props) {
 }
 
 function RouteTable({ itemList, setItemList, ...props }) {
-	const [searchText, setSearchText] = [props.searchText, props.setSearchText];
+	const searchText = props.searchText;
 	const [queryResult] = useQuery({
 		query: GET_SEARCHED_LASTS,
 		variables: { search: searchText }
 	});
 	const [dataToShow, setDataToShow] = useState([]);
 	if (queryResult.error) {
-		console.log(queryResult.error);
-	}
-	if (
+		return (
+			<div style={{ height: "55vh" }}>
+				<h4 style={{ textAlign: "center", color: "#e63e60" }}>
+					Can&apos;t get data from database. Error:
+					{queryResult.error.message}
+				</h4>
+			</div>
+		);
+	} else if (
 		!queryResult.fetching &&
 		dataToShow.length !== queryResult.data.searchLastDetails.nodes.length
 	) {

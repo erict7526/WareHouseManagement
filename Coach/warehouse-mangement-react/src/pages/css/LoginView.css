@@ -44,6 +44,11 @@
 	border-color: #e2e2e2;
 }
 
+.error-message {
+	color: red;
+	font-size: 0.8em;
+}
+
 .wrapper .header .form button {
 	width: 100%;
 	background: #c8ecf7;
