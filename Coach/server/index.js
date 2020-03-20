@@ -4,6 +4,8 @@ const morgan = require("morgan");
 
 const { postgraphile } = require("postgraphile");
 
+const { randomNumber, searchByAPI } = require("./api.js");
+
 const app = express();
 
 app.use(
@@ -21,7 +23,8 @@ app.use(
 		{
 			watchPg: true,
 			graphiql: true,
-			enhanceGraphiql: true
+			enhanceGraphiql: true,
+			appendPlugins: [randomNumber, searchByAPI]
 		}
 	)
 );

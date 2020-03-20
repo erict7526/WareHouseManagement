@@ -15,17 +15,15 @@ import { gql } from "apollo-boost";
 
 const GET_SEARCHED_LASTS = gql`
 	query getSearch($search: String) {
-		searchLastDetails(search: $search) {
-			nodes {
-				no
-				productNo
-				id
-				name
-				unit
-				spec
-				countx
-				unitPrice
-			}
+		searchByAPI(search: $search) {
+			no
+			productNo
+			id
+			name
+			unit
+			spec
+			countx
+			unitPrice
 		}
 	}
 `;
@@ -223,6 +221,7 @@ function RouteTable({ itemList, setItemList, ...props }) {
 		query: GET_SEARCHED_LASTS,
 		variables: { search: searchText }
 	});
+	console.log(searchText);
 	const [dataToShow, setDataToShow] = useState([]);
 	if (queryResult.error) {
 		return (
@@ -235,12 +234,10 @@ function RouteTable({ itemList, setItemList, ...props }) {
 		);
 	} else if (
 		!queryResult.fetching &&
-		dataToShow.length !== queryResult.data.searchLastDetails.nodes.length
+		dataToShow.length !== queryResult.data.searchByAPI.length
 	) {
 		setDataToShow(
-			queryResult.data.searchLastDetails.nodes.map(last =>
-				dataTranformer(last)
-			)
+			queryResult.data.searchByAPI.map(last => dataTranformer(last))
 		);
 	}
 
