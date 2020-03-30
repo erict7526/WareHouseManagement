@@ -6,6 +6,8 @@ import { Table } from "../component/Table.js";
 import PopUp from "../component/PopUp.js";
 import NewItemView from "./NewItemView.js";
 
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 import { useQuery } from "urql";
 import { gql } from "apollo-boost";
 
@@ -219,10 +221,15 @@ function RouteTable({ itemList, setItemList, ...props }) {
 	const searchText = props.searchText;
 	const [queryResult] = useQuery({
 		query: GET_SEARCHED_LASTS,
-		variables: { search: searchText }
+		variables: { search: searchText.trim() }
 	});
-	console.log(searchText);
-	const [dataToShow, setDataToShow] = useState([]);
+
+	let dataToShow = queryResult.data
+		? queryResult.data.searchByAPI.map(last_detail =>
+				dataTranformer(last_detail)
+		  )
+		: [];
+
 	if (queryResult.error) {
 		return (
 			<div style={{ height: "55vh" }}>
@@ -232,13 +239,10 @@ function RouteTable({ itemList, setItemList, ...props }) {
 				</h4>
 			</div>
 		);
-	} else if (
-		!queryResult.fetching &&
-		dataToShow.length !== queryResult.data.searchByAPI.length
-	) {
-		setDataToShow(
-			queryResult.data.searchByAPI.map(last => dataTranformer(last))
-		);
+	}
+
+	if (typeof queryResult.data === undefined) {
+		return <CircularProgress />;
 	}
 
 	let element;
