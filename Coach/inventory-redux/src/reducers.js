@@ -2,7 +2,10 @@ import {
 	SET_SEARCH_TEXT,
 	SET_LAST_DETAILS,
 	ADD_PICKUP_LIST,
-	REMOVE_PICK_LIST
+	REMOVE_PICKUP_LIST,
+	SET_CURRENT_USER,
+	ItemStatusFilter,
+	SET_ITEM_STATUS_FILTER
 } from "./actions";
 import { combineReducers } from "redux";
 
@@ -38,7 +41,7 @@ function pickupList(state = [], action) {
 					status: action.status
 				}
 			];
-		case REMOVE_PICK_LIST:
+		case REMOVE_PICKUP_LIST:
 			return state.filter(
 				lastDetail => lastDetail.no !== action.lastDetailID
 			);
@@ -47,10 +50,34 @@ function pickupList(state = [], action) {
 	}
 }
 
+function setItemStatusFilter(state = ItemStatusFilter.SHOW_ALL, action) {
+	switch (action.type) {
+		case SET_ITEM_STATUS_FILTER:
+			return action.filter;
+		default:
+			return state;
+	}
+}
+
+function currentUser(state = {}, action) {
+	switch (action.type) {
+		case SET_CURRENT_USER:
+			return {
+				userName: action.userName,
+				userAccount: action.userAccount,
+				isLogin: action.isLogin
+			};
+		default:
+			return state;
+	}
+}
+
 const inventoryManagerStore = combineReducers({
 	searchText,
 	lastDetails,
-	pickupList
+	pickupList,
+	currentUser,
+	setItemStatusFilter
 });
 
 export default inventoryManagerStore;

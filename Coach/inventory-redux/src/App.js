@@ -1,11 +1,20 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
-import VisibleSearchTextInput from "./containers/VisibleSearchTextInput";
+import { Switch, Route } from "react-router-dom";
+
+import LoginForm from "./containers/LoginForm";
 
 function App() {
-  return <VisibleSearchTextInput />;
+	let element = (
+		<Switch>
+			<Route
+				path="/login"
+				render={(routeProps) => <LoginForm {...routeProps} />}
+			/>
+		</Switch>
+	);
+	return element;
 }
 
 export default App;
