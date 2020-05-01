@@ -9,13 +9,12 @@ import NewItemView from "./NewItemView.js";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { useQuery } from "urql";
-import { gql } from "apollo-boost";
 
 // const testData = Array(21)
 // 	.fill(0)
 // 	.map((_, i) => fakeData(i));
 
-const GET_SEARCHED_LASTS = gql`
+const GET_SEARCHED_LASTS = `
 	query getSearch($search: String) {
 		searchByAPI(search: $search) {
 			no
@@ -72,14 +71,14 @@ function MainManagementView({ match, history, ...props }) {
 						setItemList,
 						history,
 						searchText,
-						setSearchText
+						setSearchText,
 					}}
 				/>
 				<RouteTable
 					{...{
 						itemList,
 						setItemList,
-						searchText
+						searchText,
 					}}
 				/>
 			</div>
@@ -89,7 +88,7 @@ function MainManagementView({ match, history, ...props }) {
 					<PopUp
 						{...{
 							itemList,
-							setItemList
+							setItemList,
 						}}
 					/>
 				)}
@@ -106,8 +105,8 @@ function MainManagementView({ match, history, ...props }) {
 					to={{
 						pathname: "/login",
 						state: {
-							error: "Wrong Password or Username."
-						}
+							error: "Wrong Password or Username.",
+						},
 					}}
 				/>
 			)}
@@ -132,7 +131,7 @@ function TopBar(props) {
 								width: "3em",
 								height: "3em",
 								fontSize: "18px",
-								margin: "0 10px"
+								margin: "0 10px",
 							}}
 						></span>
 					</Route>
@@ -155,7 +154,7 @@ function TopBar(props) {
 					<p>
 						{
 							itemList.filter(
-								item => item.checkState === "STOCK_OUT"
+								(item) => item.checkState === "STOCK_OUT"
 							).length
 						}
 					</p>
@@ -169,7 +168,7 @@ function TopBar(props) {
 					<p>
 						{
 							itemList.filter(
-								item => item.checkState === "STOCK_IN"
+								(item) => item.checkState === "STOCK_IN"
 							).length
 						}
 					</p>
@@ -177,7 +176,7 @@ function TopBar(props) {
 			</div>
 			<div className="center-area">
 				<form
-					onSubmit={e => {
+					onSubmit={(e) => {
 						e.preventDefault();
 					}}
 				>
@@ -185,7 +184,7 @@ function TopBar(props) {
 						type="text"
 						placeholder="Search"
 						value={searchText}
-						onChange={e => {
+						onChange={(e) => {
 							setSearchText(e.target.value);
 						}}
 					/>
@@ -221,11 +220,11 @@ function RouteTable({ itemList, setItemList, ...props }) {
 	const searchText = props.searchText;
 	const [queryResult] = useQuery({
 		query: GET_SEARCHED_LASTS,
-		variables: { search: searchText.trim() }
+		variables: { search: searchText.trim() },
 	});
 
 	let dataToShow = queryResult.data
-		? queryResult.data.searchByAPI.map(last_detail =>
+		? queryResult.data.searchByAPI.map((last_detail) =>
 				dataTranformer(last_detail)
 		  )
 		: [];
@@ -256,7 +255,7 @@ function RouteTable({ itemList, setItemList, ...props }) {
 						{...{
 							data: dataToShow,
 							itemList,
-							setItemList
+							setItemList,
 						}}
 					/>
 				)}
@@ -267,10 +266,10 @@ function RouteTable({ itemList, setItemList, ...props }) {
 					key="stockOutTable"
 					{...{
 						data: itemList
-							.filter(item => item.checkState === "STOCK_OUT")
-							.map(item => item.thing),
+							.filter((item) => item.checkState === "STOCK_OUT")
+							.map((item) => item.thing),
 						itemList,
-						setItemList
+						setItemList,
 					}}
 				/>
 			</Route>
@@ -281,10 +280,12 @@ function RouteTable({ itemList, setItemList, ...props }) {
 						key="stockInTable"
 						{...{
 							data: itemList
-								.filter(item => item.checkState === "STOCK_IN")
-								.map(item => item.thing),
+								.filter(
+									(item) => item.checkState === "STOCK_IN"
+								)
+								.map((item) => item.thing),
 							itemList,
-							setItemList
+							setItemList,
 						}}
 					/>
 				)}

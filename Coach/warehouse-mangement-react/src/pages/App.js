@@ -13,17 +13,19 @@ function App() {
 		<Switch>
 			<Route
 				path="/login"
-				render={props => (
+				render={(props) => (
 					<LoginView setIsUserLogin={setIsUserLogin} {...props} />
 				)}
 			/>
 			<Route
 				path="/sign_up"
-				render={props => <SignUpView {...props} />}
+				render={(props) => (
+					<SignUpView setIsUserLogin={setIsUserLogin} {...props} />
+				)}
 			/>
 			<Route
 				path="/main"
-				render={props => (
+				render={(props) => (
 					<MainManagementView
 						isUserLogin={isUserLogin}
 						setIsUserLogin={setIsUserLogin}

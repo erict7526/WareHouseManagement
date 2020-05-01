@@ -4,13 +4,13 @@ const morgan = require("morgan");
 
 const { postgraphile } = require("postgraphile");
 
-const { randomNumber, searchByAPI } = require("./api.js");
+const { randomNumber, searchByAPI, signUpUser } = require("./api.js");
 
 const app = express();
 
 app.use(
 	cors({
-		origin: "http://localhost:3000"
+		origin: "http://localhost:3000",
 	})
 );
 
@@ -24,7 +24,7 @@ app.use(
 			watchPg: true,
 			graphiql: true,
 			enhanceGraphiql: true,
-			appendPlugins: [randomNumber, searchByAPI]
+			appendPlugins: [randomNumber, searchByAPI, signUpUser],
 		}
 	)
 );
