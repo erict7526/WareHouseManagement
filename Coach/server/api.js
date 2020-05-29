@@ -113,3 +113,72 @@ exports.signUpUser = makeExtendSchemaPlugin((build) => {
 		},
 	};
 });
+
+exports.stockOut = makeExtendSchemaPlugin((build) => {
+	return {
+		typeDefs: gql`
+			type StockOutResponse {
+				success: Boolean!
+				message: String
+				pppPreOutNox: String
+			}
+			input GoodsInput {
+				productNo: Int!
+				typexNo: Int!
+				outCount: Float!
+			}
+			extend type Mutation {
+				stockOut(
+					outDate: Date!
+					username: String!
+					dependxNo: Int!
+					dependxDescr: String!
+					goods: [GoodsInput!]!
+				): StockOutResponse!
+			}
+		`,
+		resolvers: {
+			Mutation: {
+				stockOut: async (_query, args, content, resolveInfo) => {
+					const { pgClient } = content;
+					try {
+						const sheetRes = await pgClient.query(
+							`insert into "ppp_pre_out" (out_date,dependx_no,dependx_descr,users_name,change_status,status) values ($1,$2,$3,$4,'new','normal') returning nox;`,
+							[
+								args.outDate,
+								args.dependxNo,
+								args.dependxDescr,
+								args.username,
+							]
+						);
+						const pppPreOutNox = sheetRes.rows[0].nox;
+						///
+						for (const good of args.goods) {
+							await pgClient.query(
+								`insert into ppp_pre_out_goods (ppp_pre_out_nox,product_no,typex_no,out_count,users_name,change_status,status) values ($1,$2,$3,$4,$5,'new','normal')`,
+								[
+									pppPreOutNox,
+									good.productNo,
+									good.typexNo,
+									good.outCount,
+									args.username,
+								]
+							);
+						}
+						return {
+							success: true,
+							message: "success",
+							pppPreOutNox: pppPreOutNox,
+						};
+					} catch (e) {
+						throw {
+							success: false,
+							message: e.toString(),
+							pppPreOutNox: null,
+						};
+					}
+				},
+			},
+		},
+	};
+});

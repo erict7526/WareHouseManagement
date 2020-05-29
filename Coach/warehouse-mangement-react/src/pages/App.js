@@ -6,7 +6,7 @@ import MainManagementView from "./MainManagementView.js";
 import { Switch, Route, Redirect } from "react-router-dom";
 
 function App() {
-	const [isUserLogin, setIsUserLogin] = useState(false);
+	const [currentUser, setCurrentUser] = useState(undefined);
 	let element;
 
 	element = (
@@ -14,21 +14,21 @@ function App() {
 			<Route
 				path="/login"
 				render={(props) => (
-					<LoginView setIsUserLogin={setIsUserLogin} {...props} />
+					<LoginView setCurrentUser={setCurrentUser} {...props} />
 				)}
 			/>
 			<Route
 				path="/sign_up"
 				render={(props) => (
-					<SignUpView setIsUserLogin={setIsUserLogin} {...props} />
+					<SignUpView setCurrentUser={setCurrentUser} {...props} />
 				)}
 			/>
 			<Route
 				path="/main"
 				render={(props) => (
 					<MainManagementView
-						isUserLogin={isUserLogin}
-						setIsUserLogin={setIsUserLogin}
+						currentUser={currentUser}
+						setCurrentUser={setCurrentUser}
 						{...props}
 					/>
 				)}

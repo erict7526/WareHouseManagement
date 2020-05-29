@@ -6,7 +6,12 @@ import { Table } from "../component/Table.js";
 import PopUp from "../component/PopUp.js";
 import NewItemView from "./NewItemView.js";
 
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { useForm } from "react-hook-form";
+
+import Spinner from "react-bootstrap/Spinner";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 import { useQuery } from "urql";
 
@@ -39,9 +44,11 @@ function dataTranformer(rawdata) {
 }
 
 function MainManagementView({ match, history, ...props }) {
-	const setIsUserLogin = props.setIsUserLogin;
+	const setCurrentUser = props.setCurrentUser;
+	const currentUser = props.currentUser;
 	const [itemList, setItemList] = useState([]);
 	const [searchText, setSearchText] = useState("");
+	console.log(currentUser);
 
 	let element;
 	element = (
@@ -56,7 +63,7 @@ function MainManagementView({ match, history, ...props }) {
 					<button
 						className="round"
 						onClick={() => {
-							setIsUserLogin(false);
+							setCurrentUser(undefined);
 							history.push("/login");
 						}}
 					>
@@ -98,7 +105,7 @@ function MainManagementView({ match, history, ...props }) {
 
 	return (
 		<Route>
-			{props.isUserLogin ? (
+			{currentUser ? (
 				element
 			) : (
 				<Redirect
@@ -117,9 +124,21 @@ function MainManagementView({ match, history, ...props }) {
 export default MainManagementView;
 
 function TopBar(props) {
+	const { errors, register, handleSubmit } = useForm();
+	const [showPrintStockOut, setShowPrintStockOut] = useState(false);
+	const [showPrintStockIn, setShowPrintStockIn] = useState(false);
 	const [searchText, setSearchText] = [props.searchText, props.setSearchText];
 	const itemList = props.itemList;
 	const history = props.history;
+
+	const onSubmitPrintStockOut = (data) => {
+		console.log(data);
+	};
+
+	const onSubmitPrintStockIn = (data) => {
+		console.log(data);
+	};
+
 	let element = (
 		<div className="top-bar">
 			<div className="left-area">
@@ -195,10 +214,24 @@ function TopBar(props) {
 			</div>
 			<div className="right-area">
 				<Route path="/main/stock_out">
-					<button className="print-button">列印領料單</button>
+					<button
+						className="print-button"
+						onClick={() => {
+							setShowPrintStockOut(true);
+						}}
+					>
+						列印領料單
+					</button>
 				</Route>
 				<Route path="/main/stock_in">
-					<button className="print-button">列印入料單</button>
+					<button
+						className="print-button"
+						onClick={() => {
+							setShowPrintStockIn(true);
+						}}
+					>
+						列印入料單
+					</button>
 				</Route>
 				<Route path="/main/search">
 					<button
@@ -210,6 +243,102 @@ function TopBar(props) {
 						創建物料
 					</button>
 				</Route>
+				<Modal
+					show={showPrintStockOut}
+					onHide={() => {
+						setShowPrintStockOut(false);
+					}}
+				>
+					<Modal.Header closeButton>
+						<Modal.Title>請輸入依據及用途</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<Form onSubmit={handleSubmit(onSubmitPrintStockOut)}>
+							<Form.Group>
+								<Form.Label>領料依據</Form.Label>
+								<Form.Control
+									name="dependxNo"
+									as="select"
+									ref={register}
+								>
+									<option value={1}>1</option>
+									<option value={2}>2</option>
+									<option value={3}>3</option>
+								</Form.Control>
+								<Form.Label>用途</Form.Label>
+								<Form.Control
+									name="dependxDescr"
+									as="textarea"
+									ref={register}
+								></Form.Control>
+							</Form.Group>
+						</Form>
+					</Modal.Body>
+					<Modal.Footer>
+						<Button
+							variant="secondary"
+							onClick={() => {
+								setShowPrintStockOut(false);
+							}}
+						>
+							取消
+						</Button>
+						<Button
+							variant="success"
+							onClick={handleSubmit(onSubmitPrintStockOut)}
+						>
+							列印
+						</Button>
+					</Modal.Footer>
+				</Modal>
+				<Modal
+					show={showPrintStockIn}
+					onHide={() => {
+						setShowPrintStockIn(false);
+					}}
+				>
+					<Modal.Header closeButton>
+						<Modal.Title>請輸入依據及用途</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<Form onSubmit={handleSubmit(onSubmitPrintStockIn)}>
+							<Form.Group>
+								<Form.Label>入料依據</Form.Label>
+								<Form.Control
+									name="dependxNo"
+									as="select"
+									ref={register}
+								>
+									<option value={1}>1</option>
+									<option value={2}>2</option>
+									<option value={3}>3</option>
+								</Form.Control>
+								<Form.Label>用途</Form.Label>
+								<Form.Control
+									name="dependxDescr"
+									as="textarea"
+									ref={register}
+								></Form.Control>
+							</Form.Group>
+						</Form>
+					</Modal.Body>
+					<Modal.Footer>
+						<Button
+							variant="secondary"
+							onClick={() => {
+								setShowPrintStockIn(false);
+							}}
+						>
+							取消
+						</Button>
+						<Button
+							variant="success"
+							onClick={handleSubmit(onSubmitPrintStockIn)}
+						>
+							列印
+						</Button>
+					</Modal.Footer>
+				</Modal>
 			</div>
 		</div>
 	);
@@ -241,7 +370,7 @@ function RouteTable({ itemList, setItemList, ...props }) {
 	}
 
 	if (typeof queryResult.data === undefined) {
-		return <CircularProgress />;
+		return <Spinner animation="border" />;
 	}
 
 	let element;
@@ -290,10 +419,10 @@ function RouteTable({ itemList, setItemList, ...props }) {
 					/>
 				)}
 			/>
-			<Route
+			{/*			<Route
 				path="/main/new_item"
 				render={() => <NewItemView {...{ itemList, setItemList }} />}
-			/>
+			/>*/}
 		</Switch>
 	);
 	return element;

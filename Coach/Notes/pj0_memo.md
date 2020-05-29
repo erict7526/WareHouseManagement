@@ -35,7 +35,7 @@
     func="finished"，準備產生領料單。
 
 
-    1. 從 ppp_pre_out_nox 拿下一個編號。
+    1. 從 ppp_pre_out_nox_seq 拿下一個編號。
     2. 在資料庫裡加入領料單。
 
     ```javascript

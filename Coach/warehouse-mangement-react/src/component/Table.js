@@ -26,20 +26,20 @@ function Table({ itemList, setItemList, ...props }) {
 						<th className="data-remain-num">剩餘數量</th>
 						<th className="data-input">出/入庫數量</th>
 					</tr>
-					{dataOnPage.map(d => (
+					{dataOnPage.map((d) => (
 						<DataTr
 							{...{
 								key: d.dataID,
 								data: d,
 								itemList,
-								setItemList
+								setItemList,
 							}}
 						/>
 					))}
 					{emptyRow > 0 && (
 						<tr
 							style={{
-								height: emptyRow * 52 + 3 + "px"
+								height: emptyRow * 52 + 3 + "px",
 							}}
 						></tr>
 					)}
@@ -51,7 +51,7 @@ function Table({ itemList, setItemList, ...props }) {
 					setPage,
 					data,
 					rowPerPage,
-					setRowPerPage
+					setRowPerPage,
 				}}
 			/>
 		</div>
@@ -66,7 +66,7 @@ function DataTr(props) {
 	const setItemList = props.setItemList;
 	const [inputNum, setInputNum] = useState(0);
 	const isInItemList = itemList.find(
-		item => item.thing.dataID === data.dataID
+		(item) => item.thing.dataID === data.dataID
 	);
 	const [tmpInputNum, setTmpInputNum] = useState(0);
 	const history = useHistory();
@@ -74,7 +74,7 @@ function DataTr(props) {
 
 	const CHECK_STATE = isInItemList ? isInItemList.checkState : "NOT_CHECKED";
 
-	const handleSubmit = action => {
+	const handleSubmit = (action) => {
 		if (
 			!Number.isInteger(parseInt(inputNum, 10)) ||
 			parseInt(inputNum, 10) === 0
@@ -87,7 +87,7 @@ function DataTr(props) {
 			case "modify":
 				const itemList_tmp = itemList;
 				itemList_tmp[
-					itemList.findIndex(item => item.thing === data)
+					itemList.findIndex((item) => item.thing === data)
 				].num = parseInt(inputNum, 10);
 				setItemList(itemList_tmp);
 				break;
@@ -96,13 +96,13 @@ function DataTr(props) {
 				const item = {
 					thing: data,
 					num: parseInt(inputNum, 10),
-					checkState: action
+					checkState: action,
 				};
 				setItemList([...itemList, item]);
 				break;
 			case "remove":
 				itemList.splice(
-					itemList.findIndex(item => item.thing === data),
+					itemList.findIndex((item) => item.thing === data),
 					1
 				);
 				setInputNum(0);
@@ -135,7 +135,7 @@ function DataTr(props) {
 			onClick={() => {
 				history.push({
 					pathname: currentPath + "/pop_up",
-					state: { thing: data, from: history.location }
+					state: { thing: data, from: history.location },
 				});
 			}}
 		>
@@ -145,12 +145,12 @@ function DataTr(props) {
 			<td className="data-remain-num">{data["remain_num"]}</td>
 			<td
 				className="data-input"
-				onClick={e => {
+				onClick={(e) => {
 					e.stopPropagation();
 				}}
 			>
 				<form
-					onSubmit={e => {
+					onSubmit={(e) => {
 						e.preventDefault();
 					}}
 				>
@@ -158,7 +158,7 @@ function DataTr(props) {
 						type="text"
 						className="input"
 						value={inputNum}
-						onChange={e => {
+						onChange={(e) => {
 							setInputNum(e.target.value);
 						}}
 						onBlur={() => {
@@ -225,11 +225,11 @@ function TableFooter(props) {
 	element = (
 		<div className="tableFooter">
 			<div className="tableFooter-left-area">
-				<p>每頁行數：</p>
+				<p className="my-auto">每頁行數：</p>
 				<select
 					name="row"
 					value={rowPerPage}
-					onChange={e => {
+					onChange={(e) => {
 						setRowPerPage(parseInt(e.target.value));
 						setPage(0);
 					}}
@@ -250,7 +250,7 @@ function TableFooter(props) {
 				>
 					&lt;
 				</button>
-				<p className="page-num">
+				<p className="page-num my-auto">
 					{page + 1}/{Math.ceil(data.length / rowPerPage)}
 				</p>
 				<button

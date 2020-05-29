@@ -15,7 +15,6 @@ const SIGN_UP_USER = `
 	mutation signUp($account: String!,$name:String!,$hash:String!) {
 		signUpUser(account: $account,name:$name,hash:$hash) {
 			user{
-				id
 				name
 			}
 		}
@@ -28,11 +27,11 @@ function SignUpView(props) {
 
 	const watchPassword = watch("password");
 
-	const [signUpUserResult, signUpUserMutation] = useMutation(SIGN_UP_USER);
+	const [, signUpUserMutation] = useMutation(SIGN_UP_USER);
 
 	const [showAlert, setShowAlert] = useState(false);
 
-	const setIsUserLogin = props.setIsUserLogin;
+	const setCurrentUser = props.setCurrentUser;
 
 	const onSubmit = (data) => {
 		console.log(typeof data.account);
@@ -50,8 +49,7 @@ function SignUpView(props) {
 						if (result.error) {
 							throw result.error;
 						}
-						console.log(result.data.signUpUser.user);
-						setIsUserLogin(true);
+						setCurrentUser(result.data.signUpUser.user);
 						history.push("/main/search");
 					})
 					.catch((e) => {
@@ -78,81 +76,70 @@ function SignUpView(props) {
 					<p>試著登入或選擇另一個帳號</p>
 				</Alert>
 			)}
-			<div className="form">
-				<form onSubmit={handleSubmit(onSubmit)}>
-					<div className="input_field">
-						<input
-							name="account"
-							type="text"
-							placeholder="帳號"
-							ref={register({ required: true })}
-						/>
-						{errors.account && (
-							<span className="error-message">需要填寫帳號</span>
-						)}
-					</div>
-					<div className="input_field">
-						<input
-							name="username"
-							type="text"
-							placeholder="姓名"
-							ref={register({ required: true })}
-						/>
-						{errors.username && (
-							<span className="error-message">需要填寫姓名</span>
-						)}
-					</div>
-					<div className="input_field">
-						<input
-							name="password"
-							type="password"
-							placeholder="密碼"
-							ref={register({ required: true, maxLength: 50 })}
-						/>
-						{errors.password &&
-							errors.password.type === "required" && (
-								<span className="error-message">
-									需要填寫密碼
-								</span>
-							)}
-						{errors.password &&
-							errors.password.type === "maxLength" && (
-								<span className="error-message">
-									密碼超過50字元
-								</span>
-							)}
-					</div>
-					<div className="input_field">
-						<input
-							name="password2"
-							type="password"
-							placeholder="確認密碼"
-							ref={register({
-								required: true,
-								validate: (value) => value === watchPassword,
-							})}
-						/>
-						{errors.password2 &&
-							errors.password2.type === "required" && (
-								<span className="error-message">
-									請確認密碼
-								</span>
-							)}
-						{errors.password2 &&
-							errors.password2.type === "validate" && (
-								<span className="error-message">
-									密碼不一致
-								</span>
-							)}
-					</div>
 
-					<div className="btn">
-						<button>Sign Up</button>
-					</div>
-				</form>
-			</div>
+			<form className="form" onSubmit={handleSubmit(onSubmit)}>
+				<div className="input_field">
+					<input
+						name="account"
+						type="text"
+						placeholder="帳號"
+						ref={register({ required: true })}
+					/>
+					{errors.account && (
+						<span className="error-message">需要填寫帳號</span>
+					)}
+				</div>
+				<div className="input_field">
+					<input
+						name="username"
+						type="text"
+						placeholder="姓名"
+						ref={register({ required: true })}
+					/>
+					{errors.username && (
+						<span className="error-message">需要填寫姓名</span>
+					)}
+				</div>
+				<div className="input_field">
+					<input
+						name="password"
+						type="password"
+						placeholder="密碼"
+						ref={register({ required: true, maxLength: 50 })}
+					/>
+					{errors.password && errors.password.type === "required" && (
+						<span className="error-message">需要填寫密碼</span>
+					)}
+					{errors.password &&
+						errors.password.type === "maxLength" && (
+							<span className="error-message">
+								密碼超過50字元
+							</span>
+						)}
+				</div>
+				<div className="input_field">
+					<input
+						name="password2"
+						type="password"
+						placeholder="確認密碼"
+						ref={register({
+							required: true,
+							validate: (value) => value === watchPassword,
+						})}
+					/>
+					{errors.password2 &&
+						errors.password2.type === "required" && (
+							<span className="error-message">請確認密碼</span>
+						)}
+					{errors.password2 &&
+						errors.password2.type === "validate" && (
+							<span className="error-message">密碼不一致</span>
+						)}
+				</div>
+				<button>Sign Up</button>
+			</form>
 			<div className="login">
-				<p>Already have an account?</p>
+				<p className="my-auto">Already have an account?</p>
 				<button
 					onClick={() => {
 						history.push("/login");
