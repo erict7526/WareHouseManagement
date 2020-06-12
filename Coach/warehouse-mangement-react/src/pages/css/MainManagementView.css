@@ -205,6 +205,12 @@
 .top-bar .right-area .print-button:active {
 	background: #dd4a6c;
 }
+.top-bar .right-area .print-button:disabled {
+	background: #6b2b38;
+	color: #2e050f;
+	cursor: no-drop;
+}
+
 .top-bar .right-area .new-item-button {
 	background: #aed977;
 	color: #496422;
@@ -214,4 +220,19 @@
 }
 .top-bar .right-area .new-item-button:active {
 	background: #9ec967;
+}
+
+.modal-body,
+.modal-header,
+.modal-footer,
+.Modal {
+	background: #282c34;
+	color: #dad7d2;
+}
+
+button.close {
+	color: #dad7d2;
+}
+button.close:hover {
+	color: white;
 }

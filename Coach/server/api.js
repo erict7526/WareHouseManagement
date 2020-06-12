@@ -1,5 +1,7 @@
 const { makeExtendSchemaPlugin, gql } = require("graphile-utils");
 
+const sleep = (m) => new Promise((r) => setTimeout(r, m));
+
 exports.randomNumber = makeExtendSchemaPlugin((build) => {
 	return {
 		typeDefs: gql`
@@ -55,7 +57,13 @@ exports.searchByAPI = makeExtendSchemaPlugin((build) => {
 							`select * from last_detail l_d where l_d.id ilike ('%' || $1 || '%') or l_d.name ilike ('%' || $1 || '%') or l_d.spec ilike ('%' || $1 || '%') limit ${limit};`,
 							[args.search]
 						);
-						return res.rows;
+						const last_detail_format = res.rows.map((last) => ({
+							...last,
+							productNo: last.product_no,
+							typexNo: last.typex_no,
+							unitPrice: last.unit_price,
+						}));
+						return last_detail_format;
 					} catch (e) {
 						throw e;
 					}
@@ -142,6 +150,8 @@ exports.stockOut = makeExtendSchemaPlugin((build) => {
 				stockOut: async (_query, args, content, resolveInfo) => {
 					const { pgClient } = content;
 					try {
+						await sleep(1000);
+						throw new Error("Test error");
 						const sheetRes = await pgClient.query(
 							`insert into "ppp_pre_out" (out_date,dependx_no,dependx_descr,users_name,change_status,status) values ($1,$2,$3,$4,'new','normal') returning nox;`,
 							[

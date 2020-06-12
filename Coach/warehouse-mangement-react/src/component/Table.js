@@ -75,24 +75,30 @@ function DataTr(props) {
 	const CHECK_STATE = isInItemList ? isInItemList.checkState : "NOT_CHECKED";
 
 	const handleSubmit = (action) => {
-		if (
-			!Number.isInteger(parseInt(inputNum, 10)) ||
-			parseInt(inputNum, 10) === 0
-		) {
+		let intInputNum = parseInt(inputNum, 10);
+		if (!Number.isInteger(intInputNum) || intInputNum <= 0) {
 			setInputNum(0);
 			return;
 		}
 
+		if (intInputNum > data.remain_num) {
+			intInputNum = data.remain_num;
+		}
+
 		switch (action) {
-			case "modify":
+			case "modify": {
 				const itemList_tmp = itemList;
 				itemList_tmp[
-					itemList.findIndex((item) => item.thing === data)
-				].num = parseInt(inputNum, 10);
+					itemList.findIndex(
+						(item) => item.thing.dataID === data.dataID
+					)
+				].num = intInputNum;
+				setInputNum(intInputNum);
 				setItemList(itemList_tmp);
 				break;
+			}
 			case "STOCK_IN":
-			case "STOCK_OUT":
+			case "STOCK_OUT": {
 				const item = {
 					thing: data,
 					num: parseInt(inputNum, 10),
@@ -100,6 +106,7 @@ function DataTr(props) {
 				};
 				setItemList([...itemList, item]);
 				break;
+			}
 			case "remove":
 				itemList.splice(
 					itemList.findIndex((item) => item.thing === data),
@@ -111,6 +118,7 @@ function DataTr(props) {
 			default:
 				alert("Some thing wrong!");
 		}
+		//強迫 route 重整
 		history.replace(currentPath);
 	};
 
@@ -251,7 +259,10 @@ function TableFooter(props) {
 					&lt;
 				</button>
 				<p className="page-num my-auto">
-					{page + 1}/{Math.ceil(data.length / rowPerPage)}
+					{page + 1}/
+					{Math.ceil(data.length / rowPerPage) === 0
+						? 1
+						: Math.ceil(data.length / rowPerPage)}
 				</p>
 				<button
 					className="pageBtn"

@@ -13,11 +13,22 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import { useQuery } from "urql";
+import { useQuery, useMutation } from "urql";
 
 // const testData = Array(21)
 // 	.fill(0)
 // 	.map((_, i) => fakeData(i));
+
+const dependxNoList = {
+	0: "請選擇",
+	1: "維修單",
+	2: "定期保養",
+	3: "工程合約",
+	4: "歲修",
+	5: "簽案",
+	6: "請購單",
+	10: "其他",
+};
 
 const GET_SEARCHED_LASTS = `
 	query getSearch($search: String) {
@@ -30,8 +41,31 @@ const GET_SEARCHED_LASTS = `
 			spec
 			countx
 			unitPrice
+			typexNo
 		}
 	}
+`;
+
+const STOCK_OUT_GOODS = `
+mutation stockOutGoods(
+  $outDate: Date!
+  $username: String!
+  $dependxNo: Int!
+  $dependxDescr: String!
+  $goods: [GoodsInput!]!
+) {
+  stockOut(
+    outDate: $outDate
+    username: $username
+    dependxNo: $dependxNo
+    dependxDescr: $dependxDescr
+    goods: $goods
+  ) {
+    pppPreOutNox
+    success
+    message
+  }
+}
 `;
 
 function dataTranformer(rawdata) {
@@ -40,7 +74,17 @@ function dataTranformer(rawdata) {
 	let code = rawdata.id;
 	let remain_num = parseInt(rawdata.countx);
 	let dataID = rawdata.no;
-	return { dataID, code, name, specification, remain_num };
+	let productNo = rawdata.productNo;
+	let typexNo = rawdata.typexNo;
+	return {
+		dataID,
+		code,
+		name,
+		specification,
+		remain_num,
+		productNo,
+		typexNo,
+	};
 }
 
 function MainManagementView({ match, history, ...props }) {
@@ -48,7 +92,6 @@ function MainManagementView({ match, history, ...props }) {
 	const currentUser = props.currentUser;
 	const [itemList, setItemList] = useState([]);
 	const [searchText, setSearchText] = useState("");
-	console.log(currentUser);
 
 	let element;
 	element = (
@@ -79,6 +122,7 @@ function MainManagementView({ match, history, ...props }) {
 						history,
 						searchText,
 						setSearchText,
+						currentUser,
 					}}
 				/>
 				<RouteTable
@@ -127,15 +171,44 @@ function TopBar(props) {
 	const { errors, register, handleSubmit } = useForm();
 	const [showPrintStockOut, setShowPrintStockOut] = useState(false);
 	const [showPrintStockIn, setShowPrintStockIn] = useState(false);
+	const [modalErrorMessage, setModalErrorMessage] = useState(null);
+	const [showModalSpinner, setShowModalSpinner] = useState(false);
 	const [searchText, setSearchText] = [props.searchText, props.setSearchText];
 	const itemList = props.itemList;
 	const history = props.history;
+	const currentUser = props.currentUser;
 
-	const onSubmitPrintStockOut = (data) => {
-		console.log(data);
+	const [stockInGoodsResult, stockInGoods] = useMutation();
+	const [stockOutGoodsResult, stockOutGoods] = useMutation(STOCK_OUT_GOODS);
+
+	const onSubmitPrintStockOut = async (data) => {
+		const outDate = new Date().toISOString().slice(0, 10);
+		const variables = {
+			outDate,
+			username: currentUser.name,
+			dependxNo: parseInt(data.dependxNo),
+			dependxDescr: data.dependxDescr,
+			goods: itemList
+				.filter((item) => item.checkState === "STOCK_OUT")
+				.map((item) => ({
+					productNo: item.thing.productNo,
+					typexNo: item.thing.typexNo,
+					outCount: item.num,
+				})),
+		};
+		setShowModalSpinner(true);
+		stockOutGoods(variables).then((result) => {
+			setShowModalSpinner(false);
+			console.log(result);
+			if (result.error) {
+				setModalErrorMessage(result.error.message);
+			} else if (result.data) {
+				console.log(result);
+			}
+		});
 	};
 
-	const onSubmitPrintStockIn = (data) => {
+	const onSubmitPrintStockIn = async (data) => {
 		console.log(data);
 	};
 
@@ -219,6 +292,11 @@ function TopBar(props) {
 						onClick={() => {
 							setShowPrintStockOut(true);
 						}}
+						disabled={
+							itemList.filter(
+								(item) => item.checkState === "STOCK_OUT"
+							).length === 0
+						}
 					>
 						列印領料單
 					</button>
@@ -229,6 +307,11 @@ function TopBar(props) {
 						onClick={() => {
 							setShowPrintStockIn(true);
 						}}
+						disabled={
+							itemList.filter(
+								(item) => item.checkState === "STOCK_IN"
+							).length === 0
+						}
 					>
 						列印入料單
 					</button>
@@ -247,38 +330,68 @@ function TopBar(props) {
 					show={showPrintStockOut}
 					onHide={() => {
 						setShowPrintStockOut(false);
+						setModalErrorMessage(null);
 					}}
+					dialogClassName="Modal"
 				>
 					<Modal.Header closeButton>
 						<Modal.Title>請輸入依據及用途</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
-						<Form onSubmit={handleSubmit(onSubmitPrintStockOut)}>
-							<Form.Group>
-								<Form.Label>領料依據</Form.Label>
-								<Form.Control
-									name="dependxNo"
-									as="select"
-									ref={register}
-								>
-									<option value={1}>1</option>
-									<option value={2}>2</option>
-									<option value={3}>3</option>
-								</Form.Control>
-								<Form.Label>用途</Form.Label>
-								<Form.Control
-									name="dependxDescr"
-									as="textarea"
-									ref={register}
-								></Form.Control>
-							</Form.Group>
-						</Form>
+						{modalErrorMessage ? (
+							<p>{modalErrorMessage}</p>
+						) : (
+							<Form
+								onSubmit={handleSubmit(onSubmitPrintStockOut)}
+							>
+								<Form.Group>
+									<Form.Label>領料依據</Form.Label>
+									<Form.Control
+										name="dependxNo"
+										as="select"
+										ref={register({
+											validate: (v) => v !== "0",
+										})}
+									>
+										{Object.keys(dependxNoList).map(
+											(key) => {
+												return (
+													<option
+														key={"dependxNo" + key}
+														value={key}
+													>
+														{dependxNoList[key]}
+													</option>
+												);
+											}
+										)}
+									</Form.Control>
+									{errors.dependxNo && (
+										<div className="error-message my-1">
+											請選擇依據
+										</div>
+									)}
+									<Form.Label>用途</Form.Label>
+									<Form.Control
+										name="dependxDescr"
+										as="textarea"
+										ref={register({ required: true })}
+									></Form.Control>
+									{errors.dependxDescr && (
+										<div className="error-message my-1">
+											請輸入用途
+										</div>
+									)}
+								</Form.Group>
+							</Form>
+						)}
 					</Modal.Body>
 					<Modal.Footer>
 						<Button
 							variant="secondary"
 							onClick={() => {
 								setShowPrintStockOut(false);
+								setModalErrorMessage(null);
 							}}
 						>
 							取消
@@ -286,8 +399,18 @@ function TopBar(props) {
 						<Button
 							variant="success"
 							onClick={handleSubmit(onSubmitPrintStockOut)}
+							disabled={modalErrorMessage !== null}
 						>
-							列印
+							{showModalSpinner ? (
+								<Spinner
+									as="span"
+									animation="grow"
+									variant="light"
+									size="sm"
+								/>
+							) : (
+								"列印"
+							)}
 						</Button>
 					</Modal.Footer>
 				</Modal>
@@ -295,7 +418,9 @@ function TopBar(props) {
 					show={showPrintStockIn}
 					onHide={() => {
 						setShowPrintStockIn(false);
+						setModalErrorMessage(null);
 					}}
+					dialogClassName="Modal"
 				>
 					<Modal.Header closeButton>
 						<Modal.Title>請輸入依據及用途</Modal.Title>
@@ -307,18 +432,37 @@ function TopBar(props) {
 								<Form.Control
 									name="dependxNo"
 									as="select"
-									ref={register}
+									ref={register({
+										validate: (v) => v !== "0",
+									})}
 								>
-									<option value={1}>1</option>
-									<option value={2}>2</option>
-									<option value={3}>3</option>
+									{Object.keys(dependxNoList).map((key) => {
+										return (
+											<option
+												key={"dependxNo" + key}
+												value={key}
+											>
+												{dependxNoList[key]}
+											</option>
+										);
+									})}
 								</Form.Control>
+								{errors.dependxNo && (
+									<div className="error-message my-1">
+										請選擇依據
+									</div>
+								)}
 								<Form.Label>用途</Form.Label>
 								<Form.Control
 									name="dependxDescr"
 									as="textarea"
-									ref={register}
+									ref={register({ required: true })}
 								></Form.Control>
+								{errors.dependxDescr && (
+									<div className="error-message my-1">
+										請輸入用途
+									</div>
+								)}
 							</Form.Group>
 						</Form>
 					</Modal.Body>
@@ -327,6 +471,7 @@ function TopBar(props) {
 							variant="secondary"
 							onClick={() => {
 								setShowPrintStockIn(false);
+								setModalErrorMessage(null);
 							}}
 						>
 							取消
